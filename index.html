@@ -135,4 +135,35 @@
     </div>
 
     <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_
+        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+        <a href="https://discord.com/invite/YOUR_INVITE_CODE" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Discord_logo_blue.svg" alt="Discord"></a>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 $SLAI | All Rights Reserved
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('vestingChart').getContext('2d');
+        var vestingChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                datasets: [{
+                    label: 'Tokens Released',
+                    data: [150, 300, 600, 950],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
