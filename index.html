@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLAI Coin - Official Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        SLAI Coin - The Future of Digital Dentistry & Blockchain
+    </header>
+    
+    <div class="container">
+        <div class="section">
+            <h2>What is SLAI Coin?</h2>
+            <p>SLAI Coin is a blockchain-powered digital currency designed to revolutionize the dental industry by integrating AI and Web3 technologies.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Tokenomics</h2>
+            <p>Supply: 1 Billion SLAI</p>
+            <p>70% Community, 30% Founders</p>
+        </div>
+
+        <div class="section">
+            <h2>Roadmap</h2>
+            <p>Q1 2025: Development & Partnerships</p>
+            <p>Q2 2025: Token Launch & Marketplace Beta</p>
+            <p>Q3 2025: Expansion & Staking Implementation</p>
+            <p>Q4 2025: Global Adoption & Multichain Integration</p>
+        </div>
+
+        <div class="section">
+            <h2>Dashboard: Token Vesting</h2>
+            <canvas id="vestingChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 SLAI Coin | All Rights Reserved
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('vestingChart').getContext('2d');
+        var vestingChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                datasets: [{
+                    label: 'Tokens Released',
+                    data: [100, 250, 500, 1000],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
