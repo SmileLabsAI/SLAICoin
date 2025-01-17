@@ -79,58 +79,9 @@
     
     <div class="container">
         <div class="section">
-            <h2>About SLAI Coin</h2>
-            <p>SLAI Coin is a revolutionary blockchain-powered digital currency designed to transform the dental industry by integrating AI, Web3 technologies, and decentralized finance (DeFi).</p>
-            <p>Our mission is to create a seamless digital ecosystem where professionals, investors, and patients can engage in a transparent and efficient marketplace for dental innovation.</p>
-        </div>
-
-        <div class="section">
-            <h2>How It Works</h2>
-            <p>SLAI Coin operates as the primary currency within the Smile Labs ecosystem, allowing users to:</p>
-            <ul style="text-align: left; display: inline-block;">
-                <li>Purchase digital dental assets, including Smile 3D models.</li>
-                <li>Participate in staking and earning rewards.</li>
-                <li>Engage in decentralized governance.</li>
-                <li>Trade SLAI Coin on supported exchanges.</li>
-            </ul>
-        </div>
-        
-        <div class="section">
-            <h2>Tokenomics</h2>
-            <p>Supply: 1 Billion SLAI</p>
-            <p>70% Community, 30% Founders</p>
-        </div>
-
-        <div class="section">
-            <h2>Roadmap</h2>
-            <p>Q1 2025: Development & Partnerships</p>
-            <p>Q2 2025: Token Launch & Marketplace Beta</p>
-            <p>Q3 2025: Expansion & Staking Implementation</p>
-            <p>Q4 2025: Global Adoption & Multichain Integration</p>
-        </div>
-
-        <div class="section">
             <h2>Dashboard: Token Vesting</h2>
             <canvas id="vestingChart" width="400" height="200"></canvas>
         </div>
-
-        <div class="section">
-            <h2>Whitepaper</h2>
-            <p>Learn more about SLAI Coin by reading our whitepaper.</p>
-            <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/64dbdc9575b729271519fa189615a02cbc13738c/SLAI_Coin_Whitepaper.pdf" class="whitepaper-button" target="_blank">Download Whitepaper</a>
-        </div>
-
-        <div class="section">
-            <h2>Buy SLAI Coin</h2>
-            <p>Coming soon to major exchanges.</p>
-            <a href="#" class="buy-button">Buy SLAI Coin</a>
-        </div>
-    </div>
-
-    <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
-        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
-        <a href="https://upload.wikimedia.org/wikipedia/commons/6/6f/Discord_Logo_full.svg" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Discord_Logo_full.svg" alt="Discord"></a>
     </div>
 
     <footer class="footer">
@@ -141,19 +92,21 @@
     <script>
         var ctx = document.getElementById('vestingChart').getContext('2d');
         var vestingChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'doughnut',
             data: {
-                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                labels: ['Community (70%)', 'Founders (30%)'],
                 datasets: [{
-                    label: 'Tokens Released',
-                    data: [100, 250, 500, 1000],
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                    label: 'Token Distribution',
+                    data: [70, 30],
+                    backgroundColor: ['#36A2EB', '#FF6384']
                 }]
             },
             options: {
                 responsive: true,
-                scales: {
-                    y: { beginAtZero: true }
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
                 }
             }
         });
