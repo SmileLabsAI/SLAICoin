@@ -10,31 +10,51 @@
             margin: 0;
             padding: 0;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color: #121212;
+            color: white;
         }
         header {
-            background-color: #333;
+            background-color: #1f1f1f;
             color: white;
             padding: 20px;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: bold;
         }
         .container {
             padding: 20px;
         }
         .section {
-            background: white;
+            background: #1e1e1e;
             padding: 20px;
             margin: 20px;
             border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
         }
         .footer {
-            background-color: #333;
+            background-color: #1f1f1f;
             color: white;
             padding: 10px;
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+        .buy-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -67,6 +87,18 @@
             <h2>Dashboard: Token Vesting</h2>
             <canvas id="vestingChart" width="400" height="200"></canvas>
         </div>
+
+        <div class="section">
+            <h2>Buy SLAI Coin</h2>
+            <p>Coming soon to major exchanges.</p>
+            <a href="#" class="buy-button">Buy SLAI Coin</a>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <a href="https://x.com/SmileLabsAI" target="_blank">Twitter/X</a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank">Telegram</a>
+        <a href="https://discord.gg/zVvpT4Tz" target="_blank">Discord</a>
     </div>
 
     <footer class="footer">
