@@ -15,18 +15,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
         
-        body {
-            font-family: 'Poppins', sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
             text-align: center;
             background-color: #0a0a0a;
             color: white;
+            overflow-x: hidden;
         }
+
         header {
             background: linear-gradient(90deg, #0f0c29, #302b63, #24243e);
             color: white;
-            padding: 40px;
+            padding: 20px;
             font-size: 28px;
             font-weight: bold;
             display: flex;
@@ -35,20 +41,24 @@
             position: relative;
             z-index: 10;
         }
+
         .logo {
-            width: 100px;
+            width: 80px;
             height: auto;
-            margin-right: 15px;
+            margin-right: 10px;
         }
+
         .hero {
             position: relative;
-            height: 80vh;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 20px;
             z-index: 10;
         }
+
         #particles-js {
             position: absolute;
             width: 100%;
@@ -56,6 +66,7 @@
             background: rgba(0, 0, 0, 0.8);
             z-index: 1;
         }
+
         .hero h1 {
             font-size: 50px;
             font-weight: 600;
@@ -64,11 +75,13 @@
             -webkit-text-fill-color: transparent;
             z-index: 10;
         }
+
         .hero p {
             font-size: 20px;
             margin: 10px 0;
             z-index: 10;
         }
+
         .hero .cta {
             background: linear-gradient(45deg, #ff512f, #dd2476);
             color: white;
@@ -81,22 +94,42 @@
             margin-top: 20px;
             transition: 0.3s;
         }
+
         .hero .cta:hover {
             transform: scale(1.1);
         }
+
         .section {
             background: #1e1e1e;
             padding: 40px;
             margin: 20px auto;
             border-radius: 8px;
-            width: 80%;
+            width: 90%;
+            max-width: 800px;
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
         }
+
         .footer {
             background-color: #111;
             color: white;
             padding: 20px;
             margin-top: 20px;
+        }
+        
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-links img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        canvas {
+            max-width: 100%;
         }
     </style>
 </head>
@@ -115,21 +148,32 @@
 
     <div class="container">
         <div class="section">
+            <h2>About $SLAI</h2>
+            <p>$SLAI is a blockchain-powered digital currency designed to transform the dental industry by integrating AI, Web3, and decentralized finance (DeFi).</p>
+        </div>
+
+        <div class="section">
             <h2>Token Vesting Dashboard</h2>
             <canvas id="vestingChart"></canvas>
         </div>
 
         <div class="section">
             <h2>Whitepaper</h2>
-            <p>Learn more about $SLAI by reading our whitepaper.</p>
+            <p>Read our whitepaper to learn more about $SLAI.</p>
             <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="cta" target="_blank">Download Whitepaper</a>
         </div>
     </div>
 
     <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
-        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
-        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
+        <a href="https://x.com/SmileLabsAI" target="_blank">
+            <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X">
+        </a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+        </a>
+        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank">
+            <img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord">
+        </a>
     </div>
 
     <footer class="footer">
