@@ -33,26 +33,28 @@
         header {
             background: linear-gradient(90deg, #0f0c29, #302b63, #24243e);
             color: white;
-            padding: 20px 0;
-            text-align: center;
+            padding: 15px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
         }
 
         .header-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            gap: 15px;
+            flex-grow: 1;
+            justify-content: center;
         }
 
         .logo {
-            width: 120px;
+            width: 140px;
             height: auto;
         }
 
@@ -60,11 +62,13 @@
             font-size: 22px;
             font-weight: 600;
             margin: 0;
-            flex-grow: 1;
-            text-align: center;
             background: linear-gradient(to right, #ffb800, #ff512f);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            margin-left: auto;
         }
 
         nav ul {
@@ -72,7 +76,7 @@
             margin: 0;
             padding: 0;
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
         nav ul li {
@@ -151,15 +155,15 @@
             <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
                  alt="Smile Labs Logo" class="logo">
             <h1>$SLAI - The Future of Digital Dentistry & Blockchain</h1>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#tokenomics">Tokenomics</a></li>
-                    <li><a href="#roadmap">Roadmap</a></li>
-                    <li><a href="#buy">Buy $SLAI</a></li>
-                </ul>
-            </nav>
         </div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#buy">Buy $SLAI</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="container">
