@@ -53,7 +53,7 @@
         }
 
         .logo {
-            width: 120px; /* Aumentado em 50% */
+            width: 120px;
             height: auto;
         }
 
@@ -91,8 +91,8 @@
             color: #ffb800;
         }
 
-        /* Estilização do botão Buy $SLAI */
-        .buy-button {
+        /* Estilização dos botões de ação */
+        .action-button {
             background: linear-gradient(45deg, #ff512f, #dd2476);
             color: white;
             padding: 15px 30px;
@@ -108,26 +108,12 @@
             box-shadow: 0px 4px 10px rgba(255, 81, 47, 0.3);
         }
 
-        .buy-button:hover {
+        .action-button:hover {
             transform: scale(1.1);
             box-shadow: 0px 4px 15px rgba(255, 81, 47, 0.5);
         }
 
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            .logo {
-                width: 90px;
-            }
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-
-        /* Estilos das seções */
+        /* Seções */
         .section {
             background: rgba(30, 30, 30, 0.95);
             padding: 40px;
@@ -136,8 +122,6 @@
             width: 90%;
             max-width: 800px;
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 10;
         }
 
         .footer {
@@ -145,6 +129,18 @@
             color: white;
             padding: 20px;
             margin-top: 20px;
+        }
+
+        .social-links {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links img {
+            width: 40px;
+            height: 40px;
         }
     </style>
 </head>
@@ -177,14 +173,6 @@
             <p>70% Community, 30% Founders</p>
         </div>
 
-        <div id="roadmap" class="section">
-            <h2>Roadmap</h2>
-            <p>Q1 2025: Development & Partnerships</p>
-            <p>Q2 2025: Token Launch & Marketplace Beta</p>
-            <p>Q3 2025: Expansion & Staking Implementation</p>
-            <p>Q4 2025: Global Adoption & Multichain Integration</p>
-        </div>
-
         <div class="section">
             <h2>Token Vesting Dashboard</h2>
             <canvas id="vestingChart"></canvas>
@@ -193,13 +181,19 @@
         <div class="section">
             <h2>Whitepaper</h2>
             <p>Read our whitepaper to learn more about $SLAI.</p>
-            <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="cta" target="_blank">Download Whitepaper</a>
+            <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
         </div>
 
         <div id="buy" class="section">
             <h2>Buy $SLAI</h2>
-            <a href="https://pump.fun/board" class="buy-button" target="_blank">Buy $SLAI Now</a>
+            <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
         </div>
+    </div>
+
+    <div class="social-links">
+        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
     </div>
 
     <footer class="footer">
