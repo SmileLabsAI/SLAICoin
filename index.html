@@ -53,7 +53,7 @@
         }
 
         .logo {
-            width: 80px;
+            width: 120px; /* Aumentado em 50% */
             height: auto;
         }
 
@@ -91,13 +91,35 @@
             color: #ffb800;
         }
 
+        /* Estilização do botão Buy $SLAI */
+        .buy-button {
+            background: linear-gradient(45deg, #ff512f, #dd2476);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(255, 81, 47, 0.3);
+        }
+
+        .buy-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 15px rgba(255, 81, 47, 0.5);
+        }
+
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
                 text-align: center;
             }
             .logo {
-                width: 60px;
+                width: 90px;
             }
             nav ul {
                 flex-direction: column;
@@ -176,28 +198,12 @@
 
         <div id="buy" class="section">
             <h2>Buy $SLAI</h2>
-            <a href="https://pump.fun/board" class="cta" target="_blank">Buy $SLAI Now</a>
+            <a href="https://pump.fun/board" class="buy-button" target="_blank">Buy $SLAI Now</a>
         </div>
     </div>
 
     <footer class="footer">
         &copy; 2025 $SLAI | All Rights Reserved
     </footer>
-
-    <script>
-        const ctx = document.getElementById('vestingChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
-                datasets: [{
-                    label: 'Tokens Released',
-                    data: [150, 300, 600, 950],
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                }]
-            },
-            options: { responsive: true, scales: { y: { beginAtZero: true } } }
-        });
-    </script>
 </body>
 </html>
