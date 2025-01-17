@@ -181,6 +181,28 @@
         <div class="section">
             <h2>Token Vesting Dashboard</h2>
             <canvas id="vestingChart"></canvas>
+            <script>
+        var ctx = document.getElementById('vestingChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                datasets: [
+                    {
+                        label: 'Tokens Released',
+                        data: [150, 300, 600, 950],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                    },
+                    {
+                        label: 'Tokens Locked',
+                        data: [850, 700, 400, 50],
+                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
+                    }
+                ]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+    </script>
         </div>
 
         <div class="section">
