@@ -11,10 +11,9 @@
     <meta property="og:type" content="website">
     <title>$SLAI - Smile Labs AI</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -27,14 +26,14 @@
             background-color: #0a0a0a;
             color: white;
             overflow-x: hidden;
-            padding-top: 80px;
+            padding-top: 120px; /* Ajustado para evitar sobreposição com o cabeçalho */
         }
 
-        /* Estilização do cabeçalho */
+        /* Cabeçalho */
         header {
             background: linear-gradient(90deg, #0f0c29, #302b63, #24243e);
             color: white;
-            padding: 15px 0;
+            padding: 20px 0;
             text-align: center;
             position: fixed;
             width: 100%;
@@ -91,7 +90,18 @@
             color: #ffb800;
         }
 
-        /* Estilização dos botões de ação */
+        /* Seções */
+        .section {
+            background: rgba(30, 30, 30, 0.95);
+            padding: 40px;
+            margin: 50px auto;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Botões */
         .action-button {
             background: linear-gradient(45deg, #ff512f, #dd2476);
             color: white;
@@ -113,17 +123,7 @@
             box-shadow: 0px 4px 15px rgba(255, 81, 47, 0.5);
         }
 
-        /* Seções */
-        .section {
-            background: rgba(30, 30, 30, 0.95);
-            padding: 40px;
-            margin: 20px auto;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
-        }
-
+        /* Rodapé */
         .footer {
             background-color: #111;
             color: white;
@@ -131,6 +131,7 @@
             margin-top: 20px;
         }
 
+        /* Redes Sociais */
         .social-links {
             margin-top: 40px;
             display: flex;
@@ -141,6 +142,12 @@
         .social-links img {
             width: 40px;
             height: 40px;
+        }
+
+        /* Gráfico */
+        .chart-container {
+            max-width: 90%;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -175,12 +182,13 @@
 
         <div class="section">
             <h2>Token Vesting Dashboard</h2>
-            <canvas id="vestingChart"></canvas>
+            <div class="chart-container">
+                <canvas id="vestingChart"></canvas>
+            </div>
         </div>
 
         <div class="section">
             <h2>Whitepaper</h2>
-            <p>Read our whitepaper to learn more about $SLAI.</p>
             <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
         </div>
 
