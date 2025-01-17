@@ -169,61 +169,43 @@
     </header>
 
     <div class="container">
+        <div id="about" class="section">
+            <h2>About $SLAI</h2>
+            <p>$SLAI is a blockchain-powered digital currency designed to transform the dental industry by integrating AI, Web3, and decentralized finance (DeFi).</p>
+        </div>
+
+        <div id="tokenomics" class="section">
+            <h2>Tokenomics</h2>
+            <p>Supply: 1 Billion $SLAI</p>
+            <p>70% Community, 30% Founders</p>
+        </div>
+
         <div class="section">
             <h2>Token Vesting Dashboard</h2>
             <div class="chart-container">
                 <canvas id="vestingChart"></canvas>
             </div>
         </div>
+
+        <div class="section">
+            <h2>Whitepaper</h2>
+            <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
+        </div>
+
+        <div id="buy" class="section">
+            <h2>Buy $SLAI</h2>
+            <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
+        </div>
     </div>
 
-    <script>
-        var ctx = document.getElementById('vestingChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
-                datasets: [
-                    {
-                        label: 'Tokens Released',
-                        data: [150, 300, 600, 950],
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                    },
-                    {
-                        label: 'Tokens Locked',
-                        data: [850, 700, 400, 50],
-                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Token Vesting Over Time',
-                        color: '#ffffff',
-                        font: {
-                            size: 18
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#ffffff'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#ffffff'
-                        }
-                    }
-                }
-            }
-        });
-    </script>
+    <div class="social-links">
+        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 $SLAI | All Rights Reserved
+    </footer>
 </body>
 </html>
