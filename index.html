@@ -27,78 +27,85 @@
             background-color: #0a0a0a;
             color: white;
             overflow-x: hidden;
+            padding-top: 80px;
         }
 
+        /* Estilização do cabeçalho */
         header {
             background: linear-gradient(90deg, #0f0c29, #302b63, #24243e);
             color: white;
-            padding: 20px;
-            font-size: 28px;
-            font-weight: bold;
+            padding: 15px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
             width: 80px;
             height: auto;
-            margin-right: 10px;
         }
 
-        .hero {
-            position: relative;
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 10;
-        }
-
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 0;
-        }
-
-        .hero h1 {
-            font-size: 50px;
+        h1 {
+            font-size: 22px;
             font-weight: 600;
-            background: linear-gradient(to right, #ff512f, #dd2476);
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            background: linear-gradient(to right, #ffb800, #ff512f);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            z-index: 10;
         }
 
-        .hero p {
-            font-size: 20px;
-            margin: 10px 0;
-            z-index: 10;
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
         }
 
-        .hero .cta {
-            background: linear-gradient(45deg, #ff512f, #dd2476);
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
             color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 18px;
             text-decoration: none;
             font-weight: bold;
-            display: inline-block;
-            margin-top: 20px;
             transition: 0.3s;
         }
 
-        .hero .cta:hover {
-            transform: scale(1.1);
+        nav ul li a:hover {
+            color: #ffb800;
         }
 
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo {
+                width: 60px;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Estilos das seções */
         .section {
             background: rgba(30, 30, 30, 0.95);
             padding: 40px;
@@ -117,50 +124,38 @@
             padding: 20px;
             margin-top: 20px;
         }
-        
-        .social-links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .social-links img {
-            width: 40px;
-            height: 40px;
-        }
-        
-        canvas {
-            max-width: 100%;
-        }
     </style>
 </head>
 <body>
     <header>
-        <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/Logo.jpg" alt="Smile Labs Logo" class="logo">
-        $SLAI - The Future of Digital Dentistry & Blockchain
+        <div class="header-container">
+            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
+                 alt="Smile Labs Logo" class="logo">
+            <h1>$SLAI - The Future of Digital Dentistry & Blockchain</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#tokenomics">Tokenomics</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#buy">Buy $SLAI</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <div id="particles-js"></div>
-    <div class="hero">
-        <h1>Smile Labs AI - $SLAI</h1>
-        <p>AI + Blockchain Powering the Future of Digital Dentistry.</p>
-        <a href="https://pump.fun/board" class="cta" target="_blank">Buy $SLAI Now</a>
-    </div>
-
     <div class="container">
-        <div class="section">
+        <div id="about" class="section">
             <h2>About $SLAI</h2>
             <p>$SLAI is a blockchain-powered digital currency designed to transform the dental industry by integrating AI, Web3, and decentralized finance (DeFi).</p>
         </div>
 
-        <div class="section">
+        <div id="tokenomics" class="section">
             <h2>Tokenomics</h2>
             <p>Supply: 1 Billion $SLAI</p>
             <p>70% Community, 30% Founders</p>
         </div>
 
-        <div class="section">
+        <div id="roadmap" class="section">
             <h2>Roadmap</h2>
             <p>Q1 2025: Development & Partnerships</p>
             <p>Q2 2025: Token Launch & Marketplace Beta</p>
@@ -178,6 +173,11 @@
             <p>Read our whitepaper to learn more about $SLAI.</p>
             <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="cta" target="_blank">Download Whitepaper</a>
         </div>
+
+        <div id="buy" class="section">
+            <h2>Buy $SLAI</h2>
+            <a href="https://pump.fun/board" class="cta" target="_blank">Buy $SLAI Now</a>
+        </div>
     </div>
 
     <footer class="footer">
@@ -185,10 +185,6 @@
     </footer>
 
     <script>
-        particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.json', function() {
-            console.log('Particles.js loaded.');
-        });
-
         const ctx = document.getElementById('vestingChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
