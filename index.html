@@ -190,6 +190,48 @@
         <p>Q3 2025: Expansion & Staking Implementation</p>
         <p>Q4 2025: Global Adoption & Multichain Integration</p>
     </div>
+ <div class="section">
+            <h2>Token Vesting Dashboard</h2>
+            <canvas id="vestingChart"></canvas>
+            <script>
+        var ctx = document.getElementById('vestingChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                datasets: [
+                    {
+                        label: 'Tokens Released',
+                        data: [150, 300, 600, 950],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                    },
+                    {
+                        label: 'Tokens Locked',
+                        data: [850, 700, 400, 50],
+                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
+                    }
+                ]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true } } }
+        });
+    </script>
+
+        </div>
+
+        <div class="section">
+            <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
+        </div>
+
+        <div id="buy" class="section">
+            <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
+        </div>
+    </div>
+
+    <div class="social-links">
+        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+        <a href="https://discord.gg/zVvpT4Tz" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
+    </div>
 
     <div class="social-links">
         <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
