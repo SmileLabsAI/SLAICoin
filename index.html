@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Arial:wght@300;400;600&display=swap');
 
         * {
             margin: 0;
@@ -33,7 +32,7 @@
         /* Mudança de fonte para smartphones */
         @media screen and (max-width: 768px) {
             body {
-                font-family: 'Arial', sans-serif;
+                font-family: Arial, sans-serif;
             }
         }
 
@@ -76,6 +75,28 @@
 
         nav ul li a:hover {
             color: #00FFA3;
+        }
+
+        /* Responsividade do menu */
+        @media screen and (max-width: 768px) {
+            header {
+                padding: 10px 3%;
+                flex-direction: column;
+            }
+
+            .logo {
+                width: 70px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+            }
         }
 
         /* Seção Hero */
