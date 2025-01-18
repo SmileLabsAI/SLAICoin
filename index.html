@@ -13,6 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Arial:wght@300;400;600&display=swap');
 
         * {
             margin: 0;
@@ -27,6 +28,13 @@
             background: linear-gradient(to right, #0d0d0d, #141414);
             color: white;
             overflow-x: hidden;
+        }
+
+        /* Mudança de fonte para smartphones */
+        @media screen and (max-width: 768px) {
+            body {
+                font-family: 'Arial', sans-serif;
+            }
         }
 
         /* Cabeçalho */
