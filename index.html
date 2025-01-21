@@ -131,24 +131,48 @@
             color: white;
         }
 
-        .action-button {
-            background: linear-gradient(45deg, #19FB9B, #9945FF);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 18px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
-        }
+     .action-button {
+    background: linear-gradient(45deg, #19FB9B, #9945FF);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: 0.3s ease-in-out;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+    position: relative;
+    overflow: hidden;
+}
 
-        .action-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 4px 15px rgba(25, 251, 155, 0.6);
+/* Adiciona um brilho com efeito neon ao passar o mouse */
+.action-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
+                0px 0px 30px rgba(153, 69, 255, 0.5);
+}
+
+/* Animação extra ao passar o mouse */
+.action-button::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(25, 251, 155, 0.3) 0%, rgba(153, 69, 255, 0) 70%);
+    transition: 0.4s ease-out;
+    opacity: 0;
+}
+
+.action-button:hover::before {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
         }
 
         /* Seções */
