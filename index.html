@@ -80,29 +80,6 @@
             color: #19FB9B;
         }
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 10px 5%;
-            }
-
-            .logo {
-                width: 80px;
-            }
-
-            nav ul {
-                gap: 10px;
-                font-size: 14px;
-                flex-wrap: nowrap;
-            }
-
-            nav ul li a {
-                font-size: 14px;
-            }
-        }
-
         /* Seção Hero */
         .hero {
             height: 90vh;
@@ -131,66 +108,52 @@
             color: white;
         }
 
-     .action-button {
-    background: linear-gradient(45deg, #19FB9B, #9945FF);
-    color: white;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-size: 18px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: 0.3s ease-in-out;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Adiciona um brilho com efeito neon ao passar o mouse */
-.action-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
-                0px 0px 30px rgba(153, 69, 255, 0.5);
-}
-
-/* Animação extra ao passar o mouse */
-.action-button::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(25, 251, 155, 0.3) 0%, rgba(153, 69, 255, 0) 70%);
-    transition: 0.4s ease-out;
-    opacity: 0;
-}
-
-.action-button:hover::before {
-    opacity: 1;
-    transform: scale(1.2);
-}
-
+        /* Botões com efeito neon */
+        .action-button {
+            background: linear-gradient(45deg, #19FB9B, #9945FF);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s ease-in-out;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Seções */
-        .section {
-            background: rgba(20, 20, 20, 0.95);
-            padding: 30px;
-            margin: 50px auto;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+        /* Efeito neon ao passar o mouse */
+        .action-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
+                        0px 0px 30px rgba(153, 69, 255, 0.5);
         }
 
         /* Redes Sociais */
+        .social-links {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            text-decoration: none;
+        }
+
         .social-links img {
-            width: 40px;
-            height: 40px;
-            filter: drop-shadow(0px 0px 5px rgba(25, 251, 155, 0.8));
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0px 0px 10px rgba(153, 69, 255, 0.6));
         }
 
         /* Rodapé */
@@ -280,6 +243,7 @@
         </div>
     </div>
 
+    
     <div class="social-links">
         <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
         <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
