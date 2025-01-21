@@ -52,6 +52,7 @@
 
         nav {
             text-align: right;
+            overflow: hidden;
         }
 
         nav ul {
@@ -76,6 +77,46 @@
 
         nav ul li a:hover {
             color: #19FB9B;
+        }
+
+        /* Menu responsivo */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.9);
+                padding: 20px 0;
+            }
+
+            nav ul li {
+                text-align: center;
+            }
+
+            nav ul li a {
+                padding: 10px;
+                width: 100%;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                cursor: pointer;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
         }
 
         /* Seção Hero */
@@ -186,6 +227,7 @@
                 <li><a href="#whitepaper">Whitepaper</a></li>
                 <li><a href="#buy">Buy $SLAI</a></li>
             </ul>
+            <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
         </nav>
     </header>
 
@@ -258,6 +300,13 @@
     <footer class="footer">
         &copy; 2025 $SLAI | All Rights Reserved
     </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('nav ul');
+            menu.classList.toggle('active');
+        }
+    </script>
 
 </body>
 </html>
