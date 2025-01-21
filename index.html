@@ -29,13 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Mudança de fonte para smartphones */
-        @media screen and (max-width: 368px) {
-            body {
-                font-family: Arial, sans-serif;
-            }
-        }
-
         /* Cabeçalho */
         header {
             background: rgba(0, 0, 0, 0.85);
@@ -49,17 +42,27 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: nowrap;
         }
 
         .logo {
-            width: 90px;
+            width: 100px;
             height: auto;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
         }
 
         nav ul {
             list-style: none;
             display: flex;
             gap: 20px;
+            padding: 0;
+            margin: 0;
         }
 
         nav ul li {
@@ -74,24 +77,25 @@
         }
 
         nav ul li a:hover {
-            color: #00FFA3;
+            color: #ffb800;
         }
 
-        /* Responsividade do menu */
-        @media screen and (max-width: 568px) {
+        /* Responsividade: Manter o menu horizontal no mobile */
+        @media (max-width: 768px) {
             header {
-                padding: 10px 3%;
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 5%;
             }
 
             .logo {
-                width: 70px;
+                width: 80px;
             }
 
             nav ul {
-                flex-direction: column;
                 gap: 10px;
-                padding: 10px 0;
+                font-size: 14px;
+                flex-wrap: nowrap;
             }
 
             nav ul li a {
@@ -101,88 +105,80 @@
 
         /* Seção Hero */
         .hero {
-            height: 85vh;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #9945FF, #00FFA3, #19FB9B);
-            padding: 40px 5%;
-        }
-
-        /* Ajusta o título no mobile para não ficar escondido */
-        @media screen and (max-width: 568px) {
-            .hero {
-                padding-top: 120px;
-            }
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 50px 5%;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 50px;
             font-weight: 700;
-            color: black;
+            background: linear-gradient(to right, #ffb800, #ff512f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 20px;
             max-width: 600px;
-            margin-top: 10px;
+            margin-top: 15px;
             opacity: 0.8;
         }
 
         .action-button {
-            background: linear-gradient(45deg, #19FB9B, #9945FF);
+            background: linear-gradient(45deg, #ff512f, #dd2476);
             color: white;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
             font-size: 18px;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 15px;
+            margin-top: 20px;
             transition: 0.3s;
             border: none;
             cursor: pointer;
-            box-shadow: 0px 3px 8px rgba(25, 251, 155, 0.3);
+            box-shadow: 0px 4px 10px rgba(255, 81, 47, 0.3);
         }
 
         .action-button:hover {
             transform: scale(1.1);
-            box-shadow: 0px 3px 12px rgba(25, 251, 155, 0.5);
+            box-shadow: 0px 4px 15px rgba(255, 81, 47, 0.5);
         }
 
         /* Seções */
         .section {
             background: rgba(30, 30, 30, 0.95);
             padding: 30px;
-            margin: 40px auto;
+            margin: 50px auto;
             border-radius: 8px;
-            width: 85%;
+            width: 90%;
             max-width: 800px;
-            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
         }
 
-        .section h2 {
-            font-size: 24px;
-        }
-
+        /* Redes Sociais */
         .social-links {
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .social-links img {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
         }
 
         /* Rodapé */
         .footer {
             background-color: #111;
             color: white;
-            padding: 15px;
+            padding: 20px;
             margin-top: 20px;
         }
 
@@ -191,8 +187,10 @@
 <body>
 
     <header>
-        <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
-             alt="Smile Labs Logo" class="logo">
+        <a href="#top">
+            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
+                 alt="Smile Labs Logo" class="logo" title="Go to Top">
+        </a>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -203,8 +201,8 @@
         </nav>
     </header>
 
-    <div class="hero">
-        <h1>$SLAI - The Future of Digital Dentistry & Blockchain</h1>
+    <div id="top" class="hero">
+        <h1>$SLAI - The Future of Digital Dentistry</h1>
         <p>AI & Blockchain powering the next revolution in digital dentistry.</p>
         <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
     </div>
