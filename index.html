@@ -34,7 +34,7 @@
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             color: white;
-            padding: 15px 5%;
+            padding: 20px 5%;
             position: fixed;
             width: 100%;
             top: 0;
@@ -42,27 +42,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: nowrap;
         }
 
         .logo {
             width: 100px;
             height: auto;
-            cursor: pointer;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-grow: 1;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
-            padding: 0;
-            margin: 0;
+            gap: 25px;
         }
 
         nav ul li {
@@ -78,29 +68,6 @@
 
         nav ul li a:hover {
             color: #ffb800;
-        }
-
-        /* Responsividade: Manter o menu horizontal no mobile */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 10px 5%;
-            }
-
-            .logo {
-                width: 80px;
-            }
-
-            nav ul {
-                gap: 10px;
-                font-size: 14px;
-                flex-wrap: nowrap;
-            }
-
-            nav ul li a {
-                font-size: 14px;
-            }
         }
 
         /* Seção Hero */
@@ -153,7 +120,7 @@
         /* Seções */
         .section {
             background: rgba(30, 30, 30, 0.95);
-            padding: 30px;
+            padding: 40px;
             margin: 50px auto;
             border-radius: 8px;
             width: 90%;
@@ -187,10 +154,8 @@
 <body>
 
     <header>
-        <a href="#top">
-            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
-                 alt="Smile Labs Logo" class="logo" title="Go to Top">
-        </a>
+        <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
+             alt="Smile Labs Logo" class="logo">
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -201,7 +166,7 @@
         </nav>
     </header>
 
-    <div id="top" class="hero">
+    <div class="hero">
         <h1>$SLAI - The Future of Digital Dentistry</h1>
         <p>AI & Blockchain powering the next revolution in digital dentistry.</p>
         <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
