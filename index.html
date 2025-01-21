@@ -24,14 +24,14 @@
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            background: linear-gradient(90deg, #000000, #130754, #0b0f25);
+            background: linear-gradient(90deg, #000000, #000000, #000000);
             color: white;
             overflow-x: hidden;
         }
 
         /* Cabeçalho */
         header {
-            background: rgba(10, 10, 25, 0.9);
+            background: rgba(10, 10, 10, 0.9);
             backdrop-filter: blur(10px);
             color: white;
             padding: 15px 5%;
@@ -45,14 +45,21 @@
             flex-wrap: nowrap;
         }
 
+        .logo {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+
         nav {
+            text-align: right;
             flex-grow: 1;
-            text-align: left;
         }
 
         nav ul {
             list-style: none;
             display: flex;
+            justify-content: flex-end;
             gap: 20px;
             padding: 0;
             margin: 0;
@@ -71,12 +78,6 @@
 
         nav ul li a:hover {
             color: #19FB9B;
-        }
-
-        .logo {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
         }
 
         /* Responsividade */
@@ -117,7 +118,7 @@
         .hero h1 {
             font-size: 50px;
             font-weight: 700;
-            background: linear-gradient(to right, #000000, #0b0f25);
+            background: linear-gradient(to right, #000000, #000000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -152,7 +153,7 @@
 
         /* Seções */
         .section {
-            background: rgba(20, 20, 50, 0.95);
+            background: rgba(20, 20, 20, 0.95);
             padding: 30px;
             margin: 50px auto;
             border-radius: 8px;
@@ -180,6 +181,10 @@
 <body>
 
     <header>
+        <a href="#top">
+            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
+                 alt="Smile Labs Logo" class="logo" title="Go to Top">
+        </a>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -188,10 +193,6 @@
                 <li><a href="#buy">Buy $SLAI</a></li>
             </ul>
         </nav>
-        <a href="#top">
-            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
-                 alt="Smile Labs Logo" class="logo" title="Go to Top">
-        </a>
     </header>
 
     <div id="top" class="hero">
