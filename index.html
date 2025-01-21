@@ -42,7 +42,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: nowrap;
         }
 
         .logo {
@@ -53,7 +52,6 @@
 
         nav {
             text-align: right;
-            flex-grow: 1;
         }
 
         nav ul {
@@ -89,7 +87,7 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(135deg, #19FB9B, #9945FF);
-            padding: 50px 5%;
+            padding: 80px 5%;
         }
 
         .hero h1 {
@@ -108,7 +106,18 @@
             color: white;
         }
 
-        /* Botões com efeito neon */
+        /* Estilização das seções */
+        .section {
+            background: rgba(20, 20, 20, 0.95);
+            padding: 50px;
+            margin: 80px auto;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+        }
+
+        /* Botões */
         .action-button {
             background: linear-gradient(45deg, #19FB9B, #9945FF);
             color: white;
@@ -126,7 +135,6 @@
             overflow: hidden;
         }
 
-        /* Efeito neon ao passar o mouse */
         .action-button:hover {
             transform: scale(1.05);
             box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
@@ -135,14 +143,10 @@
 
         /* Redes Sociais */
         .social-links {
-            margin-top: 40px;
+            margin-top: 60px;
             display: flex;
             justify-content: center;
-            gap: 15px;
-        }
-
-        .social-links a {
-            text-decoration: none;
+            gap: 20px;
         }
 
         .social-links img {
@@ -160,8 +164,8 @@
         .footer {
             background-color: #111;
             color: white;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 30px;
+            margin-top: 60px;
         }
     </style>
 </head>
