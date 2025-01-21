@@ -45,16 +45,9 @@
             flex-wrap: nowrap;
         }
 
-        .logo {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
-        }
-
         nav {
-            display: flex;
-            justify-content: center;
             flex-grow: 1;
+            text-align: left;
         }
 
         nav ul {
@@ -78,6 +71,12 @@
 
         nav ul li a:hover {
             color: #19FB9B;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
         }
 
         /* Responsividade */
@@ -111,14 +110,14 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            background: linear-gradient(135deg, #19FB9B, #9945FF);
             padding: 50px 5%;
         }
 
         .hero h1 {
             font-size: 50px;
             font-weight: 700;
-            background: linear-gradient(to right, #9945FF, #19FB9B);
+            background: linear-gradient(to right, #000000, #0b0f25);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -128,6 +127,7 @@
             max-width: 600px;
             margin-top: 15px;
             opacity: 0.8;
+            color: white;
         }
 
         .action-button {
@@ -180,10 +180,6 @@
 <body>
 
     <header>
-        <a href="#top">
-            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
-                 alt="Smile Labs Logo" class="logo" title="Go to Top">
-        </a>
         <nav>
             <ul>
                 <li><a href="#about">About</a></li>
@@ -192,6 +188,10 @@
                 <li><a href="#buy">Buy $SLAI</a></li>
             </ul>
         </nav>
+        <a href="#top">
+            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
+                 alt="Smile Labs Logo" class="logo" title="Go to Top">
+        </a>
     </header>
 
     <div id="top" class="hero">
