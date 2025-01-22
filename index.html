@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Forçando "zoom" inicial em 75% -->
+
+  <!-- Forçando "zoom" inicial em 75% (opcional) -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
   />
+
   <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain" />
   <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry" />
   <meta
@@ -227,7 +229,25 @@
       margin: 10px 0;
     }
 
-    /* ========== AJUSTES DE RESPONSIVIDADE ========== */
+    /* TradingView responsivo */
+    .tradingview-widget-container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    /*
+      Se o TradingView estiver muito grande em dispositivos pequenos,
+      reduzimos a altura para 400px e escondemos o overflow,
+      permitindo que o usuário role a página normalmente.
+    */
+    @media (max-width: 768px) {
+      .tradingview-widget-container {
+        max-height: 400px;
+        overflow: hidden;
+      }
+    }
+
+    /* ========== AJUSTES DE RESPONSIVIDADE GERAL ========== */
     @media (max-width: 768px) {
       /* Mostra o botão hambúrguer e some o menu horizontal */
       .menu-btn {
@@ -266,12 +286,6 @@
       .hero p {
         font-size: 16px;
       }
-    }
-
-    /* TradingView responsivo */
-    .tradingview-widget-container {
-      max-width: 100%;
-      margin: 0 auto;
     }
   </style>
 </head>
