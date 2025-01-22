@@ -50,7 +50,7 @@
       background: rgba(10, 10, 10, 0.9);
       backdrop-filter: blur(10px);
       color: white;
-      padding: 15px 5%;
+      padding: 15px 5%; /* >>> margem de 5% usada no header <<< */
       position: fixed;
       width: 100%;
       top: 0;
@@ -166,7 +166,7 @@
         0px 0px 30px rgba(153, 69, 255, 0.5);
     }
 
-    /* Seções gerais */
+    /* Seções gerais (sobre, tokenomics, etc.) */
     .section {
       background: rgba(20, 20, 20, 0.95);
       padding: 50px;
@@ -176,8 +176,6 @@
       max-width: 900px;
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
-
-    /* Aumentar títulos (h2) das sections para 36px */
     .section h2 {
       font-size: 36px;
       margin-bottom: 20px;
@@ -259,14 +257,31 @@
       }
     }
 
-    /* TradingView Container
-       Agora alinhado com as seções
-    */
+    /* ------------------------------------------------------------
+       SOMENTE PARA O CHART DO TRADINGVIEW
+       Usamos a mesma margem lateral de 5% do header para alinhar
+       com o logo à esquerda e o menu à direita.
+       ------------------------------------------------------------ */
+    .chart-section {
+      /* Mantenha o mesmo fundo / sombra / borda do .section, se quiser */
+      background: rgba(20, 20, 20, 0.95);
+      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+      border-radius: 8px;
+      margin: 80px 0;       /* espaço vertical */
+      padding: 50px 0;      /* padding top/bottom */
+      width: 100%;          /* ocupar tela toda */
+      max-width: none;      /* sem limite de 900px */
+    }
+
+    .chart-section .chart-inner {
+      margin: 0 5%;         /* margem lateral de 5% */
+    }
+
+    /* Container real do chart */
     #tvChartContainer {
       width: 100%;
       height: 360px;
-      margin: 0 auto;
-      background-color: #222; 
+      background-color: #222;
       pointer-events: auto;
       position: relative;
       overflow: hidden;
@@ -284,19 +299,16 @@
       cursor: pointer;
       transition: 0.3s ease-in-out;
       box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
-      color: #fff; /* Texto branco para ambos os estados */
+      color: #fff; /* Texto branco */
     }
-
     .chart-lock-button:hover {
       transform: scale(1.05);
     }
-
-    /* Estado LOCK (travado) -> degrade vermelho + roxo */
+    /* Travado => degrade vermelho + roxo */
     .locked-state {
       background: linear-gradient(45deg, #f23b5e, #8b00ff);
     }
-
-    /* Estado UNLOCK (destravado) -> degrade verde + roxo */
+    /* Destravado => degrade verde + roxo */
     .unlocked-state {
       background: linear-gradient(45deg, #14f195, #8b00ff);
     }
@@ -430,20 +442,20 @@
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- TRADINGVIEW -->
-  <div class="section">
-    <!-- Container do gráfico -->
-    <div id="tvChartContainer">
-      <div id="tradingview_12345"></div>
+  <!-- SEÇÃO SOMENTE PARA O CHART DO TRADINGVIEW, ALINHADA COM O HEADER (5% e 5%) -->
+  <div class="chart-section" id="tradeview">
+    <div class="chart-inner">
+      <h2>Token Trading Chart</h2> <!-- Se quiser um título opcional -->
+      <div id="tvChartContainer">
+        <div id="tradingview_12345"></div>
+      </div>
+      <button
+        class="chart-lock-button unlocked-state"
+        id="chartLockBtn"
+      >
+        Lock Chart
+      </button>
     </div>
-
-    <!-- Botão Lock/Unlock abaixo do chart -->
-    <button
-      class="chart-lock-button unlocked-state"
-      id="chartLockBtn"
-    >
-      Lock Chart
-    </button>
   </div>
 
   <!-- TradingView Script -->
