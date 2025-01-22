@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Forçando "zoom" inicial em 75% (opcional, a seu critério) -->
+  <!-- Forçando "zoom" inicial em 75% (opcional) -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
@@ -53,8 +53,6 @@
       width: 100%;
       top: 0;
       z-index: 1000;
-
-      /* Layout horizontal padrão (desktop) */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -74,7 +72,7 @@
       color: white;
       background: none;
       border: none;
-      z-index: 1100; /* Acima do overlay */
+      z-index: 1100;
     }
 
     nav {
@@ -101,7 +99,7 @@
       color: #19fb9b;
     }
 
-    /* Overlay para fechar menu ao clicar fora */
+    /* Overlay para fechar menu ao clicar fora dele */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -229,15 +227,13 @@
 
     /* ========== AJUSTES DE RESPONSIVIDADE ========== */
     @media (max-width: 768px) {
-      /* Mostra o botão hambúrguer e some o menu horizontal */
       .menu-btn {
         display: block;
       }
-      /* Menu fora de tela por padrão */
       nav {
         display: none;
         position: fixed;
-        top: 60px; /* logo abaixo do header */
+        top: 60px;
         right: 0;
         background: rgba(10, 10, 10, 0.95);
         width: 200px;
@@ -246,9 +242,8 @@
         padding: 20px;
         text-align: right;
         box-shadow: 0 0 10px rgba(153, 69, 255, 0.3);
-        z-index: 1101; /* acima do overlay */
+        z-index: 1101;
       }
-      /* Quando nav tiver .active, aparece */
       nav.active {
         display: flex;
       }
@@ -273,29 +268,27 @@
       margin: 0 auto;
     }
 
-    /* ============ Ajuste para que o gráfico ocupe largura total e seja menos vertical ============ */
-    /* Exemplo: height = 450 e pointer-events: none por padrão para não travar scroll */
-    .chart-no-pointer {
+    /* Estado de travado: pointer-events none */
+    .locked {
       pointer-events: none;
     }
 
-    /* Container do gráfico: position relative para overlay */
-    .chart-container {
-      position: relative;
+    /* Botão circular para travar/destravar */
+    .chart-toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      z-index: 9999; /* Acima do gráfico */
+      /* Cor inicial: travado -> vermelho (Solana) */
+      background-color: #f23b5e;
     }
 
-    /* Overlay invisível que cobre o gráfico, capturando clique para ativar o arrasto/zoom */
-    .chart-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      /* Invisível, mas clicável */
-      background: transparent;
-      cursor: pointer;
-      z-index: 2;
-    }
   </style>
 </head>
 <body>
@@ -409,7 +402,6 @@
 
     async function getBitcoinData() {
       try {
-        // Chamada simples à API do CoinGecko para Bitcoin em USD
         const url =
           "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
         const response = await fetch(url);
@@ -430,31 +422,34 @@
       }
     }
 
-    // Carrega inicialmente
     getBitcoinData();
-    // Atualiza a cada 60 segundos
     setInterval(getBitcoinData, 60_000);
   </script>
 
   <!-- TradingView Widget -->
-  <div class="section chart-container">
-    <!-- O contêiner do gráfico inicia com pointer-events: none (para não travar o scroll) -->
+  <div class="section" style="position: relative;">
+    <!-- Contêiner do gráfico inicia "travado" (pointer-events: none) -->
     <div
-      class="tradingview-widget-container chart-no-pointer"
+      class="tradingview-widget-container locked"
       id="tvChartContainer"
+      style="position: relative;"
     >
       <div id="tradingview_12345"></div>
-    </div>
 
-    <!-- Overlay invisível para capturar o clique e liberar a interação -->
-    <div class="chart-overlay" onclick="enableChart()"></div>
+      <!-- Botão circular para alternar travado <-> destravado -->
+      <button
+        class="chart-toggle-btn"
+        id="chartToggleBtn"
+        title="Clique para travar/destravar"
+      ></button>
+    </div>
   </div>
 
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script type="text/javascript">
     new TradingView.widget({
-      width: "100%",     // Responsivo
-      height: 450,       // Mais horizontal (menos altura)
+      width: "100%",   // Responsivo
+      height: 300,     // Menor altura => mais horizontal
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -470,7 +465,7 @@
 
   <div id="whitepaper" class="section">
     <a
-      href="https://raw.githubusercontent.com/SmileLabsAI/SLAI_Whitepaper_English.pdf"
+      href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
       class="action-button"
       target="_blank"
       >Download Whitepaper</a
@@ -506,7 +501,7 @@
   </footer>
 
   <script>
-    // MENU MOBILE
+    // ===== MENU MOBILE =====
     function toggleMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
@@ -520,15 +515,31 @@
       overlay.style.display = "none";
     }
 
-    // LIBERA INTERAÇÃO DO GRÁFICO QUANDO CLICAR NA OVERLAY
-    function enableChart() {
-      const chartContainer = document.getElementById("tvChartContainer");
-      const overlay = document.querySelector(".chart-overlay");
-      // Remove pointer-events: none
-      chartContainer.classList.remove("chart-no-pointer");
-      // Some com a camada invisível (para que o usuário possa clicar no gráfico)
-      overlay.style.display = "none";
-    }
+    // ===== TRAVAR/DESTRAVAR GRÁFICO =====
+    const chartContainer = document.getElementById("tvChartContainer");
+    const toggleBtn = document.getElementById("chartToggleBtn");
+
+    // Estado inicial: TRAVADO => pointer-events none; btn RED
+    let isLocked = true; 
+
+    toggleBtn.addEventListener("click", () => {
+      isLocked = !isLocked;
+      
+      if (isLocked) {
+        // Travar
+        chartContainer.classList.add("locked");
+        // Cor vermelha => #F23B5E
+        toggleBtn.style.backgroundColor = "#f23b5e";
+      } else {
+        // Destravar
+        chartContainer.classList.remove("locked");
+        // Cor verde => #14F195
+        toggleBtn.style.backgroundColor = "#14f195";
+      }
+    });
+
+    // Ajustar a cor do botão no estado inicial (travado = vermelho)
+    toggleBtn.style.backgroundColor = "#f23b5e";
   </script>
 </body>
 </html>
