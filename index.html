@@ -271,52 +271,37 @@
       pointer-events: none;
     }
 
-    /* 
-      Vamos animar a largura e altura do contêiner 
-      quando estiver travado vs destravado 
-    */
-    #tvChartContainer {
-      width: 90%;   /* travado => menor */
-      height: 300px;
-      margin: 0 auto;
-      transition: all 0.4s ease; /* anima entre locked/unlocked */
-      position: relative; /* pra overlay */
-    }
-    #tvChartContainer.unlocked {
-      width: 100%;
-      height: 350px;
+    /* Contêiner do gráfico (para posicionar o botão) */
+    .chart-container {
+      position: relative;
+      margin-top: 30px;
     }
 
-    /* Overlay que aparece apenas se locked => exibe com double-click para destravar */
-    .chart-overlay {
-      display: none;
+    /* Barra que contém o botão, no canto superior, fora do gráfico */
+    .chart-toggle-bar {
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
-      bottom: 0;
-      background: transparent; /* invisível mas capturando evento */
-      cursor: pointer;
-      z-index: 2; /* acima do chart */
-    }
-    /* Se container está locked, a overlay aparece */
-    #tvChartContainer.locked .chart-overlay {
-      display: block;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      /* pequeno "padding-top" p/ não colar no topo do container */
+      padding-top: 5px;
+      z-index: 2; /* acima do gráfico */
     }
 
-    /* Botão travar/destravar (circular) no canto superior direito do container */
+    /* Botão circular travar/destravar */
     .chart-toggle-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       width: 24px;
       height: 24px;
       border-radius: 50%;
       border: none;
       outline: none;
       cursor: pointer;
-      z-index: 3; /* acima do overlay */
+      margin-right: 10px; /* separar da borda */
+      margin-top: 0;
     }
+
   </style>
 </head>
 <body>
@@ -384,7 +369,7 @@
   </div>
 
   <script>
-    // Chart de Vesting (Chart.js)
+    // Gráfico de Vesting (Chart.js)
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -441,6 +426,7 @@
         const marketCap = btc.usd_market_cap;
         const volume24h = btc.usd_24h_vol;
 
+        // Atualiza o HTML
         priceElement.textContent = `Preço Atual: US$ ${price.toLocaleString()}`;
         marketCapElement.textContent = `Market Cap: US$ ${marketCap.toLocaleString()}`;
         volumeElement.textContent = `Volume (24h): US$ ${volume24h.toLocaleString()}`;
@@ -452,35 +438,28 @@
     setInterval(getBitcoinData, 60_000);
   </script>
 
-  <!-- TradingView Widget + Botão travar/destravar + Overlay p/ dblclick -->
-  <div class="section">
-    <!-- Container do gráfico + overlay + botão -->
-    <div class="tradingview-widget-container locked" id="tvChartContainer">
-      <!-- Chart real -->
-      <div id="tradingview_12345"></div>
-
-      <!-- Overlay transparente p/ capturar dblclick -->
-      <div 
-        class="chart-overlay" 
-        ondblclick="doubleClickUnlock()"
-        title="Dê dois cliques para destravar"
-      ></div>
-
-      <!-- Botão travar/destravar -->
+  <!-- TradingView Widget + Botão travar/destravar -->
+  <div class="section chart-container">
+    <!-- Barra para o botão (no canto superior) -->
+    <div class="chart-toggle-bar">
       <button
         class="chart-toggle-btn"
         id="chartToggleBtn"
-        title="Clique para travar/destravar"
+        title="Clique para travar/destravar o gráfico"
       ></button>
+    </div>
+
+    <!-- Inicia TRAVADO (locked) -->
+    <div class="tradingview-widget-container locked" id="tvChartContainer">
+      <div id="tradingview_12345"></div>
     </div>
   </div>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    // Inicializa o widget TradingView
     new TradingView.widget({
-      width: "100%",  // Internamente iremos manipular #tvChartContainer
-      height: 300,    // travado => 300, destravado => 350 (via CSS)
+      width: "100%",  // responsivo
+      height: 300,    // menor altura => mais horizontal
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -493,43 +472,32 @@
       container_id: "tradingview_12345",
     });
 
-    // Botão de travar/destravar
+    // Lógica do botão travar/destravar
     const chartContainer = document.getElementById("tvChartContainer");
     const toggleBtn = document.getElementById("chartToggleBtn");
 
-    // Estado inicial: travado
-    let isLocked = true;
+    let isLocked = true; // estado inicial: TRAVADO (pointer-events none)
 
-    function updateChartState() {
+    function updateButtonState() {
       if (isLocked) {
+        // TRAVADO => cor vermelha
         chartContainer.classList.add("locked");
-        chartContainer.classList.remove("unlocked");
-        // Cor vermelha #F23B5E
-        toggleBtn.style.backgroundColor = "#f23b5e";
+        toggleBtn.style.backgroundColor = "#f23b5e"; // vermelho Solana
       } else {
+        // DESTRAVADO => cor verde
         chartContainer.classList.remove("locked");
-        chartContainer.classList.add("unlocked");
-        // Cor verde #14F195
-        toggleBtn.style.backgroundColor = "#14f195";
+        toggleBtn.style.backgroundColor = "#14f195"; // verde Solana
       }
     }
 
-    // Clique no botão => alterna lock/unlock
+    // Ao clicar, alterna
     toggleBtn.addEventListener("click", () => {
       isLocked = !isLocked;
-      updateChartState();
+      updateButtonState();
     });
 
-    // Duplo clique no overlay => só desbloqueia se estiver locked
-    function doubleClickUnlock() {
-      if (isLocked) {
-        isLocked = false;
-        updateChartState();
-      }
-    }
-
-    // Ajusta o estado inicial (travado, vermelho)
-    updateChartState();
+    // Inicializa a cor do botão
+    updateButtonState();
   </script>
 
   <div id="whitepaper" class="section">
@@ -570,7 +538,7 @@
   </footer>
 
   <script>
-    // ===== MENU MOBILE =====
+    // MENU MOBILE
     function toggleMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
