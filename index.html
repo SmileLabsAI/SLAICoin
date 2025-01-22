@@ -251,30 +251,19 @@
     });
 </script>
 
-<!-- Widget do Pump.fun -->
-<div id="pump-widget" class="section">
-    <h2>Live Market Data</h2>
-    <div id="pump-fun-widget"></div>
-</div>
-
+<!-- CoinGecko Widget -->
+<div id="coingecko-coin-price-chart-widget"></div>
+<script src="https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js"></script>
 <script>
-    (function() {
-        let widgetContainer = document.getElementById("pump-fun-widget");
-        let iframe = document.createElement("iframe");
-
-        iframe.src = "https://pump.fun/widget/2nRXdTkYayP9zTRtRq9aCD3CcKDC6jnb5RWiym1CL1ks";
-        iframe.style.width = "100%";
-        iframe.style.height = "400px";
-        iframe.style.border = "none";
-        iframe.style.overflow = "hidden";
-        iframe.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups");
-        iframe.setAttribute("loading", "lazy");
-
-        widgetContainer.appendChild(iframe);
-    })();
+  CoinGeckoCoinPriceChartWidget({
+    coinId: 'bitcoin',
+    currency: 'usd',
+    locale: 'pt',
+    width: '100%',
+    height: '400px',
+    theme: 'dark'
+  });
 </script>
-
-
 
 
 
