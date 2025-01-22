@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Zoom em 75% se desejar -->
+  <!-- Zoom 75% (opcional) -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
@@ -76,14 +76,9 @@
       z-index: 1100;
     }
 
-    nav {
-      text-align: right;
-    }
-
     nav ul {
       list-style: none;
       display: flex;
-      justify-content: flex-end;
       gap: 20px;
       padding: 0;
       margin: 0;
@@ -140,7 +135,7 @@
       color: white;
     }
 
-    /* Botões */
+    /* Botões (Buy, Whitepaper) */
     .action-button {
       background: linear-gradient(45deg, #19fb9b, #9945ff);
       color: white;
@@ -164,18 +159,19 @@
         0px 0px 30px rgba(153, 69, 255, 0.5);
     }
 
-    /* Seções */
+    /* Seção genérica */
     .section {
-      background: rgba(20, 20, 20, 0.95);
-      padding: 50px;
+      /* padding lateral de 5% para alinhar com header */
+      padding: 50px 5%;
       margin: 80px auto;
       border-radius: 8px;
-      width: 90%;
-      max-width: 900px;
+      /* max-width 100% pois vamos usar margin 5% do container */
+      max-width: 100%;
+      background: rgba(20, 20, 20, 0.95);
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
-    /* Títulos (36px) */
+    /* Títulos => 36px */
     .section h2 {
       font-size: 36px;
       margin-bottom: 20px;
@@ -205,11 +201,11 @@
     .footer {
       background-color: #111;
       color: white;
-      padding: 30px;
+      padding: 30px 5%;
       margin-top: 60px;
     }
 
-    /* Responsivo */
+    /* Ajustes responsivos */
     @media (max-width: 768px) {
       .menu-btn {
         display: block;
@@ -235,10 +231,6 @@
         flex-direction: column;
         gap: 10px;
       }
-      nav ul li {
-        display: block;
-      }
-
       .hero h1 {
         font-size: 36px;
       }
@@ -248,44 +240,23 @@
       .section h2 {
         font-size: 28px;
       }
-
-      /* Ajuste a altura do chart no mobile se quiser menor */
-      .chart-container {
-        height: 300px; 
-      }
     }
 
-    /* ==================== TRADINGVIEW ===================== */
-    .chart-container {
+    /* ============ TRADINGVIEW ============ */
+    /* Sempre ocupando toda a largura com padding 5% nas laterais */
+    .chart-area {
+      margin-top: 20px;
+      /* height 450px para ficar wide */
+      height: 450px;
+      width: 100%; /* 100% da .section (que tem 5% de cada lado) */
       position: relative;
-      width: 100%;
-      height: 350px; /* Em desktops */
-      margin: 0 auto;
-      /* Travado por padrão => pointer-events: none; */
-      pointer-events: none;
     }
+
     #tradingview_12345 {
       width: 100%;
       height: 100%;
-      display: block;
     }
 
-    /* Overlay invisível para capturar toque inicial dentro do chart */
-    .chart-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: transparent;
-      z-index: 2;
-      cursor: pointer;
-    }
-
-    /* Quando destravado => pointer-events: auto e some overlay */
-    .chart-unlocked {
-      pointer-events: auto;
-    }
-    .chart-unlocked .chart-overlay {
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -298,6 +269,7 @@
         class="logo"
       />
     </a>
+
     <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
     <nav>
       <ul>
@@ -311,6 +283,8 @@
       </ul>
     </nav>
   </header>
+
+  <!-- Overlay do menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -351,6 +325,7 @@
     <canvas id="vestingChart"></canvas>
   </div>
   <script>
+    // CHART.JS - VESTING
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -360,28 +335,28 @@
           {
             label: "Tokens Released (%)",
             data: [85, 7.5, 2.5, 1.5, 1.5],
-            backgroundColor: "rgba(25, 251, 155, 0.7)",
+            backgroundColor: "rgba(25, 251, 155, 0.7)"
           },
           {
             label: "Tokens Locked (%)",
             data: [0, 7.5, 5, 3.5, 2],
-            backgroundColor: "rgba(235, 64, 52, 0.6)",
-          },
-        ],
+            backgroundColor: "rgba(235, 64, 52, 0.6)"
+          }
+        ]
       },
       options: {
         responsive: true,
         scales: {
           y: {
             beginAtZero: true,
-            max: 100,
-          },
-        },
-      },
+            max: 100
+          }
+        }
+      }
     });
   </script>
 
-  <!-- BTC ao vivo -->
+  <!-- DADOS BTC (EXEMPLO) -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -393,17 +368,18 @@
       try {
         const url =
           "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
-        const resp = await fetch(url);
-        const data = await resp.json();
+        const response = await fetch(url);
+        const data = await response.json();
         const btc = data.bitcoin;
+
         document.getElementById("price").textContent =
           `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
         document.getElementById("market-cap").textContent =
           `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
         document.getElementById("volume").textContent =
           `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
-      } catch (err) {
-        console.error("Erro ao buscar dados do Bitcoin:", err);
+      } catch (error) {
+        console.error("Erro ao buscar dados do Bitcoin:", error);
       }
     }
     getBitcoinData();
@@ -412,19 +388,18 @@
 
   <!-- TRADINGVIEW -->
   <div class="section">
-    <div class="chart-container" id="chartContainer">
-      <!-- Overlay p/ capturar toque/clique -->
-      <div class="chart-overlay" id="chartOverlay"></div>
+    <h2>Trading Chart</h2>
+    <div class="chart-area">
       <div id="tradingview_12345"></div>
     </div>
   </div>
 
+  <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    // Inicia o widget TradingView
     new TradingView.widget({
-      width: "100%",
-      height: 350,
+      width: "100%",  // Sempre 100% do container .chart-area
+      height: 450,    // Aspecto wide
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -434,30 +409,13 @@
       toolbar_bg: "#f1f3f6",
       enable_publishing: false,
       allow_symbol_change: true,
-      container_id: "tradingview_12345",
-    });
-
-    const container = document.getElementById("chartContainer");
-    const overlay = document.getElementById("chartOverlay");
-
-    // 1) Ao tocar/clique na overlay => destrava chart
-    //    Usamos pointerdown p/ suportar mobiles, mas pode ser click + touchstart se preferir
-    overlay.addEventListener("pointerdown", (event) => {
-      // Impede propagação para não disparar o listener global
-      event.stopPropagation();
-      container.classList.add("chart-unlocked");
-    });
-
-    // 2) Ao tocar/clique no "document" => se for fora do container, travamos
-    document.addEventListener("pointerdown", (e) => {
-      if (!container.contains(e.target)) {
-        container.classList.remove("chart-unlocked");
-      }
+      container_id: "tradingview_12345"
     });
   </script>
 
   <!-- WHITEPAPER -->
   <div id="whitepaper" class="section">
+    <h2>Whitepaper</h2>
     <a
       href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
       class="action-button"
@@ -469,6 +427,7 @@
 
   <!-- BUY SLAI -->
   <div id="buy" class="section">
+    <h2>Comprar $SLAI</h2>
     <a href="https://pump.fun/board" class="action-button" target="_blank">
       Buy $SLAI Now
     </a>
@@ -497,7 +456,7 @@
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
-  <!-- Script do menu mobile -->
+  <!-- MENU MOBILE SCRIPT -->
   <script>
     function toggleMenu() {
       const nav = document.querySelector("header nav");
