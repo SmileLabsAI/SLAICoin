@@ -11,13 +11,170 @@
     <meta property="og:type" content="website">
     <title>$SLAI - Smile Labs AI</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(90deg, #000000, #000000, #000000);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        nav {
+            text-align: right;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #19FB9B;
+        }
+
+        /* Seção Hero */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #19FB9B, #9945FF);
+            padding: 80px 5%;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            font-weight: 700;
+            background: linear-gradient(to right, #000000, #000000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin-top: 15px;
+            opacity: 0.8;
+            color: white;
+        }
+
+        /* Botões */
+        .action-button {
+            background: linear-gradient(45deg, #19FB9B, #9945FF);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s ease-in-out;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
+                        0px 0px 30px rgba(153, 69, 255, 0.5);
+        }
+
+        /* Seções */
+        .section {
+            background: rgba(20, 20, 20, 0.95);
+            padding: 50px;
+            margin: 80px auto;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+        }
+
+        /* Redes Sociais */
+        .social-links {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .social-links img:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
+        }
+
+        /* Rodapé */
+        .footer {
+            background-color: #111;
+            color: white;
+            padding: 30px;
+            margin-top: 60px;
+        }
+    </style>
 </head>
 <body>
 
     <header>
         <a href="#top">
-            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/Logo_yellow_only.png" class="logo" alt="Smile Labs Logo">
+            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
+                 alt="Smile Labs Logo" class="logo" title="Go to Top">
         </a>
         <nav>
             <ul>
@@ -25,11 +182,10 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#tokenomics">Tokenomics</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#vesting">Vesting</a></li>
+                <li><a href="#vesting">Token Vesting</a></li>
                 <li><a href="#whitepaper">Whitepaper</a></li>
                 <li><a href="#buy">Buy $SLAI</a></li>
             </ul>
-            <span class="menu-toggle" onclick="toggleMenu()">&#9776;</span>
         </nav>
     </header>
 
@@ -39,56 +195,69 @@
         <a href="#buy" class="action-button">Buy $SLAI Now</a>
     </div>
 
-    <section id="about" class="section">
+    <div id="about" class="section">
         <h2>About $SLAI</h2>
         <p>$SLAI is a blockchain-powered digital currency designed to transform the dental industry.</p>
-    </section>
-
-    <section id="tokenomics" class="section">
-        <h2>Tokenomics</h2>
-        <canvas id="tokenomicsChart"></canvas>
-    </section>
-
-    <section id="vesting" class="section">
-        <h2>Vesting Schedule</h2>
-        <table>
-            <tr><th>Phase</th><th>Date</th><th>% Released</th></tr>
-            <tr><td>Phase 1</td><td>Feb 2025</td><td>10%</td></tr>
-            <tr><td>Phase 2</td><td>Jun 2025</td><td>20%</td></tr>
-            <tr><td>Phase 3</td><td>Sep 2025</td><td>30%</td></tr>
-        </table>
-    </section>
-
-    <section id="whitepaper" class="section">
-        <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
-    </section>
-
-    <section id="buy" class="section">
-        <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
-    </section>
-
-    <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="twitter.png" alt="Twitter/X"></a>
-        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="telegram.png" alt="Telegram"></a>
-        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="discord.png" alt="Discord"></a>
     </div>
 
-    <footer class="footer">&copy; 2025 $SLAI | All Rights Reserved</footer>
+    <div id="tokenomics" class="section">
+        <h2>Tokenomics</h2>
+        <p>Supply: 1 Billion $SLAI</p>
+        <p>85% Community, 15% Founders</p>
+    </div>
 
-    <script>
-        function toggleMenu() {
-            document.querySelector('nav ul').classList.toggle('active');
-        }
+    <div id="roadmap" class="section">
+        <h2>Roadmap</h2>
+        <p>Q1 2025: Development & Partnerships</p>
+        <p>Q2 2025: Token Launch & Marketplace Beta</p>
+        <p>Q3 2025: Expansion & Staking Implementation</p>
+        <p>Q4 2025: Global Adoption & Multichain Integration</p>
+    </div>
 
-        document.addEventListener("DOMContentLoaded", function() {
-            new Chart(document.getElementById('tokenomicsChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Founders (30%)', 'Community (70%)'],
-                    datasets: [{ data: [30, 70], backgroundColor: ['#19FB9B', '#9945FF'] }]
-                }
-            });
+    <div id="vesting" class="section">
+        <h2>Token Vesting Dashboard</h2>
+        <canvas id="vestingChart"></canvas>
+        <script>
+        var ctx = document.getElementById('vestingChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                datasets: [
+                    {
+                        label: 'Tokens Released',
+                        data: [150, 300, 600, 950],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                    },
+                    {
+                        label: 'Tokens Locked',
+                        data: [850, 700, 400, 50],
+                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
+                    }
+                ]
+            },
+            options: { responsive: true, scales: { y: { beginAtZero: true } } }
         });
-    </script>
+        </script>
+    </div>
+
+    <div id="whitepaper" class="section">
+        <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
+    </div>
+
+    <div id="buy" class="section">
+        <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
+    </div>
+
+    <div class="social-links">
+        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
+    </div>
+
+    <footer class="footer">
+        &copy; 2025 $SLAI | All Rights Reserved
+    </footer>
+
 </body>
 </html>
