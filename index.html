@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Zoom 75% (opcional) -->
   <meta
-    name="description"
-    content="$SLAI - The Future of Digital Dentistry & Blockchain"
+    name="viewport"
+    content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
   />
-  <meta
-    property="og:title"
-    content="$SLAI - AI & Blockchain for Digital Dentistry"
-  />
+  <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain" />
+  <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry" />
   <meta
     property="og:description"
     content="$SLAI integrates AI, Web3, and DeFi into the dental industry."
@@ -26,7 +24,7 @@
   <meta property="og:type" content="website" />
   <title>$SLAI - Smile Labs AI</title>
 
-  <!-- Biblioteca Chart.js para o gráfico de vesting -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -44,7 +42,7 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden;
+      overflow-x: hidden; /* para não rolar horizontal se algo extrapolar */
     }
 
     /* Cabeçalho */
@@ -68,6 +66,17 @@
       cursor: pointer;
     }
 
+    /* Botão de menu (hambúrguer) */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 28px;
+      color: white;
+      background: none;
+      border: none;
+      z-index: 1100;
+    }
+
     nav {
       text-align: right;
     }
@@ -81,10 +90,6 @@
       margin: 0;
     }
 
-    nav ul li {
-      display: inline;
-    }
-
     nav ul li a {
       color: white;
       text-decoration: none;
@@ -93,7 +98,19 @@
     }
 
     nav ul li a:hover {
-      color: #19FB9B;
+      color: #19fb9b;
+    }
+
+    /* Overlay do menu mobile */
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
     }
 
     /* Seção Hero */
@@ -104,9 +121,9 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: linear-gradient(135deg, #19FB9B, #9945FF);
+      background: linear-gradient(135deg, #19fb9b, #9945ff);
       padding: 80px 5%;
-      margin-top: 70px; /* Para não ficar atrás do header fixo */
+      margin-top: 70px; /* para não ficar atrás do header fixo */
     }
 
     .hero h1 {
@@ -125,9 +142,9 @@
       color: white;
     }
 
-    /* Botões */
+    /* Botões padrões (Whitepaper, Buy, etc.) */
     .action-button {
-      background: linear-gradient(45deg, #19FB9B, #9945FF);
+      background: linear-gradient(45deg, #19fb9b, #9945ff);
       color: white;
       padding: 15px 30px;
       border-radius: 50px;
@@ -160,6 +177,7 @@
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
+    /* Aumentar títulos (h2) das sections para 36px */
     .section h2 {
       font-size: 36px;
       margin-bottom: 20px;
@@ -193,57 +211,134 @@
       margin-top: 60px;
     }
 
-    /* Estilos para a seção de dados da moeda */
-    #token-data {
-      background: rgba(20, 20, 20, 0.95);
-      padding: 50px;
-      margin: 80px auto;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 900px;
-      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+    /* Dados ao Vivo da Moeda - Título menor */
+    #token-data h2 {
+      font-size: 24px; /* menor para caber em uma linha */
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+      nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        width: 200px;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: right;
+        box-shadow: 0 0 10px rgba(153, 69, 255, 0.3);
+        z-index: 1101;
+      }
+      nav.active {
+        display: flex;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav ul li {
+        display: block;
+      }
+      .hero h1 {
+        font-size: 36px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+      .section h2 {
+        font-size: 28px; /* se quiser reduzir nos celulares */
+      }
+      #token-data h2 {
+        font-size: 20px; /* ainda menor no mobile, se quiser */
+      }
+    }
+
+    /* TradingView Container
+       Ocupa ~98% da largura, centrado com margin: 0 auto, 
+       e travado por padrão (pointer-events: none).
+    */
+    #tvChartContainer {
+      width: 98%;
+      height: 360px;
+      margin: 0 auto;
+      background-color: #222; /* só pra visual */
+      pointer-events: none;   /* travado */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Botão lock/unlock degradê */
+    .chart-lock-button {
+      display: inline-block;
+      margin-top: 40px; /* espaçamento maior do chart */
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+    }
+
+    .chart-lock-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Travado => degrade de vermelho */
+    .locked-state {
+      background: linear-gradient(45deg, #f23b5e, #f76f8f);
       color: white;
     }
 
-    #token-data h2 {
-      font-size: 36px; /* mesmo tamanho das outras section h2 */
-      font-weight: 600;
-      margin-bottom: 20px;
+    /* Destravado => degrade de verde */
+    .unlocked-state {
+      background: linear-gradient(45deg, #14f195, #64f1c1);
+      color: #000;
     }
   </style>
 </head>
 <body>
-
+  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
         src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png"
         alt="Smile Labs Logo"
         class="logo"
-        title="Go to Top"
       />
     </a>
+    <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
     <nav>
       <ul>
-        <li><a href="#top">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#tokenomics">Tokenomics</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
-        <li><a href="#vesting">Token Vesting</a></li>
-        <li><a href="#whitepaper">Whitepaper</a></li>
-        <li><a href="#buy">Buy $SLAI</a></li>
+        <li><a href="#top" onclick="closeMenu()">Home</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#tokenomics" onclick="closeMenu()">Tokenomics</a></li>
+        <li><a href="#roadmap" onclick="closeMenu()">Roadmap</a></li>
+        <li><a href="#vesting" onclick="closeMenu()">Token Vesting</a></li>
+        <li><a href="#whitepaper" onclick="closeMenu()">Whitepaper</a></li>
+        <li><a href="#buy" onclick="closeMenu()">Buy $SLAI</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- Overlay do menu -->
+  <div class="menu-overlay" onclick="closeMenu()"></div>
+
+  <!-- HERO -->
   <div id="top" class="hero">
     <h1>$SLAI - The Future of Digital Dentistry</h1>
     <p>AI & Blockchain powering the next revolution in digital dentistry.</p>
     <a href="#buy" class="action-button">Buy $SLAI Now</a>
   </div>
 
-  <!-- About -->
+  <!-- ABOUT -->
   <div id="about" class="section">
     <h2>About $SLAI</h2>
     <p>
@@ -252,14 +347,14 @@
     </p>
   </div>
 
-  <!-- Tokenomics -->
+  <!-- TOKENOMICS -->
   <div id="tokenomics" class="section">
     <h2>Tokenomics</h2>
     <p>Supply: 1 Billion $SLAI</p>
     <p>85% Community, 15% Founders</p>
   </div>
 
-  <!-- Roadmap -->
+  <!-- ROADMAP -->
   <div id="roadmap" class="section">
     <h2>Roadmap</h2>
     <p>Q1 2025: Development & Partnerships</p>
@@ -268,14 +363,15 @@
     <p>Q4 2025: Global Adoption & Multichain Integration</p>
   </div>
 
-  <!-- Dashboard de Vesting -->
+  <!-- VESTING CHART -->
   <div id="vesting" class="section">
     <h2>Token Vesting Dashboard</h2>
     <canvas id="vestingChart"></canvas>
   </div>
+
   <script>
-    // Gráfico de Vesting (Chart.js)
-    var ctx = document.getElementById("vestingChart").getContext("2d");
+    // VESTING CHART
+    const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
       data: {
@@ -284,72 +380,84 @@
           {
             label: "Tokens Released (%)",
             data: [85, 7.5, 2.5, 1.5, 1.5],
-            backgroundColor: "rgba(25, 251, 155, 0.7)"
+            backgroundColor: "rgba(25, 251, 155, 0.7)",
           },
           {
             label: "Tokens Locked (%)",
             data: [0, 7.5, 5, 3.5, 2],
-            backgroundColor: "rgba(235, 64, 52, 0.6)"
-          }
-        ]
+            backgroundColor: "rgba(235, 64, 52, 0.6)",
+          },
+        ],
       },
       options: {
         responsive: true,
         scales: {
           y: {
             beginAtZero: true,
-            max: 100
-          }
-        }
-      }
+            max: 100,
+          },
+        },
+      },
     });
   </script>
 
-  <!-- Seção de Dados ao Vivo da Moeda -->
+  <!-- DADOS BTC (EXEMPLO) -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
     <p id="market-cap">Market Cap: Carregando...</p>
     <p id="volume">Volume (24h): Carregando...</p>
   </div>
-  <script>
-    // Exemplo: obter dados do Bitcoin via CoinGecko
-    const priceElement = document.getElementById("price");
-    const marketCapElement = document.getElementById("market-cap");
-    const volumeElement = document.getElementById("volume");
 
+  <script>
     async function getBitcoinData() {
       try {
         const url =
           "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
         const response = await fetch(url);
         const data = await response.json();
-
         const btc = data.bitcoin;
-        priceElement.textContent = `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
-        marketCapElement.textContent = `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
-        volumeElement.textContent = `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
+
+        document.getElementById("price").textContent =
+          `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
+        document.getElementById("market-cap").textContent =
+          `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
+        document.getElementById("volume").textContent =
+          `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
       } catch (error) {
         console.error("Erro ao buscar dados do Bitcoin:", error);
       }
     }
-
-    // Carrega inicialmente
     getBitcoinData();
-    // Atualiza a cada 60 segundos
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- TradingView SEM travas, sempre interativo -->
-  <div id="tradeview" class="section">
-    <!-- O chart usa 100% da largura do .section e altura custom -->
-    <div id="tradingview_12345" style="width: 100%; height: 400px;"></div>
+  <!-- TRADINGVIEW -->
+  <div class="section">
+    <!-- Container do gráfico ~98% da largura, centrado -->
+    <div id="tvChartContainer">
+      <div id="tradingview_12345"></div>
+    </div>
+
+    <!-- Botão Lock/Unlock abaixo do chart -->
+    <button
+      class="chart-lock-button locked-state"
+      id="chartLockBtn"
+    >
+      Unlock Chart
+    </button>
   </div>
+
+  <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
+    let locked = true; // começa travado
+    const tvContainer = document.getElementById("tvChartContainer");
+    const chartLockBtn = document.getElementById("chartLockBtn");
+
     new TradingView.widget({
       width: "100%",
-      height: 400,
+      height: 360,   // condizente com #tvChartContainer
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -359,11 +467,38 @@
       toolbar_bg: "#f1f3f6",
       enable_publishing: false,
       allow_symbol_change: true,
-      container_id: "tradingview_12345"
+      container_id: "tradingview_12345",
     });
+
+    // Ao clicar no botão, alterna locked <-> unlocked
+    chartLockBtn.addEventListener("click", () => {
+      locked = !locked;
+      updateChartLockState();
+    });
+
+    function updateChartLockState() {
+      if (locked) {
+        // Travado => pointer-events: none
+        tvContainer.style.pointerEvents = "none";
+        // Botão degrade vermelho
+        chartLockBtn.classList.remove("unlocked-state");
+        chartLockBtn.classList.add("locked-state");
+        chartLockBtn.textContent = "Unlock Chart";
+      } else {
+        // Destravado => pointer-events: auto
+        tvContainer.style.pointerEvents = "auto";
+        // Botão degrade verde
+        chartLockBtn.classList.remove("locked-state");
+        chartLockBtn.classList.add("unlocked-state");
+        chartLockBtn.textContent = "Lock Chart";
+      }
+    }
+
+    // Estado inicial
+    updateChartLockState();
   </script>
 
-  <!-- Whitepaper -->
+  <!-- WHITEPAPER -->
   <div id="whitepaper" class="section">
     <a
       href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
@@ -374,14 +509,14 @@
     </a>
   </div>
 
-  <!-- Buy $SLAI -->
+  <!-- BUY SLAI -->
   <div id="buy" class="section">
     <a href="https://pump.fun/board" class="action-button" target="_blank">
       Buy $SLAI Now
     </a>
   </div>
 
-  <!-- Redes Sociais -->
+  <!-- SOCIAL LINKS -->
   <div class="social-links">
     <a href="https://x.com/SmileLabsAI" target="_blank"
       ><img
@@ -400,10 +535,25 @@
       /></a>
   </div>
 
-  <!-- Rodapé -->
+  <!-- FOOTER -->
   <footer class="footer">
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
+  <!-- MENU MOBILE SCRIPT -->
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector("header nav");
+      const overlay = document.querySelector(".menu-overlay");
+      nav.classList.toggle("active");
+      overlay.style.display = nav.classList.contains("active") ? "block" : "none";
+    }
+    function closeMenu() {
+      const nav = document.querySelector("header nav");
+      const overlay = document.querySelector(".menu-overlay");
+      nav.classList.remove("active");
+      overlay.style.display = "none";
+    }
+  </script>
 </body>
 </html>
