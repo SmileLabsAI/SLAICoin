@@ -11,214 +11,13 @@
     <meta property="og:type" content="website">
     <title>$SLAI - Smile Labs AI</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: linear-gradient(90deg, #000000, #000000, #000000);
-            color: white;
-            overflow-x: hidden;
-        }
-
-        /* Cabeçalho */
-        header {
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 15px 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
-        }
-
-        nav {
-            text-align: right;
-            overflow: hidden;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #19FB9B;
-        }
-
-        /* Menu responsivo */
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-                display: none;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                width: 100%;
-                background: rgba(10, 10, 10, 0.9);
-                padding: 20px 0;
-                z-index: 100;
-            }
-
-            nav ul li {
-                text-align: center;
-            }
-
-            nav ul li a {
-                padding: 10px;
-                width: 100%;
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-                cursor: pointer;
-                font-size: 30px;
-                color: white;
-            }
-        }
-
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 30px;
-            color: white;
-        }
-
-        /* Seção Hero */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, #19FB9B, #9945FF);
-            padding: 80px 5%;
-        }
-
-        .hero h1 {
-            font-size: 50px;
-            font-weight: 700;
-            background: linear-gradient(to right, #000000, #000000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 20px;
-            max-width: 600px;
-            margin-top: 15px;
-            opacity: 0.8;
-            color: white;
-        }
-
-        /* Botões */
-        .action-button {
-            background: linear-gradient(45deg, #19FB9B, #9945FF);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 18px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: 0.3s ease-in-out;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
-                        0px 0px 30px rgba(153, 69, 255, 0.5);
-        }
-
-        /* Seções */
-        .section {
-            background: rgba(20, 20, 20, 0.95);
-            padding: 50px;
-            margin: 80px auto;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 900px;
-            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
-        }
-
-        /* Redes Sociais */
-        .social-links {
-            margin-top: 60px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .social-links img {
-            width: 40px;
-            height: 40px;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .social-links img:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
-        }
-
-        /* Rodapé */
-        .footer {
-            background-color: #111;
-            color: white;
-            padding: 30px;
-            margin-top: 60px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <header>
         <a href="#top">
-            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
-                 alt="Smile Labs Logo" class="logo" title="Go to Top">
+            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/Logo_yellow_only.png" class="logo" alt="Smile Labs Logo">
         </a>
         <nav>
             <ul>
@@ -226,7 +25,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#tokenomics">Tokenomics</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#vesting">Token Vesting</a></li>
+                <li><a href="#vesting">Vesting</a></li>
                 <li><a href="#whitepaper">Whitepaper</a></li>
                 <li><a href="#buy">Buy $SLAI</a></li>
             </ul>
@@ -240,141 +39,56 @@
         <a href="#buy" class="action-button">Buy $SLAI Now</a>
     </div>
 
-    <div id="about" class="section">
+    <section id="about" class="section">
         <h2>About $SLAI</h2>
         <p>$SLAI is a blockchain-powered digital currency designed to transform the dental industry.</p>
-    </div>
-
-    <div id="tokenomics" class="section">
-        <h2>Tokenomics</h2>
-        <p>Supply: 1 Billion $SLAI</p>
-        <p>85% Community, 15% Founders</p>
-    </div>
-
-    <div id="roadmap" class="section">
-        <h2>Roadmap</h2>
-        <p>Q1 2025: Development & Partnerships</p>
-        <p>Q2 2025: Token Launch & Marketplace Beta</p>
-        <p>Q3 2025: Expansion & Staking Implementation</p>
-        <p>Q4 2025: Global Adoption & Multichain Integration</p>
-    </div>
-
-   <!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SLAI Coin Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-</head>
-<body>
-
-    <header>
-        <h1>SLAI Coin Dashboard</h1>
-    </header>
-
-    <section id="pump-fun-integration">
-        <h2>📊 Integração com Pump.fun</h2>
-        <p>Visualize os dados em tempo real da SLAI Coin no Pump.fun.</p>
-        <iframe src="https://pump.fun/coin/2nRXdTkYayP9zTRtRq9aCD3CcKDC6jnb5RWiym1CL1ks" width="100%" height="500px"></iframe>
     </section>
 
-    <section id="tokenomics">
-        <h2>📈 Tokenomics</h2>
+    <section id="tokenomics" class="section">
+        <h2>Tokenomics</h2>
         <canvas id="tokenomicsChart"></canvas>
     </section>
 
-    <section id="vesting">
-        <h2>📅 Vesting</h2>
-        <p>Acompanhe o cronograma de liberação dos tokens.</p>
+    <section id="vesting" class="section">
+        <h2>Vesting Schedule</h2>
         <table>
-            <tr>
-                <th>Fase</th>
-                <th>Data</th>
-                <th>% Liberado</th>
-            </tr>
-            <tr>
-                <td>Fase 1</td>
-                <td>Fev 2025</td>
-                <td>10%</td>
-            </tr>
-            <tr>
-                <td>Fase 2</td>
-                <td>Jun 2025</td>
-                <td>20%</td>
-            </tr>
-            <tr>
-                <td>Fase 3</td>
-                <td>Set 2025</td>
-                <td>30%</td>
-            </tr>
+            <tr><th>Phase</th><th>Date</th><th>% Released</th></tr>
+            <tr><td>Phase 1</td><td>Feb 2025</td><td>10%</td></tr>
+            <tr><td>Phase 2</td><td>Jun 2025</td><td>20%</td></tr>
+            <tr><td>Phase 3</td><td>Sep 2025</td><td>30%</td></tr>
         </table>
     </section>
 
-    <section id="staking">
-        <h2>💰 Staking</h2>
-        <p>Visualize os ganhos e status do staking em tempo real.</p>
-        <canvas id="stakingChart"></canvas>
+    <section id="whitepaper" class="section">
+        <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
     </section>
 
-    <script>
-        // Gráfico de Tokenomics
-        const ctxTokenomics = document.getElementById('tokenomicsChart').getContext('2d');
-        new Chart(ctxTokenomics, {
-            type: 'doughnut',
-            data: {
-                labels: ['Fundadores (30%)', 'Comunidade (70%)'],
-                datasets: [{
-                    data: [30, 70],
-                    backgroundColor: ['#FF6384', '#36A2EB']
-                }]
-            }
-        });
-
-        // Gráfico de Staking
-        const ctxStaking = document.getElementById('stakingChart').getContext('2d');
-        new Chart(ctxStaking, {
-            type: 'bar',
-            data: {
-                labels: ['Mês 1', 'Mês 2', 'Mês 3', 'Mês 4'],
-                datasets: [{
-                    label: 'Recompensas em SLAI',
-                    data: [500, 1200, 1800, 2500],
-                    backgroundColor: '#36A2EB'
-                }]
-            }
-        });
-    </script>
-
-</body>
-</html>
-
-
-    <div id="whitepaper" class="section">
-        <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
-    </div>
-
-    <div id="buy" class="section">
+    <section id="buy" class="section">
         <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
-    </div>
+    </section>
 
     <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
-        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
-        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
+        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="twitter.png" alt="Twitter/X"></a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="telegram.png" alt="Telegram"></a>
+        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="discord.png" alt="Discord"></a>
     </div>
 
-    <footer class="footer">
-        &copy; 2025 $SLAI | All Rights Reserved
-    </footer>
+    <footer class="footer">&copy; 2025 $SLAI | All Rights Reserved</footer>
 
     <script>
         function toggleMenu() {
-            const menu = document.querySelector('nav ul');
-            menu.classList.toggle('active');
+            document.querySelector('nav ul').classList.toggle('active');
         }
-    </script>
 
+        document.addEventListener("DOMContentLoaded", function() {
+            new Chart(document.getElementById('tokenomicsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Founders (30%)', 'Community (70%)'],
+                    datasets: [{ data: [30, 70], backgroundColor: ['#19FB9B', '#9945FF'] }]
+                }
+            });
+        });
+    </script>
 </body>
 </html>
