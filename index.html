@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Forçando "zoom" inicial em 75% (opcional, como você solicitou) -->
+  <!-- Forçando "zoom" inicial em 75% (opcional, a seu critério) -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
@@ -227,7 +227,7 @@
       margin: 10px 0;
     }
 
-    /* ===== Ajustes de Responsividade ===== */
+    /* ========== AJUSTES DE RESPONSIVIDADE ========== */
     @media (max-width: 768px) {
       /* Mostra o botão hambúrguer e some o menu horizontal */
       .menu-btn {
@@ -273,31 +273,29 @@
       margin: 0 auto;
     }
 
-    /* ============ Toggle da interação do Chart ============ */
-    .chart-container {
-      position: relative;
-      margin-top: 30px;
-      /* Para visual separada, mas é opcional */
-    }
-    /* Botão de toggle de interação do gráfico */
-    .chart-toggle {
-      position: relative; /* ou absolute, se quiser sobrepor */
-      margin-bottom: 10px;
-      background: #666;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    /* Por padrão, desativamos eventos do gráfico:
-       Assim, se o usuário rolar, não "prende" no gráfico. */
+    /* ============ Ajuste para que o gráfico ocupe largura total e seja menos vertical ============ */
+    /* Exemplo: height = 450 e pointer-events: none por padrão para não travar scroll */
     .chart-no-pointer {
       pointer-events: none;
     }
 
+    /* Container do gráfico: position relative para overlay */
+    .chart-container {
+      position: relative;
+    }
+
+    /* Overlay invisível que cobre o gráfico, capturando clique para ativar o arrasto/zoom */
+    .chart-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      /* Invisível, mas clicável */
+      background: transparent;
+      cursor: pointer;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
@@ -438,39 +436,41 @@
     setInterval(getBitcoinData, 60_000);
   </script>
 
-  <!-- TradingView Widget + Toggle de Interação -->
+  <!-- TradingView Widget -->
   <div class="section chart-container">
-    <!-- Botão para liberar/bloquear interação -->
-    <button class="chart-toggle" onclick="toggleChartInteraction()">
-      Liberar Interação do Gráfico
-    </button>
-
-    <div class="tradingview-widget-container chart-no-pointer" id="tvChartContainer">
+    <!-- O contêiner do gráfico inicia com pointer-events: none (para não travar o scroll) -->
+    <div
+      class="tradingview-widget-container chart-no-pointer"
+      id="tvChartContainer"
+    >
       <div id="tradingview_12345"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-      <script type="text/javascript">
-        new TradingView.widget({
-          width: "100%",
-          height: 610,
-          symbol: "BINANCE:BTCUSDT",
-          interval: "D",
-          timezone: "Etc/UTC",
-          theme: "dark",
-          style: "1",
-          locale: "br",
-          toolbar_bg: "#f1f3f6",
-          enable_publishing: false,
-          allow_symbol_change: true,
-          container_id: "tradingview_12345",
-        });
-      </script>
     </div>
+
+    <!-- Overlay invisível para capturar o clique e liberar a interação -->
+    <div class="chart-overlay" onclick="enableChart()"></div>
   </div>
-  <!-- TradingView Widget END -->
+
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+    new TradingView.widget({
+      width: "100%",     // Responsivo
+      height: 450,       // Mais horizontal (menos altura)
+      symbol: "BINANCE:BTCUSDT",
+      interval: "D",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: "1",
+      locale: "br",
+      toolbar_bg: "#f1f3f6",
+      enable_publishing: false,
+      allow_symbol_change: true,
+      container_id: "tradingview_12345",
+    });
+  </script>
 
   <div id="whitepaper" class="section">
     <a
-      href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
+      href="https://raw.githubusercontent.com/SmileLabsAI/SLAI_Whitepaper_English.pdf"
       class="action-button"
       target="_blank"
       >Download Whitepaper</a
@@ -506,7 +506,7 @@
   </footer>
 
   <script>
-    // ========== MENU MOBILE ==========
+    // MENU MOBILE
     function toggleMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
@@ -520,23 +520,14 @@
       overlay.style.display = "none";
     }
 
-    // ========== TOGGLE INTERAÇÃO DO GRÁFICO ==========
-    let chartInteractionEnabled = false;
-    function toggleChartInteraction() {
+    // LIBERA INTERAÇÃO DO GRÁFICO QUANDO CLICAR NA OVERLAY
+    function enableChart() {
       const chartContainer = document.getElementById("tvChartContainer");
-      const btn = document.querySelector(".chart-toggle");
-      
-      if (chartInteractionEnabled) {
-        // Desativar interação
-        chartContainer.classList.add("chart-no-pointer");
-        btn.textContent = "Liberar Interação do Gráfico";
-      } else {
-        // Ativar interação
-        chartContainer.classList.remove("chart-no-pointer");
-        btn.textContent = "Bloquear Interação do Gráfico";
-      }
-
-      chartInteractionEnabled = !chartInteractionEnabled;
+      const overlay = document.querySelector(".chart-overlay");
+      // Remove pointer-events: none
+      chartContainer.classList.remove("chart-no-pointer");
+      // Some com a camada invisível (para que o usuário possa clicar no gráfico)
+      overlay.style.display = "none";
     }
   </script>
 </body>
