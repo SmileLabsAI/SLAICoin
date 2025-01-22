@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Zoom 75% (opcional) -->
+  <!-- Zoom a 75% se desejar -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
@@ -42,7 +42,7 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden; /* Evita rolagem horizontal */
+      overflow-x: hidden;
     }
 
     /* Cabeçalho */
@@ -66,6 +66,7 @@
       cursor: pointer;
     }
 
+    /* Botão hambúrguer mobile */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -100,7 +101,7 @@
       color: #19fb9b;
     }
 
-    /* Menu mobile overlay */
+    /* Overlay do menu mobile */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -112,17 +113,16 @@
       z-index: 999;
     }
 
-    /* Seção Hero */
+    /* Hero */
     .hero {
       height: 90vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       background: linear-gradient(135deg, #19fb9b, #9945ff);
       padding: 80px 5%;
-      margin-top: 70px; /* para não ficar atrás do header fixo */
+      margin-top: 70px; /* evita sobreposição do header */
     }
 
     .hero h1 {
@@ -141,7 +141,7 @@
       color: white;
     }
 
-    /* Botões (Whitepaper, Buy, etc.) */
+    /* Botões de ação */
     .action-button {
       background: linear-gradient(45deg, #19fb9b, #9945ff);
       color: white;
@@ -165,7 +165,7 @@
         0px 0px 30px rgba(153, 69, 255, 0.5);
     }
 
-    /* Seções gerais */
+    /* Seções */
     .section {
       background: rgba(20, 20, 20, 0.95);
       padding: 50px;
@@ -176,14 +176,14 @@
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
-    /* Títulos => 36px */
+    /* Título das sections => 36px */
     .section h2 {
       font-size: 36px;
       margin-bottom: 20px;
       font-weight: 600;
     }
 
-    /* Redes Sociais */
+    /* Social links */
     .social-links {
       margin-top: 60px;
       display: flex;
@@ -251,25 +251,25 @@
       }
     }
 
-    /* Chart Container */
+    /* ==================== TRADINGVIEW ===================== */
+    /* Contêiner do gráfico: Largura total do .section e altura ~350px */
     .chart-container {
       position: relative;
       width: 100%;
-      height: 360px; /* ou 400px se preferir */
+      height: 350px;
       margin: 0 auto;
+      /* Por padrão: travado => pointer-events none */
+      pointer-events: none;
     }
 
-    /* O widget do TradingView ocupa toda a container */
-    .chart-container #tradingview_12345 {
+    /* O widget do TradingView */
+    #tradingview_12345 {
       width: 100%;
       height: 100%;
       display: block;
     }
 
-    /*
-      Overlay invisível para capturar clique INICIAL dentro do chart.
-      pointer-events: auto => para conseguir detectar clique.
-    */
+    /* Overlay invisível para capturar clique dentro do chart (inicialmente) */
     .chart-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -278,18 +278,18 @@
       cursor: pointer;
     }
 
-    /* Quando 'travado', o chart tem pointer-events: none => rolagem livre. */
-    .chart-locked {
-      pointer-events: none; 
+    /* Quando destravado => some overlay e pointer-events: auto */
+    .chart-unlocked {
+      pointer-events: auto; 
     }
-
-    /* Quando 'destravado', a overlay some => chart com pointer-events: auto. */
     .chart-unlocked .chart-overlay {
       display: none;
     }
+
   </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
@@ -312,7 +312,7 @@
     </nav>
   </header>
 
-  <!-- Overlay p/ menu mobile -->
+  <!-- Overlay do menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -354,7 +354,7 @@
   </div>
 
   <script>
-    // Chart.js: Vesting
+    // Chart.js - Vesting
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -385,7 +385,7 @@
     });
   </script>
 
-  <!-- BTC DADOS -->
+  <!-- BTC DADOS AO VIVO -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -394,6 +394,7 @@
   </div>
 
   <script>
+    // Exemplo CoinGecko
     async function getBitcoinData() {
       try {
         const url =
@@ -402,35 +403,35 @@
         const data = await response.json();
         const btc = data.bitcoin;
 
-        document.getElementById("price").textContent = 
+        document.getElementById("price").textContent =
           `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
-        document.getElementById("market-cap").textContent = 
+        document.getElementById("market-cap").textContent =
           `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
-        document.getElementById("volume").textContent = 
+        document.getElementById("volume").textContent =
           `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
       } catch (error) {
         console.error("Erro ao buscar dados do Bitcoin:", error);
       }
     }
-
     getBitcoinData();
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- TRADINGVIEW CHART -->
+  <!-- TRADINGVIEW -->
   <div class="section">
-    <div class="chart-container chart-locked" id="chartContainer">
+    <div class="chart-container" id="chartContainer">
+      <!-- Overlay p/ capturar clique dentro do chart -->
       <div class="chart-overlay" onclick="activateChart(event)"></div>
       <div id="tradingview_12345"></div>
     </div>
   </div>
 
-  <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
+    // Inicializa o TradingView
     new TradingView.widget({
       width: "100%",
-      height: 360,
+      height: 350,
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -443,22 +444,19 @@
       container_id: "tradingview_12345",
     });
 
-    // Estado inicial: travado
     const chartContainer = document.getElementById("chartContainer");
 
-    function activateChart(ev) {
-      // Impede o clique de "subir" pro document
-      ev.stopPropagation();
-      // Destravado => remove "chart-locked", adiciona "chart-unlocked"
-      chartContainer.classList.remove("chart-locked");
+    // Quando clicamos dentro do chart => destrava
+    function activateChart(e) {
+      // Evita que o clique seja capturado pelo "document" e reverta
+      e.stopPropagation();
       chartContainer.classList.add("chart-unlocked");
     }
 
-    // Ao clicar em qualquer lugar de fora do chart => travamos novamente
-    document.addEventListener("click", (e) => {
-      // Se o clique NÃO está dentro do chartContainer, travamos
-      if (!chartContainer.contains(e.target)) {
-        chartContainer.classList.add("chart-locked");
+    // Clique global => se for fora do chart, travamos
+    document.addEventListener("click", (ev) => {
+      // Se o clique NÃO estiver no chartContainer, trava de novo
+      if (!chartContainer.contains(ev.target)) {
         chartContainer.classList.remove("chart-unlocked");
       }
     });
@@ -505,7 +503,7 @@
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
-  <!-- MENU MOBILE SCRIPT -->
+  <!-- SCRIPTS DO MENU MOBILE -->
   <script>
     function toggleMenu() {
       const nav = document.querySelector("header nav");
