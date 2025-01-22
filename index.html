@@ -261,9 +261,12 @@
        Diminuir fontes e ajustar layout no mobile
        ------------------------------------------ */
     @media (max-width: 768px) {
+      /* BOTÃO HAMBÚRGUER VISÍVEL */
       .menu-btn {
         display: block;
       }
+
+      /* MENU MOBILE POR PADRÃO INVISÍVEL */
       nav {
         display: none;
         position: fixed;
@@ -278,6 +281,11 @@
         box-shadow: 0 0 10px rgba(153, 69, 255, 0.3);
         z-index: 1101;
       }
+      /* >>> ESSENCIAL: MOSTRA O MENU QUANDO .active <<< */
+      nav.active {
+        display: flex;
+      }
+
       nav ul {
         flex-direction: column;
         gap: 10px;
@@ -348,6 +356,7 @@
     </nav>
   </header>
 
+  <!-- Overlay do menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
