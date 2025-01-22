@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- Forçando "zoom" inicial em 75% (opcional) -->
+  <!-- Forçando "zoom" inicial em 75% (opcional, como você solicitou) -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
   />
-
   <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain" />
   <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry" />
   <meta
@@ -229,25 +227,7 @@
       margin: 10px 0;
     }
 
-    /* TradingView responsivo */
-    .tradingview-widget-container {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    /*
-      Se o TradingView estiver muito grande em dispositivos pequenos,
-      reduzimos a altura para 400px e escondemos o overflow,
-      permitindo que o usuário role a página normalmente.
-    */
-    @media (max-width: 768px) {
-      .tradingview-widget-container {
-        max-height: 400px;
-        overflow: hidden;
-      }
-    }
-
-    /* ========== AJUSTES DE RESPONSIVIDADE GERAL ========== */
+    /* ===== Ajustes de Responsividade ===== */
     @media (max-width: 768px) {
       /* Mostra o botão hambúrguer e some o menu horizontal */
       .menu-btn {
@@ -276,7 +256,6 @@
         flex-direction: column;
         gap: 10px;
       }
-      /* links em bloco para facilitar o clique no mobile */
       nav ul li {
         display: block;
       }
@@ -287,6 +266,38 @@
         font-size: 16px;
       }
     }
+
+    /* TradingView responsivo */
+    .tradingview-widget-container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ============ Toggle da interação do Chart ============ */
+    .chart-container {
+      position: relative;
+      margin-top: 30px;
+      /* Para visual separada, mas é opcional */
+    }
+    /* Botão de toggle de interação do gráfico */
+    .chart-toggle {
+      position: relative; /* ou absolute, se quiser sobrepor */
+      margin-bottom: 10px;
+      background: #666;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Por padrão, desativamos eventos do gráfico:
+       Assim, se o usuário rolar, não "prende" no gráfico. */
+    .chart-no-pointer {
+      pointer-events: none;
+    }
+
   </style>
 </head>
 <body>
@@ -427,26 +438,33 @@
     setInterval(getBitcoinData, 60_000);
   </script>
 
-  <!-- TradingView Widget BEGIN -->
-  <div class="tradingview-widget-container">
-    <div id="tradingview_12345"></div>
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript">
-      new TradingView.widget({
-        width: "100%", // Responsivo
-        height: 610,
-        symbol: "BINANCE:BTCUSDT",
-        interval: "D",
-        timezone: "Etc/UTC",
-        theme: "dark",
-        style: "1",
-        locale: "br",
-        toolbar_bg: "#f1f3f6",
-        enable_publishing: false,
-        allow_symbol_change: true,
-        container_id: "tradingview_12345",
-      });
-    </script>
+  <!-- TradingView Widget + Toggle de Interação -->
+  <div class="section chart-container">
+    <!-- Botão para liberar/bloquear interação -->
+    <button class="chart-toggle" onclick="toggleChartInteraction()">
+      Liberar Interação do Gráfico
+    </button>
+
+    <div class="tradingview-widget-container chart-no-pointer" id="tvChartContainer">
+      <div id="tradingview_12345"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+      <script type="text/javascript">
+        new TradingView.widget({
+          width: "100%",
+          height: 610,
+          symbol: "BINANCE:BTCUSDT",
+          interval: "D",
+          timezone: "Etc/UTC",
+          theme: "dark",
+          style: "1",
+          locale: "br",
+          toolbar_bg: "#f1f3f6",
+          enable_publishing: false,
+          allow_symbol_change: true,
+          container_id: "tradingview_12345",
+        });
+      </script>
+    </div>
   </div>
   <!-- TradingView Widget END -->
 
@@ -476,7 +494,7 @@
         src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
         alt="Telegram"
     /></a>
-    <a href="https://discord.gg/7GVfuRsdpJ" target="_blank"
+    <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"
       ><img
         src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true"
         alt="Discord"
@@ -488,20 +506,37 @@
   </footer>
 
   <script>
-    // Toggle do menu
+    // ========== MENU MOBILE ==========
     function toggleMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
       nav.classList.toggle("active");
       overlay.style.display = nav.classList.contains("active") ? "block" : "none";
     }
-
-    // Fecha menu ao clicar em qualquer link ou no overlay
     function closeMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
       nav.classList.remove("active");
       overlay.style.display = "none";
+    }
+
+    // ========== TOGGLE INTERAÇÃO DO GRÁFICO ==========
+    let chartInteractionEnabled = false;
+    function toggleChartInteraction() {
+      const chartContainer = document.getElementById("tvChartContainer");
+      const btn = document.querySelector(".chart-toggle");
+      
+      if (chartInteractionEnabled) {
+        // Desativar interação
+        chartContainer.classList.add("chart-no-pointer");
+        btn.textContent = "Liberar Interação do Gráfico";
+      } else {
+        // Ativar interação
+        chartContainer.classList.remove("chart-no-pointer");
+        btn.textContent = "Bloquear Interação do Gráfico";
+      }
+
+      chartInteractionEnabled = !chartInteractionEnabled;
     }
   </script>
 </body>
