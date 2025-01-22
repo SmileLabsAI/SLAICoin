@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Zoom a 75% se desejar -->
+  <!-- Zoom em 75% se desejar -->
   <meta
     name="viewport"
     content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
@@ -42,7 +42,7 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden;
+      overflow-x: hidden; /* Evita rolagem horizontal */
     }
 
     /* Cabeçalho */
@@ -66,7 +66,6 @@
       cursor: pointer;
     }
 
-    /* Botão hambúrguer mobile */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -141,7 +140,7 @@
       color: white;
     }
 
-    /* Botões de ação */
+    /* Botões */
     .action-button {
       background: linear-gradient(45deg, #19fb9b, #9945ff);
       color: white;
@@ -176,7 +175,7 @@
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
-    /* Título das sections => 36px */
+    /* Títulos (36px) */
     .section h2 {
       font-size: 36px;
       margin-bottom: 20px;
@@ -249,43 +248,44 @@
       .section h2 {
         font-size: 28px;
       }
+
+      /* Ajuste a altura do chart no mobile se quiser menor */
+      .chart-container {
+        height: 300px; 
+      }
     }
 
     /* ==================== TRADINGVIEW ===================== */
-    /* Contêiner do gráfico: Largura total do .section e altura ~350px */
     .chart-container {
       position: relative;
       width: 100%;
-      height: 350px;
+      height: 350px; /* Em desktops */
       margin: 0 auto;
-      /* Por padrão: travado => pointer-events none */
+      /* Travado por padrão => pointer-events: none; */
       pointer-events: none;
     }
-
-    /* O widget do TradingView */
     #tradingview_12345 {
       width: 100%;
       height: 100%;
       display: block;
     }
 
-    /* Overlay invisível para capturar clique dentro do chart (inicialmente) */
+    /* Overlay invisível para capturar toque inicial dentro do chart */
     .chart-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       background: transparent;
-      z-index: 2; /* acima do chart */
+      z-index: 2;
       cursor: pointer;
     }
 
-    /* Quando destravado => some overlay e pointer-events: auto */
+    /* Quando destravado => pointer-events: auto e some overlay */
     .chart-unlocked {
-      pointer-events: auto; 
+      pointer-events: auto;
     }
     .chart-unlocked .chart-overlay {
       display: none;
     }
-
   </style>
 </head>
 <body>
@@ -311,8 +311,6 @@
       </ul>
     </nav>
   </header>
-
-  <!-- Overlay do menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -352,9 +350,7 @@
     <h2>Token Vesting Dashboard</h2>
     <canvas id="vestingChart"></canvas>
   </div>
-
   <script>
-    // Chart.js - Vesting
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -385,32 +381,29 @@
     });
   </script>
 
-  <!-- BTC DADOS AO VIVO -->
+  <!-- BTC ao vivo -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
     <p id="market-cap">Market Cap: Carregando...</p>
     <p id="volume">Volume (24h): Carregando...</p>
   </div>
-
   <script>
-    // Exemplo CoinGecko
     async function getBitcoinData() {
       try {
         const url =
           "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
-        const response = await fetch(url);
-        const data = await response.json();
+        const resp = await fetch(url);
+        const data = await resp.json();
         const btc = data.bitcoin;
-
         document.getElementById("price").textContent =
           `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
         document.getElementById("market-cap").textContent =
           `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
         document.getElementById("volume").textContent =
           `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
-      } catch (error) {
-        console.error("Erro ao buscar dados do Bitcoin:", error);
+      } catch (err) {
+        console.error("Erro ao buscar dados do Bitcoin:", err);
       }
     }
     getBitcoinData();
@@ -420,15 +413,15 @@
   <!-- TRADINGVIEW -->
   <div class="section">
     <div class="chart-container" id="chartContainer">
-      <!-- Overlay p/ capturar clique dentro do chart -->
-      <div class="chart-overlay" onclick="activateChart(event)"></div>
+      <!-- Overlay p/ capturar toque/clique -->
+      <div class="chart-overlay" id="chartOverlay"></div>
       <div id="tradingview_12345"></div>
     </div>
   </div>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    // Inicializa o TradingView
+    // Inicia o widget TradingView
     new TradingView.widget({
       width: "100%",
       height: 350,
@@ -444,20 +437,21 @@
       container_id: "tradingview_12345",
     });
 
-    const chartContainer = document.getElementById("chartContainer");
+    const container = document.getElementById("chartContainer");
+    const overlay = document.getElementById("chartOverlay");
 
-    // Quando clicamos dentro do chart => destrava
-    function activateChart(e) {
-      // Evita que o clique seja capturado pelo "document" e reverta
-      e.stopPropagation();
-      chartContainer.classList.add("chart-unlocked");
-    }
+    // 1) Ao tocar/clique na overlay => destrava chart
+    //    Usamos pointerdown p/ suportar mobiles, mas pode ser click + touchstart se preferir
+    overlay.addEventListener("pointerdown", (event) => {
+      // Impede propagação para não disparar o listener global
+      event.stopPropagation();
+      container.classList.add("chart-unlocked");
+    });
 
-    // Clique global => se for fora do chart, travamos
-    document.addEventListener("click", (ev) => {
-      // Se o clique NÃO estiver no chartContainer, trava de novo
-      if (!chartContainer.contains(ev.target)) {
-        chartContainer.classList.remove("chart-unlocked");
+    // 2) Ao tocar/clique no "document" => se for fora do container, travamos
+    document.addEventListener("pointerdown", (e) => {
+      if (!container.contains(e.target)) {
+        container.classList.remove("chart-unlocked");
       }
     });
   </script>
@@ -480,7 +474,7 @@
     </a>
   </div>
 
-  <!-- SOCIAL LINKS -->
+  <!-- Social links -->
   <div class="social-links">
     <a href="https://x.com/SmileLabsAI" target="_blank"
       ><img
@@ -503,7 +497,7 @@
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
-  <!-- SCRIPTS DO MENU MOBILE -->
+  <!-- Script do menu mobile -->
   <script>
     function toggleMenu() {
       const nav = document.querySelector("header nav");
