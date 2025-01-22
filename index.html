@@ -1,421 +1,471 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain">
-    <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry">
-    <meta property="og:description" content="$SLAI integrates AI, Web3, and DeFi into the dental industry.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/Logo.jpg">
-    <meta property="og:url" content="https://smilelabsai.github.io/SLAICoin/">
-    <meta property="og:type" content="website">
-    <title>$SLAI - Smile Labs AI</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain" />
+  <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry" />
+  <meta
+    property="og:description"
+    content="$SLAI integrates AI, Web3, and DeFi into the dental industry."
+  />
+  <meta
+    property="og:image"
+    content="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/main/Logo.jpg"
+  />
+  <meta
+    property="og:url"
+    content="https://smilelabsai.github.io/SLAICoin/"
+  />
+  <meta property="og:type" content="website" />
+  <title>$SLAI - Smile Labs AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: linear-gradient(90deg, #000000, #000000, #000000);
-            color: white;
-            overflow-x: hidden;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
-        /* Cabeçalho */
-        header {
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 15px 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    body {
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      background: linear-gradient(90deg, #000000, #000000, #000000);
+      color: white;
+      overflow-x: hidden;
+    }
 
-        .logo {
-            width: 100px;
-            height: auto;
-            cursor: pointer;
-        }
+    /* Cabeçalho */
+    header {
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 15px 5%;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
 
-        nav {
-            text-align: right;
-        }
+      /* Layout horizontal padrão (desktop) */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            padding: 0;
-            margin: 0;
-        }
+    .logo {
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+    }
 
-        nav ul li {
-            display: inline;
-        }
+    /* Botão de menu (hambúrguer) - escondido por padrão, aparece no mobile */
+    .menu-btn {
+      display: none;
+      cursor: pointer;
+      font-size: 28px;
+      color: white;
+      background: none;
+      border: none;
+    }
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    nav {
+      text-align: right;
+    }
 
-        nav ul li a:hover {
-            color: #19FB9B;
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
 
-        /* Seção Hero */
-        .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, #19FB9B, #9945FF);
-            padding: 80px 5%;
-        }
+    nav ul li {
+      display: inline;
+    }
 
-        .hero h1 {
-            font-size: 50px;
-            font-weight: 700;
-            background: linear-gradient(to right, #000000, #000000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
 
-        .hero p {
-            font-size: 20px;
-            max-width: 600px;
-            margin-top: 15px;
-            opacity: 0.8;
-            color: white;
-        }
+    nav ul li a:hover {
+      color: #19fb9b;
+    }
 
-        /* Botões */
-        .action-button {
-            background: linear-gradient(45deg, #19FB9B, #9945FF);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 18px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: 0.3s ease-in-out;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
+    /* Seção Hero */
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #19fb9b, #9945ff);
+      padding: 80px 5%;
+      margin-top: 70px; /* Para não ficar atrás do header fixo */
+    }
 
-        .action-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7), 
-                        0px 0px 30px rgba(153, 69, 255, 0.5);
-        }
+    .hero h1 {
+      font-size: 50px;
+      font-weight: 700;
+      background: linear-gradient(to right, #000000, #000000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        /* Seções */
-        .section {
-            background: rgba(20, 20, 20, 0.95);
-            padding: 50px;
-            margin: 80px auto;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 900px;
-            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
-        }
+    .hero p {
+      font-size: 20px;
+      max-width: 600px;
+      margin-top: 15px;
+      opacity: 0.8;
+      color: white;
+    }
 
-        /* Redes Sociais */
-        .social-links {
-            margin-top: 60px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
+    /* Botões */
+    .action-button {
+      background: linear-gradient(45deg, #19fb9b, #9945ff);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: 0.3s ease-in-out;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .social-links img {
-            width: 40px;
-            height: 40px;
-            transition: transform 0.3s ease-in-out;
-        }
+    .action-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7),
+        0px 0px 30px rgba(153, 69, 255, 0.5);
+    }
 
-        .social-links img:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
-        }
+    /* Seções */
+    .section {
+      background: rgba(20, 20, 20, 0.95);
+      padding: 50px;
+      margin: 80px auto;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+    }
 
-        /* Rodapé */
-        .footer {
-            background-color: #111;
-            color: white;
-            padding: 30px;
-            margin-top: 60px;
-        }
+    /* Redes Sociais */
+    .social-links {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
 
-        /* Estilos para a seção de dados da moeda */
-        #token-data {
-            background: rgba(20, 20, 20, 0.95);
-            padding: 50px;
-            margin: 80px auto;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 900px;
-            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
-            color: white;
-        }
+    .social-links img {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s ease-in-out;
+    }
 
-        #token-data h2 {
-            font-size: 32px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
+    }
 
-        #token-data p {
-            font-size: 18px;
-            margin: 10px 0;
-        }
+    /* Rodapé */
+    .footer {
+      background-color: #111;
+      color: white;
+      padding: 30px;
+      margin-top: 60px;
+    }
 
-        /* ========== AJUSTES DE RESPONSIVIDADE ========== */
-        @media (max-width: 768px) {
-            /* Menu stack em colunas */
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
-            /* Ajusta título/p no Hero */
-            .hero h1 {
-                font-size: 36px;
-            }
-            .hero p {
-                font-size: 16px;
-            }
-        }
+    /* Estilos para a seção de dados da moeda */
+    #token-data {
+      background: rgba(20, 20, 20, 0.95);
+      padding: 50px;
+      margin: 80px auto;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+      color: white;
+    }
 
-        /* TradingView responsivo (caso queira sobrescrever via CSS) */
-        .tradingview-widget-container {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-    </style>
+    #token-data h2 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    #token-data p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    /* ========== AJUSTES DE RESPONSIVIDADE ========== */
+    @media (max-width: 768px) {
+      /* Mostra o botão hambúrguer e some o menu horizontal */
+      .menu-btn {
+        display: block;
+      }
+
+      /* Esconde o nav no mobile por padrão */
+      nav {
+        display: none;
+        position: absolute;
+        top: 60px; /* logo abaixo do header */
+        right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        width: 200px;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: right;
+        box-shadow: 0 0 10px rgba(153, 69, 255, 0.3);
+      }
+      /* Quando o nav tiver classe .active, aparece */
+      nav.active {
+        display: flex;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      nav ul li {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+
+    /* TradingView responsivo */
+    .tradingview-widget-container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <a href="#top">
+      <img
+        src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png"
+        alt="Smile Labs Logo"
+        class="logo"
+        title="Go to Top"
+      />
+    </a>
 
-    <header>
-        <a href="#top">
-            <img src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png" 
-                 alt="Smile Labs Logo" class="logo" title="Go to Top">
-        </a>
-        <nav>
-            <ul>
-                <li><a href="#top">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#tokenomics">Tokenomics</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#vesting">Token Vesting</a></li>
-                <li><a href="#whitepaper">Whitepaper</a></li>
-                <li><a href="#buy">Buy $SLAI</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Botão de menu (hambúrguer) -->
+    <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
 
-    <div id="top" class="hero">
-        <h1>$SLAI - The Future of Digital Dentistry</h1>
-        <p>AI & Blockchain powering the next revolution in digital dentistry.</p>
-        <a href="#buy" class="action-button">Buy $SLAI Now</a>
-    </div>
+    <nav>
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#tokenomics">Tokenomics</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#vesting">Token Vesting</a></li>
+        <li><a href="#whitepaper">Whitepaper</a></li>
+        <li><a href="#buy">Buy $SLAI</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div id="about" class="section">
-        <h2>About $SLAI</h2>
-        <p>$SLAI is a blockchain-powered digital currency designed to transform the dental industry.</p>
-    </div>
+  <div id="top" class="hero">
+    <h1>$SLAI - The Future of Digital Dentistry</h1>
+    <p>AI & Blockchain powering the next revolution in digital dentistry.</p>
+    <a href="#buy" class="action-button">Buy $SLAI Now</a>
+  </div>
 
-    <div id="tokenomics" class="section">
-        <h2>Tokenomics</h2>
-        <p>Supply: 1 Billion $SLAI</p>
-        <p>85% Community, 15% Founders</p>
-    </div>
+  <div id="about" class="section">
+    <h2>About $SLAI</h2>
+    <p>
+      $SLAI is a blockchain-powered digital currency designed to transform the
+      dental industry.
+    </p>
+  </div>
 
-    <div id="roadmap" class="section">
-        <h2>Roadmap</h2>
-        <p>Q1 2025: Development & Partnerships</p>
-        <p>Q2 2025: Token Launch & Marketplace Beta</p>
-        <p>Q3 2025: Expansion & Staking Implementation</p>
-        <p>Q4 2025: Global Adoption & Multichain Integration</p>
-    </div>
+  <div id="tokenomics" class="section">
+    <h2>Tokenomics</h2>
+    <p>Supply: 1 Billion $SLAI</p>
+    <p>85% Community, 15% Founders</p>
+  </div>
 
-    <!-- Dashboard de Vesting -->
-    <div id="vesting" class="section">
-        <h2>Token Vesting Dashboard</h2>
-        <canvas id="vestingChart"></canvas>
-    </div>
+  <div id="roadmap" class="section">
+    <h2>Roadmap</h2>
+    <p>Q1 2025: Development & Partnerships</p>
+    <p>Q2 2025: Token Launch & Marketplace Beta</p>
+    <p>Q3 2025: Expansion & Staking Implementation</p>
+    <p>Q4 2025: Global Adoption & Multichain Integration</p>
+  </div>
 
-    <script>
-        var ctx = document.getElementById('vestingChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Launch', 'Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
-                datasets: [
-                    {
-                        label: 'Tokens Released (%)',
-                        data: [85, 7.5, 2.5, 1.5, 1.5],
-                        backgroundColor: 'rgba(25, 251, 155, 0.7)'
-                    },
-                    {
-                        label: 'Tokens Locked (%)',
-                        data: [0, 7.5, 5, 3.5, 2],
-                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
-                    }
-                ]
-            },
-            options: { 
-                responsive: true,
-                scales: { 
-                    y: { 
-                        beginAtZero: true,
-                        max: 100
-                    }
-                } 
-            }
-        });
-    </script>
+  <!-- Dashboard de Vesting -->
+  <div id="vesting" class="section">
+    <h2>Token Vesting Dashboard</h2>
+    <canvas id="vestingChart"></canvas>
+  </div>
 
-    <!-- Seção de Dados ao Vivo da Moeda -->
-    <div id="token-data" class="section">
-        <h2>Dados ao Vivo da Moeda</h2>
-        <p id="price">Preço Atual: Carregando...</p>
-        <p id="market-cap">Market Cap: Carregando...</p>
-        <p id="volume">Volume (24h): Carregando...</p>
-    </div>
-
-    <script>
-        // Endereço do WebSocket do Pump.fun
-        const wsUrl = 'wss://rpc.api-pump.fun/ws';
-
-        // Endereço do contrato da sua moeda
-        const tokenAddress = 'B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump';
-
-        // Elementos HTML onde os dados serão exibidos
-        const priceElement = document.getElementById('price');
-        const marketCapElement = document.getElementById('market-cap');
-        const volumeElement = document.getElementById('volume');
-
-        // Função para formatar números como moeda
-        function formatCurrency(value) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD'
-            }).format(value);
+  <script>
+    var ctx = document.getElementById("vestingChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Launch", "Q1 2025", "Q2 2025", "Q3 2025", "Q4 2025"],
+        datasets: [
+          {
+            label: "Tokens Released (%)",
+            data: [85, 7.5, 2.5, 1.5, 1.5],
+            backgroundColor: "rgba(25, 251, 155, 0.7)"
+          },
+          {
+            label: "Tokens Locked (%)",
+            data: [0, 7.5, 5, 3.5, 2],
+            backgroundColor: "rgba(235, 64, 52, 0.6)"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
         }
+      }
+    });
+  </script>
 
-        // Função para conectar ao WebSocket e receber dados em tempo real
-        function connectWebSocket() {
-            const ws = new WebSocket(wsUrl);
+  <!-- Seção de Dados ao Vivo da Moeda (Exemplo com Bitcoin) -->
+  <div id="token-data" class="section">
+    <h2>Dados ao Vivo da Moeda</h2>
+    <p id="price">Preço Atual: Carregando...</p>
+    <p id="market-cap">Market Cap: Carregando...</p>
+    <p id="volume">Volume (24h): Carregando...</p>
+  </div>
 
-            ws.onopen = () => {
-                console.log('Conectado ao WebSocket do Pump.fun');
+  <script>
+    // Exemplo de busca dos dados do Bitcoin via CoinGecko
+    const priceElement = document.getElementById("price");
+    const marketCapElement = document.getElementById("market-cap");
+    const volumeElement = document.getElementById("volume");
 
-                // Inscrever-se para receber atualizações de trades do token específico
-                const payload = {
-                    method: 'subscribeToken',
-                    // CORREÇÃO: URL deve estar como string no array
-                    params: ['https://pump.fun/coin/B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump']
-                };
-                ws.send(JSON.stringify(payload));
-            };
+    async function getBitcoinData() {
+      try {
+        // Chamada simples à API do CoinGecko para Bitcoin em USD
+        const url =
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
+        const response = await fetch(url);
+        const data = await response.json();
 
-            ws.onmessage = (event) => {
-                const data = JSON.parse(event.data);
-                console.log('Dados recebidos:', data);
+        // data.bitcoin contem os valores requisitados
+        const btc = data.bitcoin;
+        const price = btc.usd;
+        const marketCap = btc.usd_market_cap;
+        const volume24h = btc.usd_24h_vol;
 
-                // Verificar se a mensagem contém informações de trade
-                if (data.method === 'subscribeToken') {
-                    const tradeData = data.params.result;
+        // Atualiza o HTML
+        priceElement.textContent = `Preço Atual: US$ ${price.toLocaleString()}`;
+        marketCapElement.textContent = `Market Cap: US$ ${marketCap.toLocaleString()}`;
+        volumeElement.textContent = `Volume (24h): US$ ${volume24h.toLocaleString()}`;
+      } catch (error) {
+        console.error("Erro ao buscar dados do Bitcoin:", error);
+      }
+    }
 
-                    // Atualizar os elementos HTML com os dados recebidos
-                    priceElement.textContent = `Preço Atual: ${formatCurrency(tradeData.price)}`;
-                    marketCapElement.textContent = `Market Cap: ${formatCurrency(tradeData.marketCap)}`;
-                    volumeElement.textContent = `Volume (24h): ${formatCurrency(tradeData.volume24h)}`;
-                }
-            };
+    // Carrega inicialmente
+    getBitcoinData();
+    // Atualiza a cada 60 segundos
+    setInterval(getBitcoinData, 60_000);
+  </script>
 
-            ws.onclose = () => {
-                console.log('Conexão com o WebSocket fechada. Tentando reconectar em 5 segundos...');
-                setTimeout(connectWebSocket, 5000);
-            };
-
-            ws.onerror = (error) => {
-                console.error('Erro no WebSocket:', error);
-                ws.close();
-            };
-        }
-
-        // Iniciar a conexão com o WebSocket
-        connectWebSocket();
+  <!-- TradingView Widget BEGIN -->
+  <div class="tradingview-widget-container">
+    <div id="tradingview_12345"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+      new TradingView.widget({
+        width: "100%", // Responsivo
+        height: 610,
+        symbol: "BINANCE:BTCUSDT",
+        interval: "D",
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "1",
+        locale: "br",
+        toolbar_bg: "#f1f3f6",
+        enable_publishing: false,
+        allow_symbol_change: true,
+        container_id: "tradingview_12345",
+      });
     </script>
+  </div>
+  <!-- TradingView Widget END -->
 
-    <!-- TradingView Widget BEGIN -->
-    <div class="tradingview-widget-container">
-      <div id="tradingview_12345"></div>
-      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-      <script type="text/javascript">
-        new TradingView.widget({
-          "width": "100%",         // Ajuste para responsividade
-          "height": 610,           // Pode manter fixo ou alterar se desejar
-          "symbol": "BINANCE:BTCUSDT",
-          "interval": "D",
-          "timezone": "Etc/UTC",
-          "theme": "dark",
-          "style": "1",
-          "locale": "br",
-          "toolbar_bg": "#f1f3f6",
-          "enable_publishing": false,
-          "allow_symbol_change": true,
-          "container_id": "tradingview_12345"
-        });
-      </script>
-    </div>
-    <!-- TradingView Widget END -->
+  <div id="whitepaper" class="section">
+    <a
+      href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
+      class="action-button"
+      target="_blank"
+      >Download Whitepaper</a
+    >
+  </div>
 
-    <div id="whitepaper" class="section">
-        <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
-    </div>
+  <div id="buy" class="section">
+    <a href="https://pump.fun/board" class="action-button" target="_blank"
+      >Buy $SLAI Now</a
+    >
+  </div>
 
-    <div id="buy" class="section">
-        <a href="https://pump.fun/board" class="action-button" target="_blank">Buy $SLAI Now</a>
-    </div>
+  <div class="social-links">
+    <a href="https://x.com/SmileLabsAI" target="_blank"
+      ><img
+        src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png"
+        alt="Twitter/X"
+    /></a>
+    <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"
+      ><img
+        src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
+        alt="Telegram"
+    /></a>
+    <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"
+      ><img
+        src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true"
+        alt="Discord"
+    /></a>
+  </div>
 
-    <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_blank">
-            <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X">
-        </a>
-        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
-        </a>
-        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank">
-            <img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord">
-        </a>
-    </div>
+  <footer class="footer">
+    &copy; 2025 $SLAI | All Rights Reserved
+  </footer>
 
-    <footer class="footer">
-        &copy; 2025 $SLAI | All Rights Reserved
-    </footer>
-
+  <script>
+    // Script para abrir/fechar o menu no mobile
+    function toggleMenu() {
+      const nav = document.querySelector("header nav");
+      nav.classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
