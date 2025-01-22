@@ -260,8 +260,7 @@
     }
 
     /* TradingView Container
-       Agora alinhado com as seções (width: 100% dentro de .section)
-       Por padrão pointer-events: auto (destravado).
+       Agora alinhado com as seções
     */
     #tvChartContainer {
       width: 100%;
@@ -273,7 +272,7 @@
       overflow: hidden;
     }
 
-    /* Botão lock/unlock degradê (vermelho->roxo e verde->roxo) */
+    /* Botão lock/unlock */
     .chart-lock-button {
       display: inline-block;
       margin-top: 40px; /* espaçamento maior do chart */
@@ -285,22 +284,21 @@
       cursor: pointer;
       transition: 0.3s ease-in-out;
       box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+      color: #fff; /* Texto branco para ambos os estados */
     }
 
     .chart-lock-button:hover {
       transform: scale(1.05);
     }
 
-    /* Travado => degrade vermelho->roxo */
+    /* Estado LOCK (travado) -> degrade vermelho + roxo */
     .locked-state {
       background: linear-gradient(45deg, #f23b5e, #8b00ff);
-      color: white;
     }
 
-    /* Destravado => degrade verde->roxo */
+    /* Estado UNLOCK (destravado) -> degrade verde + roxo */
     .unlocked-state {
       background: linear-gradient(45deg, #14f195, #8b00ff);
-      color: #000;
     }
   </style>
 </head>
@@ -451,7 +449,8 @@
   <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    let locked = false; // começa destravado (sempre interativo)
+    // Começa destravado (verde + roxo)
+    let locked = false;
     const tvContainer = document.getElementById("tvChartContainer");
     const chartLockBtn = document.getElementById("chartLockBtn");
 
@@ -492,7 +491,7 @@
       }
     }
 
-    // Estado inicial (destravado)
+    // Estado inicial: destravado (verde + roxo)
     updateChartLockState();
   </script>
 
