@@ -260,20 +260,20 @@
     }
 
     /* TradingView Container
-       Ocupa ~98% da largura, centrado com margin: 0 auto, 
-       e travado por padrão (pointer-events: none).
+       Agora alinhado com as seções (width: 100% dentro de .section)
+       Por padrão pointer-events: auto (destravado).
     */
     #tvChartContainer {
-      width: 98%;
+      width: 100%;
       height: 360px;
       margin: 0 auto;
-      background-color: #222; /* só pra visual */
-      pointer-events: none;   /* travado */
+      background-color: #222; 
+      pointer-events: auto;
       position: relative;
       overflow: hidden;
     }
 
-    /* Botão lock/unlock degradê */
+    /* Botão lock/unlock degradê (vermelho->roxo e verde->roxo) */
     .chart-lock-button {
       display: inline-block;
       margin-top: 40px; /* espaçamento maior do chart */
@@ -291,15 +291,15 @@
       transform: scale(1.05);
     }
 
-    /* Travado => degrade de vermelho */
+    /* Travado => degrade vermelho->roxo */
     .locked-state {
-      background: linear-gradient(45deg, #f23b5e, #f76f8f);
+      background: linear-gradient(45deg, #f23b5e, #8b00ff);
       color: white;
     }
 
-    /* Destravado => degrade de verde */
+    /* Destravado => degrade verde->roxo */
     .unlocked-state {
-      background: linear-gradient(45deg, #14f195, #64f1c1);
+      background: linear-gradient(45deg, #14f195, #8b00ff);
       color: #000;
     }
   </style>
@@ -434,30 +434,30 @@
 
   <!-- TRADINGVIEW -->
   <div class="section">
-    <!-- Container do gráfico ~98% da largura, centrado -->
+    <!-- Container do gráfico -->
     <div id="tvChartContainer">
       <div id="tradingview_12345"></div>
     </div>
 
     <!-- Botão Lock/Unlock abaixo do chart -->
     <button
-      class="chart-lock-button locked-state"
+      class="chart-lock-button unlocked-state"
       id="chartLockBtn"
     >
-      Unlock Chart
+      Lock Chart
     </button>
   </div>
 
   <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    let locked = true; // começa travado
+    let locked = false; // começa destravado (sempre interativo)
     const tvContainer = document.getElementById("tvChartContainer");
     const chartLockBtn = document.getElementById("chartLockBtn");
 
     new TradingView.widget({
       width: "100%",
-      height: 360,   // condizente com #tvChartContainer
+      height: 360,
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -470,7 +470,7 @@
       container_id: "tradingview_12345",
     });
 
-    // Ao clicar no botão, alterna locked <-> unlocked
+    // Alterna travado <-> destravado ao clicar
     chartLockBtn.addEventListener("click", () => {
       locked = !locked;
       updateChartLockState();
@@ -480,21 +480,19 @@
       if (locked) {
         // Travado => pointer-events: none
         tvContainer.style.pointerEvents = "none";
-        // Botão degrade vermelho
         chartLockBtn.classList.remove("unlocked-state");
         chartLockBtn.classList.add("locked-state");
         chartLockBtn.textContent = "Unlock Chart";
       } else {
         // Destravado => pointer-events: auto
         tvContainer.style.pointerEvents = "auto";
-        // Botão degrade verde
         chartLockBtn.classList.remove("locked-state");
         chartLockBtn.classList.add("unlocked-state");
         chartLockBtn.textContent = "Lock Chart";
       }
     }
 
-    // Estado inicial
+    // Estado inicial (destravado)
     updateChartLockState();
   </script>
 
