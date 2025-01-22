@@ -42,7 +42,7 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden;
+      overflow-x: hidden; /* Para evitar rolagem horizontal do 130% */
     }
 
     /* Cabeçalho */
@@ -66,7 +66,7 @@
       cursor: pointer;
     }
 
-    /* Botão menu (hambúrguer) */
+    /* Menu (hambúrguer) */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -80,7 +80,6 @@
     nav {
       text-align: right;
     }
-
     nav ul {
       list-style: none;
       display: flex;
@@ -89,19 +88,16 @@
       padding: 0;
       margin: 0;
     }
-
     nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: bold;
       transition: 0.3s;
     }
-
     nav ul li a:hover {
       color: #19fb9b;
     }
 
-    /* Overlay do menu mobile */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -113,7 +109,7 @@
       z-index: 999;
     }
 
-    /* Seção Hero */
+    /* Hero */
     .hero {
       height: 90vh;
       display: flex;
@@ -123,9 +119,8 @@
       text-align: center;
       background: linear-gradient(135deg, #19fb9b, #9945ff);
       padding: 80px 5%;
-      margin-top: 70px; /* Para não ficar atrás do header fixo */
+      margin-top: 70px; /* Evitar sobreposição do header fixo */
     }
-
     .hero h1 {
       font-size: 50px;
       font-weight: 700;
@@ -133,7 +128,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     .hero p {
       font-size: 20px;
       max-width: 600px;
@@ -159,7 +153,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .action-button:hover {
       transform: scale(1.05);
       box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7),
@@ -184,13 +177,11 @@
       justify-content: center;
       gap: 20px;
     }
-
     .social-links img {
       width: 40px;
       height: 40px;
       transition: transform 0.3s ease-in-out;
     }
-
     .social-links img:hover {
       transform: scale(1.1);
       filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
@@ -204,7 +195,7 @@
       margin-top: 60px;
     }
 
-    /* Seção de dados da moeda */
+    /* Dados da moeda */
     #token-data {
       background: rgba(20, 20, 20, 0.95);
       padding: 50px;
@@ -224,7 +215,7 @@
       margin: 10px 0;
     }
 
-    /* ========== Responsivo ========== */
+    /* Responsivo */
     @media (max-width: 768px) {
       .menu-btn {
         display: block;
@@ -261,47 +252,25 @@
       }
     }
 
-    /* TradingView - contêiner */
-    .tradingview-widget-container {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    /* Estado travado => pointer-events none */
-    .locked {
-      pointer-events: none;
-    }
-
-    /*
-      Ajustes de tamanho p/ travado vs destravado
-      travado => width: 100%, height: 300
-      destravado => width: 110%, height: 320
-    */
+    /* TradingView - fixo em 130% x 400px */
     #tvChartContainer {
-      width: 100%;
-      height: 300px;
+      width: 130%;
+      height: 400px;
       margin: 0 auto;
-      transition: all 0.3s ease;
-      background-color: #222; /* só pra destacar */
-      overflow: hidden; /* se passar pra 110%... */
+      background-color: #222; /* só para visual */
       position: relative;
-    }
-    #tvChartContainer.unlocked {
-      width: 110%;
-      height: 320px;
+      overflow: hidden;
+      pointer-events: none; /* travado por padrão */
     }
 
-    /*
-      Botão de lock/unlock
-      Parecido com .action-button, mas teremos cor diferente dependendo do estado
-    */
+    /* Botão lock/unlock estilo gradient */
     .chart-lock-button {
       display: inline-block;
-      padding: 12px 24px;
+      margin-top: 40px; /* espaçamento maior do chart */
+      padding: 15px 30px;
       border-radius: 50px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
-      margin-top: 15px;
       border: none;
       cursor: pointer;
       transition: 0.3s ease-in-out;
@@ -311,27 +280,25 @@
       transform: scale(1.05);
     }
 
-    /* Cores para travado/destravado */
+    /* Travado => degrade de vermelho (Solana style) */
     .locked-state {
-      background: #f23b5e; /* solana red */
+      background: linear-gradient(45deg, #f23b5e, #f76f8f);
       color: white;
     }
+    /* Destravado => degrade de verde (Solana style) */
     .unlocked-state {
-      background: #14f195; /* solana green */
+      background: linear-gradient(45deg, #14f195, #64f1c1);
       color: #000;
     }
   </style>
 </head>
 <body>
-
-  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
         src="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/refs/heads/main/Logo_yellow_only.png"
         alt="Smile Labs Logo"
         class="logo"
-        title="Go to Top"
       />
     </a>
     <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
@@ -347,6 +314,7 @@
       </ul>
     </nav>
   </header>
+
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -381,14 +349,14 @@
     <p>Q4 2025: Global Adoption & Multichain Integration</p>
   </div>
 
-  <!-- VESTING DASHBOARD -->
+  <!-- VESTING CHART -->
   <div id="vesting" class="section">
     <h2>Token Vesting Dashboard</h2>
     <canvas id="vestingChart"></canvas>
   </div>
 
   <script>
-    // Chart.js - Vesting
+    // Chart.js (Vesting)
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -419,7 +387,7 @@
     });
   </script>
 
-  <!-- DADOS DA MOEDA (BITCOIN EXEMPLO) -->
+  <!-- DADOS BTC (EXEMPLO) -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -451,21 +419,20 @@
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- TRADINGVIEW + BOTÃO ABAIXO -->
+  <!-- TRADINGVIEW -->
   <div class="section">
-    <!-- Container do TradingView (travado por padrão) -->
+    <!-- Container fixo em 130% x 400px -->
     <div
-      class="tradingview-widget-container locked"
+      class="tradingview-widget-container"
       id="tvChartContainer"
     >
       <div id="tradingview_12345"></div>
     </div>
 
-    <!-- Botão travar/destravar -->
+    <!-- Botão Lock/Unlock -->
     <button
       class="chart-lock-button locked-state"
       id="chartLockBtn"
-      style="margin-top: 20px;"
     >
       Unlock Chart
     </button>
@@ -474,9 +441,15 @@
   <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
+    // Inicia locked => pointer-events: none
+    let locked = true;
+    const tvContainer = document.getElementById("tvChartContainer");
+    const chartLockBtn = document.getElementById("chartLockBtn");
+
+    // Inicia o widget
     new TradingView.widget({
-      width: "100%",
-      height: 300,  // comece com 300px (travado)
+      width: "100%", 
+      height: 400, 
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -489,34 +462,24 @@
       container_id: "tradingview_12345",
     });
 
-    // Lógica de travar/destravar
-    let locked = true;
-    const chartContainer = document.getElementById("tvChartContainer");
-    const chartLockBtn = document.getElementById("chartLockBtn");
-
+    // Alternar lock/unlock
     chartLockBtn.addEventListener("click", () => {
-      locked = !locked; // alterna
+      locked = !locked;
       updateChartLockState();
     });
 
     function updateChartLockState() {
       if (locked) {
-        // TRAVADO
-        chartContainer.classList.add("locked");
-        chartContainer.classList.remove("unlocked");
-
+        // TRAVADO => pointer-events none
+        tvContainer.style.pointerEvents = "none";
         chartLockBtn.classList.remove("unlocked-state");
         chartLockBtn.classList.add("locked-state");
-
         chartLockBtn.textContent = "Unlock Chart";
       } else {
-        // DESTRAVADO
-        chartContainer.classList.remove("locked");
-        chartContainer.classList.add("unlocked");
-
+        // DESTRAVADO => pointer-events auto
+        tvContainer.style.pointerEvents = "auto";
         chartLockBtn.classList.remove("locked-state");
         chartLockBtn.classList.add("unlocked-state");
-
         chartLockBtn.textContent = "Lock Chart";
       }
     }
@@ -531,7 +494,9 @@
       href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
       class="action-button"
       target="_blank"
-    >Download Whitepaper</a>
+    >
+      Download Whitepaper
+    </a>
   </div>
 
   <!-- BUY SLAI -->
@@ -540,7 +505,9 @@
       href="https://pump.fun/board"
       class="action-button"
       target="_blank"
-    >Buy $SLAI Now</a>
+    >
+      Buy $SLAI Now
+    </a>
   </div>
 
   <!-- SOCIAL LINKS -->
@@ -549,25 +516,24 @@
       ><img
         src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png"
         alt="Twitter/X"
-    /></a>
+      /></a>
     <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"
       ><img
         src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
         alt="Telegram"
-    /></a>
+      /></a>
     <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"
       ><img
         src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true"
         alt="Discord"
-    /></a>
+      /></a>
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
-  <!-- MENU MOBILE SCRIPTS -->
+  <!-- Menu Mobile Script -->
   <script>
     function toggleMenu() {
       const nav = document.querySelector("header nav");
@@ -575,7 +541,6 @@
       nav.classList.toggle("active");
       overlay.style.display = nav.classList.contains("active") ? "block" : "none";
     }
-
     function closeMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
@@ -583,6 +548,5 @@
       overlay.style.display = "none";
     }
   </script>
-
 </body>
 </html>
