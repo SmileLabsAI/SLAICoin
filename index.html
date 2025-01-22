@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Zoom 75% (opcional) -->
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=0.75, maximum-scale=0.75, user-scalable=no"
+    content="width=device-width, initial-scale=1.0" <!-- Ajustei para 1.0 -->
   />
   <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain" />
   <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry" />
@@ -42,14 +41,14 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden; /* para não rolar horizontal se algo extrapolar */
+      overflow-x: hidden;
     }
 
     /* --------------------------
        Títulos (h2) unificados
        -------------------------- */
     h2 {
-      font-size: 36px;
+      font-size: 36px; 
       margin-bottom: 20px;
       font-weight: 600;
     }
@@ -75,7 +74,6 @@
       cursor: pointer;
     }
 
-    /* Botão de menu (hambúrguer) */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -86,16 +84,11 @@
       z-index: 1100;
     }
 
-    nav {
-      text-align: right;
-    }
-
     nav ul {
       list-style: none;
       display: flex;
       justify-content: flex-end;
       gap: 20px;
-      padding: 0;
       margin: 0;
     }
 
@@ -110,7 +103,6 @@
       color: #19fb9b;
     }
 
-    /* Overlay do menu mobile */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -129,10 +121,9 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       background: linear-gradient(135deg, #19fb9b, #9945ff);
       padding: 80px 5%;
-      margin-top: 70px; /* para não ficar atrás do header fixo */
+      margin-top: 70px;
     }
 
     .hero h1 {
@@ -175,7 +166,7 @@
         0px 0px 30px rgba(153, 69, 255, 0.5);
     }
 
-    /* Seções gerais (sobre, tokenomics, etc.) */
+    /* Seções gerais */
     .section {
       background: rgba(20, 20, 20, 0.95);
       padding: 50px;
@@ -186,25 +177,6 @@
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
-    /* Redes Sociais */
-    .social-links {
-      margin-top: 60px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .social-links img {
-      width: 40px;
-      height: 40px;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .social-links img:hover {
-      transform: scale(1.1);
-      filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
-    }
-
     /* Rodapé */
     .footer {
       background-color: #111;
@@ -213,7 +185,83 @@
       margin-top: 60px;
     }
 
-    /* Responsivo */
+    /* Social links */
+    .social-links {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-links img {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .social-links img:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
+    }
+
+    /* ------------------------------------------------------------
+       SEÇÃO SOMENTE PARA O CHART DO TRADINGVIEW
+       >> No desktop: usar container padrão (90%, max 900px)
+       >> No mobile: alinhar com margens 5%
+       ------------------------------------------------------------ */
+    .chart-section {
+      background: rgba(20, 20, 20, 0.95);
+      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+      border-radius: 8px;
+      /* DESKTOP (por padrão) */
+      width: 90%;
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 50px;
+    }
+
+    .chart-inner {
+      /* No desktop, não precisa de margin lateral */
+      margin: 0;
+    }
+
+    .chart-inner h2 {
+      margin-bottom: 30px;
+    }
+
+    #tvChartContainer {
+      width: 100%;
+      height: 360px;
+      background-color: #222;
+      pointer-events: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-lock-button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
+      color: #fff;
+    }
+
+    .chart-lock-button:hover {
+      transform: scale(1.05);
+    }
+
+    .locked-state {
+      background: linear-gradient(45deg, #f23b5e, #8b00ff);
+    }
+    .unlocked-state {
+      background: linear-gradient(45deg, #14f195, #8b00ff);
+    }
+
+    /* Responsividade geral */
     @media (max-width: 768px) {
       .menu-btn {
         display: block;
@@ -232,86 +280,30 @@
         box-shadow: 0 0 10px rgba(153, 69, 255, 0.3);
         z-index: 1101;
       }
-      nav.active {
-        display: flex;
-      }
       nav ul {
         flex-direction: column;
         gap: 10px;
       }
-      nav ul li {
-        display: block;
+
+      /* Ajustar fontes do h2 em telas menores, se quiser */
+      h2 {
+        font-size: 28px; 
       }
-      .hero h1 {
-        font-size: 36px;
+
+      /* Agora invertendo o chart para margens 5% */
+      .chart-section {
+        width: 100%;    
+        max-width: none;
+        margin: 80px 0; /* retira o auto centralizado e expande */
+        padding: 50px 0;
       }
-      .hero p {
-        font-size: 16px;
+      .chart-inner {
+        margin: 0 5%;  /* margens laterais de 5%, alinhado ao header */
       }
-    }
-
-    /* ------------------------------------------------------------
-       SEÇÃO SOMENTE PARA O CHART DO TRADINGVIEW,
-       alinhada com o logo/menu (5% e 5%)
-       ------------------------------------------------------------ */
-    .chart-section {
-      background: rgba(20, 20, 20, 0.95);
-      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
-      border-radius: 8px;
-      margin: 80px 0;         /* espaço vertical */
-      padding: 50px 0;        /* padding top/bottom */
-      width: 100%;
-      max-width: none;
-    }
-
-    .chart-section .chart-inner {
-      margin: 0 5%;          /* margem lateral de 5% */
-    }
-
-    /* Aumentar espaço entre título e o chart */
-    .chart-section .chart-inner h2 {
-      margin-bottom: 30px;   /* ou 40px, se quiser ainda maior */
-    }
-
-    /* Container real do chart */
-    #tvChartContainer {
-      width: 100%;
-      height: 360px;
-      background-color: #222;
-      pointer-events: auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Botão lock/unlock */
-    .chart-lock-button {
-      display: inline-block;
-      margin-top: 40px; /* espaçamento maior do chart */
-      padding: 15px 30px;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s ease-in-out;
-      box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
-      color: #fff; /* Texto branco */
-    }
-    .chart-lock-button:hover {
-      transform: scale(1.05);
-    }
-    /* Travado => degrade vermelho + roxo */
-    .locked-state {
-      background: linear-gradient(45deg, #f23b5e, #8b00ff);
-    }
-    /* Destravado => degrade verde + roxo */
-    .unlocked-state {
-      background: linear-gradient(45deg, #14f195, #8b00ff);
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
@@ -334,7 +326,7 @@
     </nav>
   </header>
 
-  <!-- Overlay do menu -->
+  <!-- Overlay do menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -376,7 +368,7 @@
   </div>
 
   <script>
-    // VESTING CHART com cores da paleta Solana
+    // VESTING CHART
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -386,14 +378,12 @@
           {
             label: "Tokens Released (%)",
             data: [85, 7.5, 2.5, 1.5, 1.5],
-            /* Verde Solana (#14F195) */
-            backgroundColor: "rgba(20, 241, 149, 0.7)",
+            backgroundColor: "rgba(20, 241, 149, 0.7)", // #14F195 Solana
           },
           {
             label: "Tokens Locked (%)",
             data: [0, 7.5, 5, 3.5, 2],
-            /* Roxo Solana (#9945FF) */
-            backgroundColor: "rgba(153, 69, 255, 0.7)",
+            backgroundColor: "rgba(153, 69, 255, 0.7)", // #9945FF Solana
           },
         ],
       },
@@ -409,7 +399,7 @@
     });
   </script>
 
-  <!-- DADOS BTC (EXEMPLO) -->
+  <!-- Dados BTC (exemplo) -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -440,7 +430,7 @@
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- SEÇÃO DO CHART (ALINHADA COM HEADER) -->
+  <!-- CHART SECTION (Troca estilo no mobile para margin 0 5%) -->
   <div class="chart-section" id="tradeview">
     <div class="chart-inner">
       <h2>Token Trading Chart</h2>
@@ -459,7 +449,7 @@
   <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    // Começa destravado (verde + roxo)
+    // começa destravado
     let locked = false;
     const tvContainer = document.getElementById("tvChartContainer");
     const chartLockBtn = document.getElementById("chartLockBtn");
@@ -479,7 +469,6 @@
       container_id: "tradingview_12345",
     });
 
-    // Alterna travado <-> destravado ao clicar
     chartLockBtn.addEventListener("click", () => {
       locked = !locked;
       updateChartLockState();
@@ -487,21 +476,19 @@
 
     function updateChartLockState() {
       if (locked) {
-        // Travado => pointer-events: none
+        // travado => sem interação
         tvContainer.style.pointerEvents = "none";
         chartLockBtn.classList.remove("unlocked-state");
         chartLockBtn.classList.add("locked-state");
         chartLockBtn.textContent = "Unlock Chart";
       } else {
-        // Destravado => pointer-events: auto
+        // destravado => com interação
         tvContainer.style.pointerEvents = "auto";
         chartLockBtn.classList.remove("locked-state");
         chartLockBtn.classList.add("unlocked-state");
         chartLockBtn.textContent = "Lock Chart";
       }
     }
-
-    // Estado inicial: destravado (verde + roxo)
     updateChartLockState();
   </script>
 
@@ -523,23 +510,26 @@
     </a>
   </div>
 
-  <!-- SOCIAL LINKS -->
+  <!-- Social links -->
   <div class="social-links">
-    <a href="https://x.com/SmileLabsAI" target="_blank"
-      ><img
+    <a href="https://x.com/SmileLabsAI" target="_blank">
+      <img
         src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png"
         alt="Twitter/X"
-      /></a>
-    <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"
-      ><img
+      />
+    </a>
+    <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank">
+      <img
         src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"
         alt="Telegram"
-      /></a>
-    <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"
-      ><img
+      />
+    </a>
+    <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank">
+      <img
         src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true"
         alt="Discord"
-      /></a>
+      />
+    </a>
   </div>
 
   <!-- FOOTER -->
@@ -547,7 +537,7 @@
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
-  <!-- MENU MOBILE SCRIPT -->
+  <!-- Script do menu mobile -->
   <script>
     function toggleMenu() {
       const nav = document.querySelector("header nav");
@@ -555,6 +545,7 @@
       nav.classList.toggle("active");
       overlay.style.display = nav.classList.contains("active") ? "block" : "none";
     }
+
     function closeMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
