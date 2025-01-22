@@ -42,7 +42,7 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden; /* Para evitar rolagem horizontal do 130% */
+      overflow-x: hidden; /* para não rolar horizontal se algo extrapolar */
     }
 
     /* Cabeçalho */
@@ -66,7 +66,7 @@
       cursor: pointer;
     }
 
-    /* Menu (hambúrguer) */
+    /* Botão de menu (hambúrguer) */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -80,6 +80,7 @@
     nav {
       text-align: right;
     }
+
     nav ul {
       list-style: none;
       display: flex;
@@ -88,16 +89,19 @@
       padding: 0;
       margin: 0;
     }
+
     nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: bold;
       transition: 0.3s;
     }
+
     nav ul li a:hover {
       color: #19fb9b;
     }
 
+    /* Overlay do menu mobile */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -109,7 +113,7 @@
       z-index: 999;
     }
 
-    /* Hero */
+    /* Seção Hero */
     .hero {
       height: 90vh;
       display: flex;
@@ -119,8 +123,9 @@
       text-align: center;
       background: linear-gradient(135deg, #19fb9b, #9945ff);
       padding: 80px 5%;
-      margin-top: 70px; /* Evitar sobreposição do header fixo */
+      margin-top: 70px; /* para não ficar atrás do header fixo */
     }
+
     .hero h1 {
       font-size: 50px;
       font-weight: 700;
@@ -128,6 +133,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .hero p {
       font-size: 20px;
       max-width: 600px;
@@ -136,7 +142,7 @@
       color: white;
     }
 
-    /* Botões padrão (Whitepaper, Buy, etc) */
+    /* Botões padrões (Whitepaper, Buy, etc.) */
     .action-button {
       background: linear-gradient(45deg, #19fb9b, #9945ff);
       color: white;
@@ -153,6 +159,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .action-button:hover {
       transform: scale(1.05);
       box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7),
@@ -170,18 +177,27 @@
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
-    /* Social links */
+    /* Aumentar títulos (h2) das sections para 36px */
+    .section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    /* Redes Sociais */
     .social-links {
       margin-top: 60px;
       display: flex;
       justify-content: center;
       gap: 20px;
     }
+
     .social-links img {
       width: 40px;
       height: 40px;
       transition: transform 0.3s ease-in-out;
     }
+
     .social-links img:hover {
       transform: scale(1.1);
       filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
@@ -195,24 +211,9 @@
       margin-top: 60px;
     }
 
-    /* Dados da moeda */
-    #token-data {
-      background: rgba(20, 20, 20, 0.95);
-      padding: 50px;
-      margin: 80px auto;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 900px;
-      box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
-    }
+    /* Dados ao Vivo da Moeda - Título menor */
     #token-data h2 {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-    #token-data p {
-      font-size: 18px;
-      margin: 10px 0;
+      font-size: 24px; /* menor para caber em uma linha */
     }
 
     /* Responsivo */
@@ -250,20 +251,29 @@
       .hero p {
         font-size: 16px;
       }
+      .section h2 {
+        font-size: 28px; /* se quiser reduzir nos celulares */
+      }
+      #token-data h2 {
+        font-size: 20px; /* ainda menor no mobile, se quiser */
+      }
     }
 
-    /* TradingView - fixo em 130% x 400px */
+    /* TradingView Container
+       Ocupa ~98% da largura, centrado com margin: 0 auto, 
+       e travado por padrão (pointer-events: none).
+    */
     #tvChartContainer {
-      width: 130%;
-      height: 400px;
+      width: 98%;
+      height: 360px;
       margin: 0 auto;
-      background-color: #222; /* só para visual */
+      background-color: #222; /* só pra visual */
+      pointer-events: none;   /* travado */
       position: relative;
       overflow: hidden;
-      pointer-events: none; /* travado por padrão */
     }
 
-    /* Botão lock/unlock estilo gradient */
+    /* Botão lock/unlock degradê */
     .chart-lock-button {
       display: inline-block;
       margin-top: 40px; /* espaçamento maior do chart */
@@ -276,16 +286,18 @@
       transition: 0.3s ease-in-out;
       box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
     }
+
     .chart-lock-button:hover {
       transform: scale(1.05);
     }
 
-    /* Travado => degrade de vermelho (Solana style) */
+    /* Travado => degrade de vermelho */
     .locked-state {
       background: linear-gradient(45deg, #f23b5e, #f76f8f);
       color: white;
     }
-    /* Destravado => degrade de verde (Solana style) */
+
+    /* Destravado => degrade de verde */
     .unlocked-state {
       background: linear-gradient(45deg, #14f195, #64f1c1);
       color: #000;
@@ -293,6 +305,7 @@
   </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
@@ -315,6 +328,7 @@
     </nav>
   </header>
 
+  <!-- Overlay do menu -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -356,7 +370,7 @@
   </div>
 
   <script>
-    // Chart.js (Vesting)
+    // VESTING CHART
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -396,10 +410,6 @@
   </div>
 
   <script>
-    const priceElement = document.getElementById("price");
-    const marketCapElement = document.getElementById("market-cap");
-    const volumeElement = document.getElementById("volume");
-
     async function getBitcoinData() {
       try {
         const url =
@@ -408,9 +418,12 @@
         const data = await response.json();
         const btc = data.bitcoin;
 
-        priceElement.textContent = `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
-        marketCapElement.textContent = `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
-        volumeElement.textContent = `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
+        document.getElementById("price").textContent =
+          `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
+        document.getElementById("market-cap").textContent =
+          `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
+        document.getElementById("volume").textContent =
+          `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
       } catch (error) {
         console.error("Erro ao buscar dados do Bitcoin:", error);
       }
@@ -421,15 +434,12 @@
 
   <!-- TRADINGVIEW -->
   <div class="section">
-    <!-- Container fixo em 130% x 400px -->
-    <div
-      class="tradingview-widget-container"
-      id="tvChartContainer"
-    >
+    <!-- Container do gráfico ~98% da largura, centrado -->
+    <div id="tvChartContainer">
       <div id="tradingview_12345"></div>
     </div>
 
-    <!-- Botão Lock/Unlock -->
+    <!-- Botão Lock/Unlock abaixo do chart -->
     <button
       class="chart-lock-button locked-state"
       id="chartLockBtn"
@@ -441,15 +451,13 @@
   <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    // Inicia locked => pointer-events: none
-    let locked = true;
+    let locked = true; // começa travado
     const tvContainer = document.getElementById("tvChartContainer");
     const chartLockBtn = document.getElementById("chartLockBtn");
 
-    // Inicia o widget
     new TradingView.widget({
-      width: "100%", 
-      height: 400, 
+      width: "100%",
+      height: 360,   // condizente com #tvChartContainer
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -462,7 +470,7 @@
       container_id: "tradingview_12345",
     });
 
-    // Alternar lock/unlock
+    // Ao clicar no botão, alterna locked <-> unlocked
     chartLockBtn.addEventListener("click", () => {
       locked = !locked;
       updateChartLockState();
@@ -470,14 +478,16 @@
 
     function updateChartLockState() {
       if (locked) {
-        // TRAVADO => pointer-events none
+        // Travado => pointer-events: none
         tvContainer.style.pointerEvents = "none";
+        // Botão degrade vermelho
         chartLockBtn.classList.remove("unlocked-state");
         chartLockBtn.classList.add("locked-state");
         chartLockBtn.textContent = "Unlock Chart";
       } else {
-        // DESTRAVADO => pointer-events auto
+        // Destravado => pointer-events: auto
         tvContainer.style.pointerEvents = "auto";
+        // Botão degrade verde
         chartLockBtn.classList.remove("locked-state");
         chartLockBtn.classList.add("unlocked-state");
         chartLockBtn.textContent = "Lock Chart";
@@ -501,11 +511,7 @@
 
   <!-- BUY SLAI -->
   <div id="buy" class="section">
-    <a
-      href="https://pump.fun/board"
-      class="action-button"
-      target="_blank"
-    >
+    <a href="https://pump.fun/board" class="action-button" target="_blank">
       Buy $SLAI Now
     </a>
   </div>
@@ -529,11 +535,12 @@
       /></a>
   </div>
 
+  <!-- FOOTER -->
   <footer class="footer">
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
-  <!-- Menu Mobile Script -->
+  <!-- MENU MOBILE SCRIPT -->
   <script>
     function toggleMenu() {
       const nav = document.querySelector("header nav");
