@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Ajuste o viewport para mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0" <!-- Ajustei para 1.0 -->
+    name="description"
+    content="$SLAI - The Future of Digital Dentistry & Blockchain"
   />
-  <meta name="description" content="$SLAI - The Future of Digital Dentistry & Blockchain" />
   <meta property="og:title" content="$SLAI - AI & Blockchain for Digital Dentistry" />
   <meta
     property="og:description"
@@ -44,9 +45,7 @@
       overflow-x: hidden;
     }
 
-    /* --------------------------
-       Títulos (h2) unificados
-       -------------------------- */
+    /* Títulos em desktop */
     h2 {
       font-size: 36px; 
       margin-bottom: 20px;
@@ -98,11 +97,11 @@
       font-weight: bold;
       transition: 0.3s;
     }
-
     nav ul li a:hover {
       color: #19fb9b;
     }
 
+    /* Overlay do menu mobile */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -159,7 +158,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .action-button:hover {
       transform: scale(1.05);
       box-shadow: 0px 0px 15px rgba(25, 251, 155, 0.7),
@@ -202,16 +200,14 @@
       filter: drop-shadow(0px 0px 8px rgba(153, 69, 255, 0.6));
     }
 
-    /* ------------------------------------------------------------
-       SEÇÃO SOMENTE PARA O CHART DO TRADINGVIEW
-       >> No desktop: usar container padrão (90%, max 900px)
-       >> No mobile: alinhar com margens 5%
-       ------------------------------------------------------------ */
+    /* Seção SOMENTE PARA O CHART DO TRADINGVIEW
+       >> No desktop: container padrão (90%, max 900px)
+       >> No mobile: margin: 0 5%;
+    */
     .chart-section {
       background: rgba(20, 20, 20, 0.95);
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
       border-radius: 8px;
-      /* DESKTOP (por padrão) */
       width: 90%;
       max-width: 900px;
       margin: 80px auto;
@@ -219,10 +215,8 @@
     }
 
     .chart-inner {
-      /* No desktop, não precisa de margin lateral */
       margin: 0;
     }
-
     .chart-inner h2 {
       margin-bottom: 30px;
     }
@@ -249,11 +243,9 @@
       box-shadow: 0px 4px 10px rgba(153, 69, 255, 0.4);
       color: #fff;
     }
-
     .chart-lock-button:hover {
       transform: scale(1.05);
     }
-
     .locked-state {
       background: linear-gradient(45deg, #f23b5e, #8b00ff);
     }
@@ -261,7 +253,10 @@
       background: linear-gradient(45deg, #14f195, #8b00ff);
     }
 
-    /* Responsividade geral */
+    /* ------------------------------------------
+       MEDIA QUERY para telas menores (max 768px)
+       Diminuir fontes e ajustar layout no mobile
+       ------------------------------------------ */
     @media (max-width: 768px) {
       .menu-btn {
         display: block;
@@ -285,25 +280,49 @@
         gap: 10px;
       }
 
-      /* Ajustar fontes do h2 em telas menores, se quiser */
+      /* ---------- FONTES REDUZIDAS NO MOBILE ---------- */
+      /* Título principal no Hero */
+      .hero h1 {
+        font-size: 36px; 
+      }
+      /* Texto do hero */
+      .hero p {
+        font-size: 16px; 
+      }
+      /* Títulos gerais (h2) */
       h2 {
-        font-size: 28px; 
+        font-size: 28px;
+      }
+      /* Parágrafos gerais */
+      p {
+        font-size: 14px;
+      }
+      /* Botões */
+      .action-button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      .chart-lock-button {
+        font-size: 16px;
+        padding: 10px 20px;
       }
 
-      /* Agora invertendo o chart para margens 5% */
+      /* Ajustar Chart para ficar full width (margin 0 5%) */
       .chart-section {
-        width: 100%;    
+        width: 100%;
         max-width: none;
-        margin: 80px 0; /* retira o auto centralizado e expande */
+        margin: 80px 0;
         padding: 50px 0;
       }
       .chart-inner {
-        margin: 0 5%;  /* margens laterais de 5%, alinhado ao header */
+        margin: 0 5%; /* margens laterais de 5%, 
+                         alinhado ao header no mobile */
       }
     }
   </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
@@ -326,7 +345,6 @@
     </nav>
   </header>
 
-  <!-- Overlay do menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -368,7 +386,7 @@
   </div>
 
   <script>
-    // VESTING CHART
+    // VESTING CHART (Exemplo com cores Solana)
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -399,7 +417,7 @@
     });
   </script>
 
-  <!-- Dados BTC (exemplo) -->
+  <!-- DADOS BTC (EXEMPLO) -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -430,7 +448,7 @@
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- CHART SECTION (Troca estilo no mobile para margin 0 5%) -->
+  <!-- CHART SECTION (no desktop: 90%, no mobile: margin 0 5%) -->
   <div class="chart-section" id="tradeview">
     <div class="chart-inner">
       <h2>Token Trading Chart</h2>
