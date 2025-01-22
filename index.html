@@ -251,38 +251,14 @@
     });
 </script>
 
-<!-- CoinGecko Widget -->
-<div id="coingecko-coin-price-chart-widget"></div>
-<script src="https://widgets.coingecko.com/coingecko-coin-price-chart-widget.js"></script>
-<script>
-  CoinGeckoCoinPriceChartWidget({
-    coinId: 'bitcoin',
-    currency: 'usd',
-    locale: 'pt',
-    width: '100%',
-    height: '400px',
-    theme: 'dark'
-  });
-</script>
+<!-- Seção de Dados da Moeda -->
+<div id="token-data" class="section">
+    <h2>Dados ao Vivo da Moeda</h2>
+    <p id="price">Preço Atual: Carregando...</p>
+    <p id="market-cap">Market Cap: Carregando...</p>
+    <p id="volume">Volume (24h): Carregando...</p>
+</div>
 
-<!-- CoinMarketCap Widget -->
-<div id="coinmarketcap-widget"></div>
-<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
-<script type="text/javascript">
-  var coinmarketcap_widget = {
-    base: "USD",
-    symbols: ["BTC", "ETH", "XRP"],
-    theme: "dark",
-    transparent: false,
-    show: {
-      logo: true,
-      rank: true,
-      marketcap: true,
-      volume: true,
-      change: true
-    }
-  };
-</script>
 
     <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
