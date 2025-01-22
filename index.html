@@ -23,6 +23,8 @@
   />
   <meta property="og:type" content="website" />
   <title>$SLAI - Smile Labs AI</title>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -64,7 +66,6 @@
       cursor: pointer;
     }
 
-    /* Botão de menu (hambúrguer) - escondido por padrão, aparece no mobile */
     .menu-btn {
       display: none;
       cursor: pointer;
@@ -202,7 +203,7 @@
       margin-top: 60px;
     }
 
-    /* Seção de dados da moeda */
+    /* Dados da moeda */
     #token-data {
       background: rgba(20, 20, 20, 0.95);
       padding: 50px;
@@ -223,7 +224,7 @@
       margin: 10px 0;
     }
 
-    /* ========== AJUSTES DE RESPONSIVIDADE ========== */
+    /* Responsivo */
     @media (max-width: 768px) {
       .menu-btn {
         display: block;
@@ -260,48 +261,63 @@
       }
     }
 
-    /* TradingView responsivo */
+    /* TradingView */
     .tradingview-widget-container {
       max-width: 100%;
       margin: 0 auto;
     }
 
-    /* Indica estado TRAVADO: pointer-events none */
+    /* Estado TRAVADO no contêiner do gráfico */
     .locked {
-      pointer-events: none;
+      pointer-events: none; /* Desativa interação */
     }
 
-    /* Contêiner do gráfico (para posicionar o botão) */
-    .chart-container {
-      position: relative;
-      margin-top: 30px;
+    /* 
+      Tamanho do contêiner: 
+      - travado => 90% e 300px 
+      - destravado => 100% e 350px 
+    */
+    #tvChartContainer {
+      width: 90%;
+      height: 300px;
+      margin: 0 auto;
+      transition: all 0.4s ease;
+      position: relative; /* p/ overlay e botão */
+    }
+    #tvChartContainer.unlocked {
+      width: 100%;
+      height: 350px;
     }
 
-    /* Barra que contém o botão, no canto superior, fora do gráfico */
-    .chart-toggle-bar {
+    /* Overlay invisível (apenas travado) p/ dblclick */
+    .chart-overlay {
+      display: none;
       position: absolute;
       top: 0;
+      left: 0;
       right: 0;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      /* pequeno "padding-top" p/ não colar no topo do container */
-      padding-top: 5px;
-      z-index: 2; /* acima do gráfico */
+      bottom: 0;
+      background: transparent;
+      cursor: pointer;
+      z-index: 2;
+    }
+    #tvChartContainer.locked .chart-overlay {
+      display: block;
     }
 
-    /* Botão circular travar/destravar */
+    /* Botão circular (canto sup. dir.) p/ travar/destravar */
     .chart-toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
       width: 24px;
       height: 24px;
       border-radius: 50%;
       border: none;
       outline: none;
       cursor: pointer;
-      margin-right: 10px; /* separar da borda */
-      margin-top: 0;
+      z-index: 3; /* acima da overlay */
     }
-
   </style>
 </head>
 <body>
@@ -314,10 +330,7 @@
         title="Go to Top"
       />
     </a>
-
-    <!-- Botão de menu (hambúrguer) -->
     <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
-
     <nav>
       <ul>
         <li><a href="#top" onclick="closeMenu()">Home</a></li>
@@ -331,7 +344,7 @@
     </nav>
   </header>
 
-  <!-- Overlay p/ fechar menu ao clicar fora dele -->
+  <!-- Overlay p/ fechar menu -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <div id="top" class="hero">
@@ -343,8 +356,8 @@
   <div id="about" class="section">
     <h2>About $SLAI</h2>
     <p>
-      $SLAI is a blockchain-powered digital currency designed to transform the
-      dental industry.
+      $SLAI is a blockchain-powered digital currency designed to transform
+      the dental industry.
     </p>
   </div>
 
@@ -362,14 +375,14 @@
     <p>Q4 2025: Global Adoption & Multichain Integration</p>
   </div>
 
-  <!-- Dashboard de Vesting -->
+  <!-- Chart.js: Vesting Chart -->
   <div id="vesting" class="section">
     <h2>Token Vesting Dashboard</h2>
     <canvas id="vestingChart"></canvas>
   </div>
 
   <script>
-    // Gráfico de Vesting (Chart.js)
+    // VESTING CHART
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -379,28 +392,28 @@
           {
             label: "Tokens Released (%)",
             data: [85, 7.5, 2.5, 1.5, 1.5],
-            backgroundColor: "rgba(25, 251, 155, 0.7)"
+            backgroundColor: "rgba(25, 251, 155, 0.7)",
           },
           {
             label: "Tokens Locked (%)",
             data: [0, 7.5, 5, 3.5, 2],
-            backgroundColor: "rgba(235, 64, 52, 0.6)"
-          }
-        ]
+            backgroundColor: "rgba(235, 64, 52, 0.6)",
+          },
+        ],
       },
       options: {
         responsive: true,
         scales: {
           y: {
             beginAtZero: true,
-            max: 100
-          }
-        }
-      }
+            max: 100,
+          },
+        },
+      },
     });
   </script>
 
-  <!-- Seção de Dados ao Vivo da Moeda (Exemplo com Bitcoin) -->
+  <!-- Dados ao Vivo (Exemplo BTC) -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -409,7 +422,7 @@
   </div>
 
   <script>
-    // Exemplo de busca dos dados do Bitcoin via CoinGecko
+    // COINGECKO
     const priceElement = document.getElementById("price");
     const marketCapElement = document.getElementById("market-cap");
     const volumeElement = document.getElementById("volume");
@@ -420,46 +433,45 @@
           "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true";
         const response = await fetch(url);
         const data = await response.json();
-
         const btc = data.bitcoin;
-        const price = btc.usd;
-        const marketCap = btc.usd_market_cap;
-        const volume24h = btc.usd_24h_vol;
 
-        // Atualiza o HTML
-        priceElement.textContent = `Preço Atual: US$ ${price.toLocaleString()}`;
-        marketCapElement.textContent = `Market Cap: US$ ${marketCap.toLocaleString()}`;
-        volumeElement.textContent = `Volume (24h): US$ ${volume24h.toLocaleString()}`;
+        priceElement.textContent = `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
+        marketCapElement.textContent = `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
+        volumeElement.textContent = `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
       } catch (error) {
-        console.error("Erro ao buscar dados do Bitcoin:", error);
+        console.log("Erro ao buscar dados do Bitcoin:", error);
       }
     }
+
     getBitcoinData();
     setInterval(getBitcoinData, 60_000);
   </script>
 
-  <!-- TradingView Widget + Botão travar/destravar -->
-  <div class="section chart-container">
-    <!-- Barra para o botão (no canto superior) -->
-    <div class="chart-toggle-bar">
+  <!-- TradingView + Botão + Overlay -->
+  <div class="section">
+    <div class="tradingview-widget-container locked" id="tvChartContainer">
+      <div id="tradingview_12345"></div>
+      <!-- Overlay invisível => dblclick para destravar -->
+      <div
+        class="chart-overlay"
+        ondblclick="doubleClickUnlock()"
+        title="Dê dois cliques para destravar"
+      ></div>
+      <!-- Botão circular -->
       <button
         class="chart-toggle-btn"
         id="chartToggleBtn"
-        title="Clique para travar/destravar o gráfico"
+        title="Clique para travar/destravar"
       ></button>
-    </div>
-
-    <!-- Inicia TRAVADO (locked) -->
-    <div class="tradingview-widget-container locked" id="tvChartContainer">
-      <div id="tradingview_12345"></div>
     </div>
   </div>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
+    // TRADINGVIEW
     new TradingView.widget({
-      width: "100%",  // responsivo
-      height: 300,    // menor altura => mais horizontal
+      width: "100%",
+      height: 300,
       symbol: "BINANCE:BTCUSDT",
       interval: "D",
       timezone: "Etc/UTC",
@@ -472,34 +484,42 @@
       container_id: "tradingview_12345",
     });
 
-    // Lógica do botão travar/destravar
+    // Lógica travar/destravar
     const chartContainer = document.getElementById("tvChartContainer");
     const toggleBtn = document.getElementById("chartToggleBtn");
+    let isLocked = true;
 
-    let isLocked = true; // estado inicial: TRAVADO (pointer-events none)
-
-    function updateButtonState() {
+    function updateChartState() {
       if (isLocked) {
-        // TRAVADO => cor vermelha
         chartContainer.classList.add("locked");
-        toggleBtn.style.backgroundColor = "#f23b5e"; // vermelho Solana
+        chartContainer.classList.remove("unlocked");
+        // Botão vermelho (Solana)
+        toggleBtn.style.backgroundColor = "#f23b5e";
       } else {
-        // DESTRAVADO => cor verde
         chartContainer.classList.remove("locked");
-        toggleBtn.style.backgroundColor = "#14f195"; // verde Solana
+        chartContainer.classList.add("unlocked");
+        // Botão verde (Solana)
+        toggleBtn.style.backgroundColor = "#14f195";
       }
     }
 
-    // Ao clicar, alterna
     toggleBtn.addEventListener("click", () => {
       isLocked = !isLocked;
-      updateButtonState();
+      updateChartState();
     });
 
-    // Inicializa a cor do botão
-    updateButtonState();
+    function doubleClickUnlock() {
+      if (isLocked) {
+        isLocked = false;
+        updateChartState();
+      }
+    }
+
+    // Estado inicial
+    updateChartState();
   </script>
 
+  <!-- Whitepaper -->
   <div id="whitepaper" class="section">
     <a
       href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf"
@@ -509,12 +529,14 @@
     >
   </div>
 
+  <!-- Buy Link -->
   <div id="buy" class="section">
     <a href="https://pump.fun/board" class="action-button" target="_blank"
       >Buy $SLAI Now</a
     >
   </div>
 
+  <!-- Redes Sociais -->
   <div class="social-links">
     <a href="https://x.com/SmileLabsAI" target="_blank"
       ><img
@@ -533,12 +555,13 @@
     /></a>
   </div>
 
+  <!-- Rodapé -->
   <footer class="footer">
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
 
+  <!-- MENU MOBILE SCRIPT -->
   <script>
-    // MENU MOBILE
     function toggleMenu() {
       const nav = document.querySelector("header nav");
       const overlay = document.querySelector(".menu-overlay");
