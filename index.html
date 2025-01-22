@@ -70,6 +70,7 @@
       color: white;
       background: none;
       border: none;
+      z-index: 1100; /* Acima do overlay */
     }
 
     nav {
@@ -85,10 +86,6 @@
       margin: 0;
     }
 
-    nav ul li {
-      display: inline;
-    }
-
     nav ul li a {
       color: white;
       text-decoration: none;
@@ -98,6 +95,18 @@
 
     nav ul li a:hover {
       color: #19fb9b;
+    }
+
+    /* Overlay para fechar menu ao clicar fora */
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999; /* abaixo do menu mas acima do conteúdo */
     }
 
     /* Seção Hero */
@@ -220,11 +229,10 @@
       .menu-btn {
         display: block;
       }
-
-      /* Esconde o nav no mobile por padrão */
+      /* Menu fora de tela por padrão */
       nav {
         display: none;
-        position: absolute;
+        position: fixed;
         top: 60px; /* logo abaixo do header */
         right: 0;
         background: rgba(10, 10, 10, 0.95);
@@ -234,25 +242,23 @@
         padding: 20px;
         text-align: right;
         box-shadow: 0 0 10px rgba(153, 69, 255, 0.3);
+        z-index: 1101; /* acima do overlay */
       }
-      /* Quando o nav tiver classe .active, aparece */
+      /* Quando nav tiver .active, aparece */
       nav.active {
         display: flex;
       }
-
       nav ul {
         flex-direction: column;
         gap: 10px;
       }
-
+      /* links em bloco para facilitar o clique no mobile */
       nav ul li {
         display: block;
       }
-
       .hero h1 {
         font-size: 36px;
       }
-
       .hero p {
         font-size: 16px;
       }
@@ -281,16 +287,19 @@
 
     <nav>
       <ul>
-        <li><a href="#top">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#tokenomics">Tokenomics</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
-        <li><a href="#vesting">Token Vesting</a></li>
-        <li><a href="#whitepaper">Whitepaper</a></li>
-        <li><a href="#buy">Buy $SLAI</a></li>
+        <li><a href="#top" onclick="closeMenu()">Home</a></li>
+        <li><a href="#about" onclick="closeMenu()">About</a></li>
+        <li><a href="#tokenomics" onclick="closeMenu()">Tokenomics</a></li>
+        <li><a href="#roadmap" onclick="closeMenu()">Roadmap</a></li>
+        <li><a href="#vesting" onclick="closeMenu()">Token Vesting</a></li>
+        <li><a href="#whitepaper" onclick="closeMenu()">Whitepaper</a></li>
+        <li><a href="#buy" onclick="closeMenu()">Buy $SLAI</a></li>
       </ul>
     </nav>
   </header>
+
+  <!-- Overlay para fechar menu ao clicar fora dele -->
+  <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <div id="top" class="hero">
     <h1>$SLAI - The Future of Digital Dentistry</h1>
@@ -461,10 +470,20 @@
   </footer>
 
   <script>
-    // Script para abrir/fechar o menu no mobile
+    // Toggle do menu
     function toggleMenu() {
       const nav = document.querySelector("header nav");
+      const overlay = document.querySelector(".menu-overlay");
       nav.classList.toggle("active");
+      overlay.style.display = nav.classList.contains("active") ? "block" : "none";
+    }
+
+    // Fecha menu ao clicar em qualquer link ou no overlay
+    function closeMenu() {
+      const nav = document.querySelector("header nav");
+      const overlay = document.querySelector(".menu-overlay");
+      nav.classList.remove("active");
+      overlay.style.display = "none";
     }
   </script>
 </body>
