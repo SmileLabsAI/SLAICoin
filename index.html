@@ -259,32 +259,97 @@
         <p>Q4 2025: Global Adoption & Multichain Integration</p>
     </div>
 
-    <div id="vesting" class="section">
-        <h2>Token Vesting Dashboard</h2>
-        <canvas id="vestingChart"></canvas>
-        <script>
-        var ctx = document.getElementById('vestingChart').getContext('2d');
-        new Chart(ctx, {
+   <!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLAI Coin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>SLAI Coin Dashboard</h1>
+    </header>
+
+    <section id="pump-fun-integration">
+        <h2>📊 Integração com Pump.fun</h2>
+        <p>Visualize os dados em tempo real da SLAI Coin no Pump.fun.</p>
+        <iframe src="https://pump.fun/coin/2nRXdTkYayP9zTRtRq9aCD3CcKDC6jnb5RWiym1CL1ks" width="100%" height="500px"></iframe>
+    </section>
+
+    <section id="tokenomics">
+        <h2>📈 Tokenomics</h2>
+        <canvas id="tokenomicsChart"></canvas>
+    </section>
+
+    <section id="vesting">
+        <h2>📅 Vesting</h2>
+        <p>Acompanhe o cronograma de liberação dos tokens.</p>
+        <table>
+            <tr>
+                <th>Fase</th>
+                <th>Data</th>
+                <th>% Liberado</th>
+            </tr>
+            <tr>
+                <td>Fase 1</td>
+                <td>Fev 2025</td>
+                <td>10%</td>
+            </tr>
+            <tr>
+                <td>Fase 2</td>
+                <td>Jun 2025</td>
+                <td>20%</td>
+            </tr>
+            <tr>
+                <td>Fase 3</td>
+                <td>Set 2025</td>
+                <td>30%</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="staking">
+        <h2>💰 Staking</h2>
+        <p>Visualize os ganhos e status do staking em tempo real.</p>
+        <canvas id="stakingChart"></canvas>
+    </section>
+
+    <script>
+        // Gráfico de Tokenomics
+        const ctxTokenomics = document.getElementById('tokenomicsChart').getContext('2d');
+        new Chart(ctxTokenomics, {
+            type: 'doughnut',
+            data: {
+                labels: ['Fundadores (30%)', 'Comunidade (70%)'],
+                datasets: [{
+                    data: [30, 70],
+                    backgroundColor: ['#FF6384', '#36A2EB']
+                }]
+            }
+        });
+
+        // Gráfico de Staking
+        const ctxStaking = document.getElementById('stakingChart').getContext('2d');
+        new Chart(ctxStaking, {
             type: 'bar',
             data: {
-                labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
-                datasets: [
-                    {
-                        label: 'Tokens Released',
-                        data: [150, 300, 600, 950],
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                    },
-                    {
-                        label: 'Tokens Locked',
-                        data: [850, 700, 400, 50],
-                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
-                    }
-                ]
-            },
-            options: { responsive: true, scales: { y: { beginAtZero: true } } }
+                labels: ['Mês 1', 'Mês 2', 'Mês 3', 'Mês 4'],
+                datasets: [{
+                    label: 'Recompensas em SLAI',
+                    data: [500, 1200, 1800, 2500],
+                    backgroundColor: '#36A2EB'
+                }]
+            }
         });
-        </script>
-    </div>
+    </script>
+
+</body>
+</html>
+
 
     <div id="whitepaper" class="section">
         <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
