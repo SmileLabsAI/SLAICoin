@@ -167,30 +167,51 @@
             padding: 30px;
             margin-top: 60px;
         }
-/* Estilos para a seção de dados da moeda */
-#token-data {
-    background: rgba(20, 20, 20, 0.95);
-    padding: 50px;
-    margin: 80px auto;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 900px;
-    box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
-    color: white;
-}
 
-#token-data h2 {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
+        /* Estilos para a seção de dados da moeda */
+        #token-data {
+            background: rgba(20, 20, 20, 0.95);
+            padding: 50px;
+            margin: 80px auto;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+            color: white;
+        }
 
-#token-data p {
-    font-size: 18px;
-    margin: 10px 0;
-}
+        #token-data h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
 
-   
+        #token-data p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        /* ========== AJUSTES DE RESPONSIVIDADE ========== */
+        @media (max-width: 768px) {
+            /* Menu stack em colunas */
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            /* Ajusta título/p no Hero */
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+        }
+
+        /* TradingView responsivo (caso queira sobrescrever via CSS) */
+        .tradingview-widget-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -239,139 +260,138 @@
     </div>
 
     <!-- Dashboard de Vesting -->
-<div id="vesting" class="section">
-    <h2>Token Vesting Dashboard</h2>
-    <canvas id="vestingChart"></canvas>
-</div>
+    <div id="vesting" class="section">
+        <h2>Token Vesting Dashboard</h2>
+        <canvas id="vestingChart"></canvas>
+    </div>
 
-<script>
-    var ctx = document.getElementById('vestingChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Launch', 'Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
-            datasets: [
-                {
-                    label: 'Tokens Released (%)',
-                    data: [85, 7.5, 2.5, 1.5, 1.5],
-                    backgroundColor: 'rgba(25, 251, 155, 0.7)'
-                },
-                {
-                    label: 'Tokens Locked (%)',
-                    data: [0, 7.5, 5, 3.5, 2],
-                    backgroundColor: 'rgba(235, 64, 52, 0.6)'
-                }
-            ]
-        },
-        options: { 
-            responsive: true,
-            scales: { 
-                y: { 
-                    beginAtZero: true,
-                    max: 100
-                }
-            } 
-        }
-    });
-</script>
-
-<!-- Seção de Dados ao Vivo da Moeda -->
-<div id="token-data" class="section">
-    <h2>Dados ao Vivo da Moeda</h2>
-    <p id="price">Preço Atual: Carregando...</p>
-    <p id="market-cap">Market Cap: Carregando...</p>
-    <p id="volume">Volume (24h): Carregando...</p>
-</div>
-
-<script>
-    // Endereço do WebSocket do Pump.fun
-    const wsUrl = 'wss://rpc.api-pump.fun/ws';
-
-    // Endereço do contrato da sua moeda
-    const tokenAddress = 'B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump';
-
-    // Elementos HTML onde os dados serão exibidos
-    const priceElement = document.getElementById('price');
-    const marketCapElement = document.getElementById('market-cap');
-    const volumeElement = document.getElementById('volume');
-
-    // Função para formatar números como moeda
-    function formatCurrency(value) {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(value);
-    }
-
-    // Função para conectar ao WebSocket e receber dados em tempo real
-    function connectWebSocket() {
-        const ws = new WebSocket(wsUrl);
-
-        ws.onopen = () => {
-            console.log('Conectado ao WebSocket do Pump.fun');
-
-            // Inscrever-se para receber atualizações de trades do token específico
-            const payload = {
-                method: 'subscribeToken',
-                params: [https://pump.fun/coin/B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump]
-            };
-            ws.send(JSON.stringify(payload));
-        };
-
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            console.log('Dados recebidos:', data);
-
-            // Verificar se a mensagem contém informações de trade
-            if (data.method === 'subscribeToken') {
-                const tradeData = data.params.result;
-
-                // Atualizar os elementos HTML com os dados recebidos
-                priceElement.textContent = `Preço Atual: ${formatCurrency(tradeData.price)}`;
-                marketCapElement.textContent = `Market Cap: ${formatCurrency(tradeData.marketCap)}`;
-                volumeElement.textContent = `Volume (24h): ${formatCurrency(tradeData.volume24h)}`;
+    <script>
+        var ctx = document.getElementById('vestingChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Launch', 'Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                datasets: [
+                    {
+                        label: 'Tokens Released (%)',
+                        data: [85, 7.5, 2.5, 1.5, 1.5],
+                        backgroundColor: 'rgba(25, 251, 155, 0.7)'
+                    },
+                    {
+                        label: 'Tokens Locked (%)',
+                        data: [0, 7.5, 5, 3.5, 2],
+                        backgroundColor: 'rgba(235, 64, 52, 0.6)'
+                    }
+                ]
+            },
+            options: { 
+                responsive: true,
+                scales: { 
+                    y: { 
+                        beginAtZero: true,
+                        max: 100
+                    }
+                } 
             }
-        };
+        });
+    </script>
 
-        ws.onclose = () => {
-            console.log('Conexão com o WebSocket fechada. Tentando reconectar em 5 segundos...');
-            setTimeout(connectWebSocket, 5000);
-        };
+    <!-- Seção de Dados ao Vivo da Moeda -->
+    <div id="token-data" class="section">
+        <h2>Dados ao Vivo da Moeda</h2>
+        <p id="price">Preço Atual: Carregando...</p>
+        <p id="market-cap">Market Cap: Carregando...</p>
+        <p id="volume">Volume (24h): Carregando...</p>
+    </div>
 
-        ws.onerror = (error) => {
-            console.error('Erro no WebSocket:', error);
-            ws.close();
-        };
-    }
+    <script>
+        // Endereço do WebSocket do Pump.fun
+        const wsUrl = 'wss://rpc.api-pump.fun/ws';
 
-    // Iniciar a conexão com o WebSocket
-    connectWebSocket();
-</script>
+        // Endereço do contrato da sua moeda
+        const tokenAddress = 'B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump';
 
+        // Elementos HTML onde os dados serão exibidos
+        const priceElement = document.getElementById('price');
+        const marketCapElement = document.getElementById('market-cap');
+        const volumeElement = document.getElementById('volume');
+
+        // Função para formatar números como moeda
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(value);
+        }
+
+        // Função para conectar ao WebSocket e receber dados em tempo real
+        function connectWebSocket() {
+            const ws = new WebSocket(wsUrl);
+
+            ws.onopen = () => {
+                console.log('Conectado ao WebSocket do Pump.fun');
+
+                // Inscrever-se para receber atualizações de trades do token específico
+                const payload = {
+                    method: 'subscribeToken',
+                    // CORREÇÃO: URL deve estar como string no array
+                    params: ['https://pump.fun/coin/B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump']
+                };
+                ws.send(JSON.stringify(payload));
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                console.log('Dados recebidos:', data);
+
+                // Verificar se a mensagem contém informações de trade
+                if (data.method === 'subscribeToken') {
+                    const tradeData = data.params.result;
+
+                    // Atualizar os elementos HTML com os dados recebidos
+                    priceElement.textContent = `Preço Atual: ${formatCurrency(tradeData.price)}`;
+                    marketCapElement.textContent = `Market Cap: ${formatCurrency(tradeData.marketCap)}`;
+                    volumeElement.textContent = `Volume (24h): ${formatCurrency(tradeData.volume24h)}`;
+                }
+            };
+
+            ws.onclose = () => {
+                console.log('Conexão com o WebSocket fechada. Tentando reconectar em 5 segundos...');
+                setTimeout(connectWebSocket, 5000);
+            };
+
+            ws.onerror = (error) => {
+                console.error('Erro no WebSocket:', error);
+                ws.close();
+            };
+        }
+
+        // Iniciar a conexão com o WebSocket
+        connectWebSocket();
+    </script>
 
     <!-- TradingView Widget BEGIN -->
-<div class="tradingview-widget-container">
-  <div id="tradingview_12345"></div>
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-  <script type="text/javascript">
-    new TradingView.widget({
-      "width": 980,
-      "height": 610,
-      "symbol": "BINANCE:BTCUSDT",
-      "interval": "D",
-      "timezone": "Etc/UTC",
-      "theme": "dark",
-      "style": "1",
-      "locale": "br",
-      "toolbar_bg": "#f1f3f6",
-      "enable_publishing": false,
-      "allow_symbol_change": true,
-      "container_id": "tradingview_12345"
-    });
-  </script>
-</div>
-<!-- TradingView Widget END -->
-
+    <div class="tradingview-widget-container">
+      <div id="tradingview_12345"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+      <script type="text/javascript">
+        new TradingView.widget({
+          "width": "100%",         // Ajuste para responsividade
+          "height": 610,           // Pode manter fixo ou alterar se desejar
+          "symbol": "BINANCE:BTCUSDT",
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "dark",
+          "style": "1",
+          "locale": "br",
+          "toolbar_bg": "#f1f3f6",
+          "enable_publishing": false,
+          "allow_symbol_change": true,
+          "container_id": "tradingview_12345"
+        });
+      </script>
+    </div>
+    <!-- TradingView Widget END -->
 
     <div id="whitepaper" class="section">
         <a href="https://raw.githubusercontent.com/SmileLabsAI/SLAICoin/d7290a487feaba571bff27b52fbb52f8dcaabfa6/SLAI_Whitepaper_English.pdf" class="action-button" target="_blank">Download Whitepaper</a>
@@ -382,9 +402,15 @@
     </div>
 
     <div class="social-links">
-        <a href="https://x.com/SmileLabsAI" target="_blank"><img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X"></a>
-        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
-        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank"><img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord"></a>
+        <a href="https://x.com/SmileLabsAI" target="_blank">
+            <img src="https://abs.twimg.com/icons/apple-touch-icon-192x192.png" alt="Twitter/X">
+        </a>
+        <a href="https://t.me/+zII2PVEipu5hMTQx" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+        </a>
+        <a href="https://discord.gg/YOUR_DISCORD_INVITE" target="_blank">
+            <img src="https://github.com/SmileLabsAI/SLAICoin/blob/main/discord-logo-0.png?raw=true" alt="Discord">
+        </a>
     </div>
 
     <footer class="footer">
