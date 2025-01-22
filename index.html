@@ -265,6 +265,24 @@
   });
 </script>
 
+<!-- CoinMarketCap Widget -->
+<div id="coinmarketcap-widget"></div>
+<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+<script type="text/javascript">
+  var coinmarketcap_widget = {
+    base: "USD",
+    symbols: ["BTC", "ETH", "XRP"],
+    theme: "dark",
+    transparent: false,
+    show: {
+      logo: true,
+      rank: true,
+      marketcap: true,
+      volume: true,
+      change: true
+    }
+  };
+</script>
 
 
     <div id="whitepaper" class="section">
