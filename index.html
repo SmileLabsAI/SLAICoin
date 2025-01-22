@@ -424,12 +424,12 @@
     });
   </script>
 
-  <!-- DADOS SOLANA -->
+  <!-- SOLANA LIVE DATA -->
   <div id="token-data" class="section">
-    <h2>Dados ao Vivo (Solana)</h2>
-    <p id="price">Preço Atual (SOL): Carregando...</p>
-    <p id="market-cap">Market Cap (SOL): Carregando...</p>
-    <p id="volume">Volume (24h) (SOL): Carregando...</p>
+    <h2>Solana Live Data</h2>
+    <p id="price">Current Price (SOL): Loading...</p>
+    <p id="market-cap">Market Cap (SOL): Loading...</p>
+    <p id="volume">Volume (24h) (SOL): Loading...</p>
   </div>
 
   <script>
@@ -442,13 +442,13 @@
         const sol = data.solana;
 
         document.getElementById("price").textContent =
-          `Preço Atual (SOL): US$ ${sol.usd.toLocaleString()}`;
+          `Current Price (SOL): US$ ${sol.usd.toLocaleString()}`;
         document.getElementById("market-cap").textContent =
           `Market Cap (SOL): US$ ${sol.usd_market_cap.toLocaleString()}`;
         document.getElementById("volume").textContent =
           `Volume (24h) (SOL): US$ ${sol.usd_24h_vol.toLocaleString()}`;
       } catch (error) {
-        console.error("Erro ao buscar dados da Solana:", error);
+        console.error("Error fetching Solana data:", error);
       }
     }
     getSolanaData();
