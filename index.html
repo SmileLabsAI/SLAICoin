@@ -42,7 +42,7 @@
       text-align: center;
       background: linear-gradient(90deg, #000000, #000000, #000000);
       color: white;
-      overflow-x: hidden; /* evita rolagem horizontal */
+      overflow-x: hidden; /* Evita rolagem horizontal */
     }
 
     /* Cabeçalho */
@@ -100,6 +100,7 @@
       color: #19fb9b;
     }
 
+    /* Menu mobile overlay */
     .menu-overlay {
       display: none;
       position: fixed;
@@ -140,7 +141,7 @@
       color: white;
     }
 
-    /* Botões padrões (Whitepaper, Buy, etc.) */
+    /* Botões (Whitepaper, Buy, etc.) */
     .action-button {
       background: linear-gradient(45deg, #19fb9b, #9945ff);
       color: white;
@@ -175,7 +176,7 @@
       box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
     }
 
-    /* Títulos das sections => 36px */
+    /* Títulos => 36px */
     .section h2 {
       font-size: 36px;
       margin-bottom: 20px;
@@ -242,52 +243,53 @@
       .hero h1 {
         font-size: 36px;
       }
-
       .hero p {
         font-size: 16px;
       }
-
       .section h2 {
         font-size: 28px;
       }
     }
 
-    /* Container do TradingView:
-       - Largura 100% p/ ocupar toda a área da section 
-       - pointer-events: none => travado por padrão
-    */
+    /* Chart Container */
     .chart-container {
-      width: 100%;
       position: relative;
-      pointer-events: none;
-      margin: 0 auto; /* centralizar se sobrar espaço */
+      width: 100%;
+      height: 360px; /* ou 400px se preferir */
+      margin: 0 auto;
     }
+
+    /* O widget do TradingView ocupa toda a container */
     .chart-container #tradingview_12345 {
-      width: 100%; /* garante q o widget ocupe toda a container */
+      width: 100%;
+      height: 100%;
       display: block;
     }
 
-    /* Overlay invisível:
-       Ao clicar (uma vez), some e libera o chart
+    /*
+      Overlay invisível para capturar clique INICIAL dentro do chart.
+      pointer-events: auto => para conseguir detectar clique.
     */
     .chart-overlay {
-      display: block;
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: transparent;
-      cursor: pointer;
       z-index: 2; /* acima do chart */
+      cursor: pointer;
     }
-    .chart-container.unlocked .chart-overlay {
-      display: none; /* some quando destravado */
+
+    /* Quando 'travado', o chart tem pointer-events: none => rolagem livre. */
+    .chart-locked {
+      pointer-events: none; 
+    }
+
+    /* Quando 'destravado', a overlay some => chart com pointer-events: auto. */
+    .chart-unlocked .chart-overlay {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
   <header>
     <a href="#top">
       <img
@@ -310,7 +312,7 @@
     </nav>
   </header>
 
-  <!-- Overlay do menu mobile -->
+  <!-- Overlay p/ menu mobile -->
   <div class="menu-overlay" onclick="closeMenu()"></div>
 
   <!-- HERO -->
@@ -352,7 +354,7 @@
   </div>
 
   <script>
-    // Chart.js - VESTING
+    // Chart.js: Vesting
     const ctx = document.getElementById("vestingChart").getContext("2d");
     new Chart(ctx, {
       type: "bar",
@@ -362,28 +364,28 @@
           {
             label: "Tokens Released (%)",
             data: [85, 7.5, 2.5, 1.5, 1.5],
-            backgroundColor: "rgba(25, 251, 155, 0.7)"
+            backgroundColor: "rgba(25, 251, 155, 0.7)",
           },
           {
             label: "Tokens Locked (%)",
             data: [0, 7.5, 5, 3.5, 2],
-            backgroundColor: "rgba(235, 64, 52, 0.6)"
-          }
-        ]
+            backgroundColor: "rgba(235, 64, 52, 0.6)",
+          },
+        ],
       },
       options: {
         responsive: true,
         scales: {
           y: {
             beginAtZero: true,
-            max: 100
-          }
-        }
-      }
+            max: 100,
+          },
+        },
+      },
     });
   </script>
 
-  <!-- DADOS BTC (EXEMPLO) -->
+  <!-- BTC DADOS -->
   <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
@@ -392,11 +394,6 @@
   </div>
 
   <script>
-    // Exemplo de fetch Bitcoin (CoinGecko)
-    const priceEl = document.getElementById("price");
-    const marketCapEl = document.getElementById("market-cap");
-    const volumeEl = document.getElementById("volume");
-
     async function getBitcoinData() {
       try {
         const url =
@@ -405,9 +402,12 @@
         const data = await response.json();
         const btc = data.bitcoin;
 
-        priceEl.textContent = `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
-        marketCapEl.textContent = `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
-        volumeEl.textContent = `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
+        document.getElementById("price").textContent = 
+          `Preço Atual: US$ ${btc.usd.toLocaleString()}`;
+        document.getElementById("market-cap").textContent = 
+          `Market Cap: US$ ${btc.usd_market_cap.toLocaleString()}`;
+        document.getElementById("volume").textContent = 
+          `Volume (24h): US$ ${btc.usd_24h_vol.toLocaleString()}`;
       } catch (error) {
         console.error("Erro ao buscar dados do Bitcoin:", error);
       }
@@ -417,29 +417,17 @@
     setInterval(getBitcoinData, 60000);
   </script>
 
-  <!-- TRADINGVIEW -->
+  <!-- TRADINGVIEW CHART -->
   <div class="section">
-    <!-- Contêiner com overlay invisível para clique -->
-    <div class="chart-container locked" id="chartContainer">
-      <!-- Overlay -> se clicar, remove locked e some overlay -->
-      <div class="chart-overlay" onclick="enableChart()"></div>
-      <!-- Widget do TradingView -->
+    <div class="chart-container chart-locked" id="chartContainer">
+      <div class="chart-overlay" onclick="activateChart(event)"></div>
       <div id="tradingview_12345"></div>
     </div>
   </div>
 
+  <!-- TradingView Script -->
   <script src="https://s3.tradingview.com/tv.js"></script>
   <script>
-    // Inicia travado => pointer-events: none
-    const container = document.getElementById("chartContainer");
-
-    // Ao clicar na overlay, libera o chart
-    function enableChart() {
-      container.classList.add("unlocked");
-      container.classList.remove("locked");
-    }
-
-    // Inicializa o TradingView com 100% width x 360 height
     new TradingView.widget({
       width: "100%",
       height: 360,
@@ -452,7 +440,27 @@
       toolbar_bg: "#f1f3f6",
       enable_publishing: false,
       allow_symbol_change: true,
-      container_id: "tradingview_12345"
+      container_id: "tradingview_12345",
+    });
+
+    // Estado inicial: travado
+    const chartContainer = document.getElementById("chartContainer");
+
+    function activateChart(ev) {
+      // Impede o clique de "subir" pro document
+      ev.stopPropagation();
+      // Destravado => remove "chart-locked", adiciona "chart-unlocked"
+      chartContainer.classList.remove("chart-locked");
+      chartContainer.classList.add("chart-unlocked");
+    }
+
+    // Ao clicar em qualquer lugar de fora do chart => travamos novamente
+    document.addEventListener("click", (e) => {
+      // Se o clique NÃO está dentro do chartContainer, travamos
+      if (!chartContainer.contains(e.target)) {
+        chartContainer.classList.add("chart-locked");
+        chartContainer.classList.remove("chart-unlocked");
+      }
     });
   </script>
 
@@ -474,7 +482,7 @@
     </a>
   </div>
 
-  <!-- LINKS SOCIAIS -->
+  <!-- SOCIAL LINKS -->
   <div class="social-links">
     <a href="https://x.com/SmileLabsAI" target="_blank"
       ><img
@@ -493,7 +501,6 @@
       /></a>
   </div>
 
-  <!-- RODAPÉ -->
   <footer class="footer">
     &copy; 2025 $SLAI | All Rights Reserved
   </footer>
