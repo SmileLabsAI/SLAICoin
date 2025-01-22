@@ -167,6 +167,30 @@
             padding: 30px;
             margin-top: 60px;
         }
+/* Estilos para a seção de dados da moeda */
+#token-data {
+    background: rgba(20, 20, 20, 0.95);
+    padding: 50px;
+    margin: 80px auto;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0px 0px 10px rgba(153, 69, 255, 0.3);
+    color: white;
+}
+
+#token-data h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#token-data p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+   
     </style>
 </head>
 <body>
@@ -251,13 +275,78 @@
     });
 </script>
 
-<!-- Seção de Dados da Moeda -->
+<!-- Seção de Dados ao Vivo da Moeda -->
 <div id="token-data" class="section">
     <h2>Dados ao Vivo da Moeda</h2>
     <p id="price">Preço Atual: Carregando...</p>
     <p id="market-cap">Market Cap: Carregando...</p>
     <p id="volume">Volume (24h): Carregando...</p>
 </div>
+
+<script>
+    // Endereço do WebSocket do Pump.fun
+    const wsUrl = 'wss://rpc.api-pump.fun/ws';
+
+    // Endereço do contrato da sua moeda
+    const tokenAddress = 'B2tv5Vuy6GjWDfZGAkcgWwPJgKmPQLgiysVqKvdXpump';
+
+    // Elementos HTML onde os dados serão exibidos
+    const priceElement = document.getElementById('price');
+    const marketCapElement = document.getElementById('market-cap');
+    const volumeElement = document.getElementById('volume');
+
+    // Função para formatar números como moeda
+    function formatCurrency(value) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(value);
+    }
+
+    // Função para conectar ao WebSocket e receber dados em tempo real
+    function connectWebSocket() {
+        const ws = new WebSocket(wsUrl);
+
+        ws.onopen = () => {
+            console.log('Conectado ao WebSocket do Pump.fun');
+
+            // Inscrever-se para receber atualizações de trades do token específico
+            const payload = {
+                method: 'subscribeToken',
+                params: [tokenAddress]
+            };
+            ws.send(JSON.stringify(payload));
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log('Dados recebidos:', data);
+
+            // Verificar se a mensagem contém informações de trade
+            if (data.method === 'subscribeToken') {
+                const tradeData = data.params.result;
+
+                // Atualizar os elementos HTML com os dados recebidos
+                priceElement.textContent = `Preço Atual: ${formatCurrency(tradeData.price)}`;
+                marketCapElement.textContent = `Market Cap: ${formatCurrency(tradeData.marketCap)}`;
+                volumeElement.textContent = `Volume (24h): ${formatCurrency(tradeData.volume24h)}`;
+            }
+        };
+
+        ws.onclose = () => {
+            console.log('Conexão com o WebSocket fechada. Tentando reconectar em 5 segundos...');
+            setTimeout(connectWebSocket, 5000);
+        };
+
+        ws.onerror = (error) => {
+            console.error('Erro no WebSocket:', error);
+            ws.close();
+        };
+    }
+
+    // Iniciar a conexão com o WebSocket
+    connectWebSocket();
+</script>
 
 
     <!-- TradingView Widget BEGIN -->
